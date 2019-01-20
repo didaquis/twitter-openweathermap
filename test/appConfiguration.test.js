@@ -7,15 +7,15 @@ describe('Application configuration', () => {
 		assert.isObject(appConfig);
 
 		expect(appConfig.hasOwnProperty('openWeatherMapsAPI')).to.be.true;
+		expect(appConfig.hasOwnProperty('citiesToRetrieve')).to.be.true;
 		expect(appConfig.hasOwnProperty('publishInterval')).to.be.true;
 
 		expect(appConfig.openWeatherMapsAPI.hasOwnProperty('baseUrl')).to.be.true;
 		expect(appConfig.openWeatherMapsAPI.hasOwnProperty('lang')).to.be.true;
 		expect(appConfig.openWeatherMapsAPI.hasOwnProperty('units')).to.be.true;
-		expect(appConfig.openWeatherMapsAPI.hasOwnProperty('cities')).to.be.true;
 
-		assert.isArray(appConfig.openWeatherMapsAPI.cities);
-		appConfig.openWeatherMapsAPI.cities.forEach((city) => {
+		assert.isArray(appConfig.citiesToRetrieve);
+		appConfig.citiesToRetrieve.forEach((city) => {
 			expect(city.hasOwnProperty('id')).to.be.true;
 			expect(city.hasOwnProperty('name')).to.be.true;
 		});
@@ -31,7 +31,7 @@ describe('Application configuration', () => {
 		const regex_units = /metric/;
 		assert.match(appConfig.openWeatherMapsAPI.units, regex_units);
 
-		appConfig.openWeatherMapsAPI.cities.forEach((city) => {
+		appConfig.citiesToRetrieve.forEach((city) => {
 			assert.isNumber(city.id);
 			expect(Number.isInteger(city.id)).to.be.true;
 			expect(city.name).to.be.a('string');
