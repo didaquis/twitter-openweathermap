@@ -3,7 +3,7 @@ const { assert, expect } = require('chai');
 
 const twitterClient = require('../src/lib/twitter');
 
-describe('Testing Twitter auth', () => {
+describe('Twitter auth', () => {
 
 	let twitter_consumer_key;
 	let twitter_consumer_secret;
@@ -17,7 +17,7 @@ describe('Testing Twitter auth', () => {
 		twitter_access_token_secret = process.env.TWITTER_ACCESS_TOKEN_SECRET;
 	});
 
-	it('credentials should be defined', () => {
+	it('credentials should be defined on the instance', () => {
 		expect(twitterClient.options.consumer_key).to.equal(twitter_consumer_key);
 		expect(twitterClient.options.consumer_key).to.be.a('string');
 
@@ -31,17 +31,19 @@ describe('Testing Twitter auth', () => {
 		expect(twitterClient.options.access_token_secret).to.be.a('string');
 	});
 
-	it('should be a valid object', () => {
+	it('instance client should be a valid object', () => {
 		expect(twitterClient).to.be.an('object');
 		assert.isObject(twitterClient);
 	});
 
-	it('Twitter api should have valid methods', () => {
+	it('instance client should have valid methods', () => {
 		expect(twitterClient).to.have.a.property('post');
 		expect(twitterClient).to.have.a.property('get');
 	});
+});
 
-	it('should do a valid request', (done) => {
+describe('Twitter request', () => {
+	it('should be a valid request', (done) => {
 		twitterClient.get('search/tweets', {q: 'Twitter'}, function(error, tweets, response) {
 			assert.isDefined(response.statusCode);
 			assert.isNumber(response.statusCode);
