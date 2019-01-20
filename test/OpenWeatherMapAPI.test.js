@@ -88,4 +88,15 @@ describe('Testing Open Weather Map API', () => {
 			}
 		});
 	});
+
+	it('should return a valid data if idOfCity is a valid id', (done) => {
+		OWM_API.getWeatherByIdOfCity(appConfig.citiesToRetrieve[0].id)
+			.then((res) => {
+				const codeForSuccess = 200;
+				expect(res.cod).to.equal(codeForSuccess);
+				expect(res.id).to.equal(appConfig.citiesToRetrieve[0].id);
+				expect(res.name).to.equal(appConfig.citiesToRetrieve[0].name);
+				done();
+			});
+	});
 });
