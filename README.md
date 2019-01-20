@@ -15,5 +15,5 @@ This is a Twitter bot made for Node.js. This bot publishes wetaher data from Ope
 * You must configure the authentication data of Twitter API and OpenWeatherMap API
   * Write your credentials in file `_env`
   * Rename the file `_env` to `.env`
-* Edit the file `appConfiguration.js` for configure the application
+* Edit the file `src/appConfiguration.js` for configure the application
 * Execute script with `node .` or `npm start`
