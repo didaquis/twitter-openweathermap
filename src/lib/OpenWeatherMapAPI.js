@@ -41,7 +41,7 @@ class OpenWeatherMapAPI {
 	 * @returns {Promise<Response>} Data received from endpoint
 	 */
 	getWeatherByIdOfCity(idOfCity) {
-		if (!idOfCity) {
+		if (!idOfCity || !Number.isInteger(idOfCity)) {
 			throw new Error('Error: Invalid Id of city');
 		}
 		const urlOfRequest = `${this.baseUrl}?id=${idOfCity}&${this.appId}&${this.units}&${this.lang}`;

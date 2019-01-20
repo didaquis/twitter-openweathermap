@@ -68,9 +68,19 @@ describe('Testing Open Weather Map API', () => {
 	});
 
 	describe('getWeatherByIdOfCity', () => {
-		it('should throw an error if idOfCity param is not valid', (done) => {
+		it('should throw an error if idOfCity param is not defined', (done) => {
 			try {
 				OWM_API.getWeatherByIdOfCity();
+			} catch (e) {
+				const errorMessage = 'Error: Invalid Id of city';
+				expect(e.message).to.equal(errorMessage);
+				done();
+			}
+		});
+
+		it('should throw an error if idOfCity param is not valid', (done) => {
+			try {
+				OWM_API.getWeatherByIdOfCity('string');
 			} catch (e) {
 				const errorMessage = 'Error: Invalid Id of city';
 				expect(e.message).to.equal(errorMessage);
