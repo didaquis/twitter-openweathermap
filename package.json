@@ -5,7 +5,10 @@
   "description": "Publish on Twitter data from OpenWeatherMap API",
   "main": "src/app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node .",
+    "dev": "nodemon .",
+    "test": "mocha test",
+    "test:coverage": "nyc mocha test"
   },
   "keywords": [
     "Twitter",
@@ -25,6 +28,7 @@
   "devDependencies": {
     "chai": "^4.2.0",
     "mocha": "^5.2.0",
+    "nodemon": "^1.18.9",
     "nyc": "^13.1.0"
   }
 }
