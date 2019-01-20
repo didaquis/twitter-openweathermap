@@ -1,13 +1,30 @@
 {
   "name": "twitter-openweathermap",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "private": true,
   "description": "Publish on Twitter data from OpenWeatherMap API",
   "main": "src/app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": ["Twitter", "OpenWeatherMap", "Node.js"],
+  "keywords": [
+    "Twitter",
+    "OpenWeatherMap",
+    "bot"
+  ],
   "author": "Dídac García (https://didaquis.github.io/)",
-  "license": "ISC"
+  "license": "ISC",
+  "engines": {
+    "node": "^9.4.0"
+  },
+  "dependencies": {
+    "dotenv": "^6.2.0",
+    "node-fetch": "^2.3.0",
+    "twitter": "^1.7.1"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^5.2.0",
+    "nyc": "^13.1.0"
+  }
 }
