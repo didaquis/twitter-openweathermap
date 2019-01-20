@@ -1,6 +1,6 @@
 {
   "name": "twitter-openweathermap",
-  "version": "0.1.12",
+  "version": "0.2.13",
   "private": true,
   "description": "Publish on Twitter data from OpenWeatherMap API",
   "main": "src/app.js",

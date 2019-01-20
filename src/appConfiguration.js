@@ -1,5 +1,5 @@
 const appConfiguration = Object.freeze({
-	openWeatherMapsAPI: {
+	openWeatherMapAPI: {
 		baseUrl: 'http://api.openweathermap.org/data/2.5/weather',
 		lang: 'es',
 		units: 'metric'
