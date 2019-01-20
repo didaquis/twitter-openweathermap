@@ -10,9 +10,10 @@ This is a Twitter bot made for Node.js. This bot publishes wetaher data from Ope
 * https://developer.twitter.com/en/docs/tweets/post-and-engage/api-reference/post-statuses-update
 
 ## How to use
-* Download repo
-* Install dependencies `npm install`
-* You must configure the authentication data of Twitter API and OpenWeatherMap API.
+* Download this repo
+* Install dependencies:`npm install`
+* You must configure the authentication data of Twitter API and OpenWeatherMap API
   * Write your credentials in file `_env`
   * Rename the file `_env` to `.env`
+* Edit the file `appConfiguration.js` for configure the application
 * Execute script with `node .` or `npm start`

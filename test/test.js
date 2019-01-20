@@ -1,6 +1,7 @@
 require('dotenv').config();
-
 const { assert, expect } = require('chai');
+
+const appConfig = require('../src/appConfiguration');
 
 describe('Enviroment vars', () => {
 
@@ -42,5 +43,10 @@ describe('Enviroment vars', () => {
 		const regularExpression = /[A-Za-z0-9.\-_*/|]{32,}/;
 		assert.match(openweathermap_apikey, regularExpression);
 	});
+});
 
+describe('Application configuration', () => {
+	it('should be a valid object', () => {
+		assert.isObject(appConfig);
+	});
 });
