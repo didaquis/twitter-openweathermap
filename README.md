@@ -3,6 +3,7 @@
 This is a Twitter bot made for Node.js. This bot publishes wetaher data from OpenWeatherMap API.  
 
 ## Some useful links
+* https://openweathermap.org/api
 * https://apps.twitter.com 
 * https://developer.twitter.com/en/docs/media/upload-media/api-reference
 * https://developer.twitter.com/en/docs/media/upload-media/api-reference/post-media-upload
