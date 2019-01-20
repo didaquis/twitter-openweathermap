@@ -1,0 +1,13 @@
+{
+  "name": "twitter-openweathermap",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Publish on Twitter data from OpenWeatherMap API",
+  "main": "src/app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["Twitter", "OpenWeatherMap", "Node.js"],
+  "author": "Dídac García (https://didaquis.github.io/)",
+  "license": "ISC"
+}
