@@ -30,4 +30,17 @@ describe('Enviroment vars', () => {
 		expect(openweathermap_apikey).not.to.be.undefined;
 	});
 
+	it('should have valid format for Twitter API', () => {
+		const regularExpression = /[A-Za-z0-9.\-_*/|]{25,}/;
+		assert.match(twitter_consumer_key, regularExpression);
+		assert.match(twitter_consumer_secret, regularExpression);
+		assert.match(twitter_access_token_key, regularExpression);
+		assert.match(twitter_access_token_secret, regularExpression);
+	});
+
+	it('should have valid format for OpenWeatherMap API', () => {
+		const regularExpression = /[A-Za-z0-9.\-_*/|]{32,}/;
+		assert.match(openweathermap_apikey, regularExpression);
+	});
+
 });
