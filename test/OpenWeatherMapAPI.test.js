@@ -67,7 +67,7 @@ describe('Testing Open Weather Map API', () => {
 		});
 	});
 
-	describe('getWeatherByIdOfCity', () => {
+	describe('getWeatherByIdOfCity method', () => {
 		it('should throw an error if idOfCity param is not defined', (done) => {
 			try {
 				OWM_API.getWeatherByIdOfCity();
@@ -87,16 +87,73 @@ describe('Testing Open Weather Map API', () => {
 				done();
 			}
 		});
-	});
 
-	it('should return a valid data if idOfCity is a valid id', (done) => {
-		OWM_API.getWeatherByIdOfCity(appConfig.citiesToRetrieve[0].id)
-			.then((res) => {
-				const codeForSuccess = 200;
-				expect(res.cod).to.equal(codeForSuccess);
-				expect(res.id).to.equal(appConfig.citiesToRetrieve[0].id);
-				expect(res.name).to.equal(appConfig.citiesToRetrieve[0].name);
-				done();
-			});
+		it('should return a valid response if idOfCity is a valid id', (done) => {
+			OWM_API.getWeatherByIdOfCity(appConfig.citiesToRetrieve[0].id)
+				.then((res) => {
+					assert.isObject(res);
+					const codeForSuccess = 200;
+					expect(res.cod).to.equal(codeForSuccess);
+					done();
+				});
+		});
+
+		it('should return a valid structured data if idOfCity is a valid id', (done) => {
+			OWM_API.getWeatherByIdOfCity(appConfig.citiesToRetrieve[1].id)
+				.then((res) => {
+					assert.isObject(res);
+					const codeForSuccess = 200;
+					expect(res.cod).to.equal(codeForSuccess);
+
+					expect(res.id).to.equal(appConfig.citiesToRetrieve[1].id);
+					expect(res.name).to.equal(appConfig.citiesToRetrieve[1].name);
+
+					expect(res).to.have.a.property('id');
+					assert.isNumber(res.id);
+					expect(res).to.have.a.property('name');
+					assert.isString(res.name);
+
+					expect(res).to.have.a.property('weather');
+					assert.isArray(res.weather);
+					expect(res.weather[0]).to.have.a.property('main');
+					assert.isString(res.weather[0].main);
+					expect(res.weather[0]).to.have.a.property('description');
+					assert.isString(res.weather[0].description);
+
+					expect(res).to.have.a.property('main');
+					assert.isObject(res.main);
+					expect(res.main).to.have.a.property('temp');
+					assert.isNumber(res.main.temp);
+					expect(res.main).to.have.a.property('pressure');
+					assert.isNumber(res.main.pressure);
+					expect(res.main).to.have.a.property('humidity');
+					assert.isNumber(res.main.humidity);
+					expect(res.main).to.have.a.property('temp_min');
+					assert.isNumber(res.main.temp_min);
+					expect(res.main).to.have.a.property('temp_max');
+					assert.isNumber(res.main.temp_max);
+
+					expect(res).to.have.a.property('wind');
+					assert.isObject(res.wind);
+					expect(res.wind).to.have.a.property('speed');
+					assert.isNumber(res.wind.speed);
+
+					expect(res).to.have.a.property('clouds');
+					assert.isObject(res.clouds);
+					expect(res.clouds).to.have.a.property('all');
+					assert.isNumber(res.clouds.all);
+
+					expect(res).to.have.a.property('sys');
+					assert.isObject(res.sys);
+					expect(res.sys).to.have.a.property('country');
+					assert.isString(res.sys.country);
+					expect(res.sys).to.have.a.property('sunrise');
+					assert.isNumber(res.sys.sunrise);
+					expect(res.sys).to.have.a.property('sunset');
+					assert.isNumber(res.sys.sunset);
+
+					done();
+				});
+		});
 	});
 });
