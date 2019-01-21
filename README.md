@@ -15,5 +15,5 @@ This is a Twitter bot made for Node.js. This bot publishes wetaher data from Ope
 * You must configure the authentication data of Twitter API and OpenWeatherMap API
   * Write your credentials in file `_env`
   * Rename the file `_env` to `.env`
-* Edit the file `src/appConfiguration.js` for configure the application
+* Edit the file `src/appConfiguration.js` for configure the application. You can find Id of citys on OpenWeatherMap API documentation. Create an object for every city as you want. This application publish a tweet for every city. Edit interval to publish tweet.
 * Execute script with `node .` or `npm start`

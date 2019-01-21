@@ -89,7 +89,7 @@ describe('Testing Open Weather Map API', () => {
 		});
 
 		it('should return a valid response if idOfCity is a valid id', (done) => {
-			OWM_API.getWeatherByIdOfCity(appConfig.citiesToRetrieve[0].id)
+			OWM_API.getWeatherByIdOfCity(appConfig.citiesToRetrieve.terrassa.id)
 				.then((res) => {
 					assert.isObject(res);
 					const codeForSuccess = 200;
@@ -99,14 +99,13 @@ describe('Testing Open Weather Map API', () => {
 		});
 
 		it('should return a valid structured data if idOfCity is a valid id', (done) => {
-			OWM_API.getWeatherByIdOfCity(appConfig.citiesToRetrieve[1].id)
+			OWM_API.getWeatherByIdOfCity(appConfig.citiesToRetrieve.barcelona.id)
 				.then((res) => {
 					assert.isObject(res);
 					const codeForSuccess = 200;
 					expect(res.cod).to.equal(codeForSuccess);
 
-					expect(res.id).to.equal(appConfig.citiesToRetrieve[1].id);
-					expect(res.name).to.equal(appConfig.citiesToRetrieve[1].name);
+					expect(res.id).to.equal(appConfig.citiesToRetrieve.barcelona.id);
 
 					expect(res).to.have.a.property('id');
 					assert.isNumber(res.id);

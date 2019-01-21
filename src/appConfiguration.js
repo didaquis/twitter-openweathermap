@@ -4,7 +4,14 @@ const appConfiguration = Object.freeze({
 		lang: 'es',
 		units: 'metric'
 	},
-	citiesToRetrieve: [{id: 3108286, name: 'Terrassa'}, {id: 3128760, name: 'Barcelona'}],
+	citiesToRetrieve: {
+		terrassa: {
+			id: 3108286
+		},
+		barcelona: {
+			id: 3128760
+		}
+	},
 	publishInterval: 1200000
 });
 
