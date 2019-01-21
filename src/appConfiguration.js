@@ -1,9 +1,4 @@
 const appConfiguration = Object.freeze({
-	openWeatherMapAPI: {
-		baseUrl: 'http://api.openweathermap.org/data/2.5/weather',
-		lang: 'es',
-		units: 'metric'
-	},
 	citiesToRetrieve: {
 		terrassa: {
 			id: 3108286

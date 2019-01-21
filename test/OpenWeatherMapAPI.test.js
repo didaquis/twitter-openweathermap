@@ -4,6 +4,7 @@ const { assert, expect } = require('chai');
 const OpenWeatherMapAPI = require('../src/lib/OpenWeatherMapAPI');
 
 const appConfig = require('../src/appConfiguration');
+const config_api = require('../src/lib/owm_api/config_api');
 
 describe('Testing Open Weather Map API', () => {
 
@@ -11,8 +12,31 @@ describe('Testing Open Weather Map API', () => {
 	let OWM_APIKEY;
 
 	before('Init API', () => {
-		OWM_API = new OpenWeatherMapAPI(appConfig.openWeatherMapAPI);
+		OWM_API = new OpenWeatherMapAPI(config_api.openWeatherMapAPI);
 		OWM_APIKEY = process.env.OPENWEATHERMAP_APIKEY;
+	});
+
+	describe('Open Weather Map configuration', () => {
+		it('should be an object with valid properties', () => {
+			assert.isObject(config_api);
+
+			expect(config_api.hasOwnProperty('openWeatherMapAPI')).to.be.true;
+
+			expect(config_api.openWeatherMapAPI.hasOwnProperty('baseUrl')).to.be.true;
+			expect(config_api.openWeatherMapAPI.hasOwnProperty('lang')).to.be.true;
+			expect(config_api.openWeatherMapAPI.hasOwnProperty('units')).to.be.true;
+		});
+
+		it('should have a valid values', () => {
+			const regex_url = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)/;
+			assert.match(config_api.openWeatherMapAPI.baseUrl, regex_url);
+
+			const regex_lang = /[a-zA-Z]{2,10}/;
+			assert.match(config_api.openWeatherMapAPI.lang, regex_lang);
+
+			const regex_units = /metric/;
+			assert.match(config_api.openWeatherMapAPI.units, regex_units);
+		});
 	});
 
 	describe('API should be load correctly', () => {
@@ -37,9 +61,9 @@ describe('Testing Open Weather Map API', () => {
 			expect(OWM_API.units).to.be.a('string');
 			expect(OWM_API.appId).to.be.a('string');
 
-			expect(OWM_API.baseUrl).to.equal(appConfig.openWeatherMapAPI.baseUrl);
-			expect(OWM_API.lang).to.equal(`lang=${appConfig.openWeatherMapAPI.lang}`);
-			expect(OWM_API.units).to.equal(`units=${appConfig.openWeatherMapAPI.units}`);
+			expect(OWM_API.baseUrl).to.equal(config_api.openWeatherMapAPI.baseUrl);
+			expect(OWM_API.lang).to.equal(`lang=${config_api.openWeatherMapAPI.lang}`);
+			expect(OWM_API.units).to.equal(`units=${config_api.openWeatherMapAPI.units}`);
 			expect(OWM_API.appId).to.equal(`APPID=${OWM_APIKEY}`);
 		});
 	});
@@ -56,7 +80,7 @@ describe('Testing Open Weather Map API', () => {
 		});
 
 		it('should throw error 401 if route is invalid', (done) => {
-			OWM_API.call(`${appConfig.openWeatherMapAPI.baseUrl}/fake-path`)
+			OWM_API.call(`${config_api.openWeatherMapAPI.baseUrl}/fake-path`)
 				.then(() => {
 					done();
 				}).catch((err) => {
