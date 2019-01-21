@@ -96,7 +96,7 @@ describe('Testing Open Weather Map API', () => {
 			try {
 				OWM_API.getWeatherByIdOfCity();
 			} catch (e) {
-				const errorMessage = 'Error: Invalid Id of city';
+				const errorMessage = 'Invalid Id of city';
 				expect(e.message).to.equal(errorMessage);
 				done();
 			}
@@ -106,7 +106,7 @@ describe('Testing Open Weather Map API', () => {
 			try {
 				OWM_API.getWeatherByIdOfCity('string');
 			} catch (e) {
-				const errorMessage = 'Error: Invalid Id of city';
+				const errorMessage = 'Invalid Id of city';
 				expect(e.message).to.equal(errorMessage);
 				done();
 			}

@@ -9,7 +9,7 @@ const config_api = require('./owm_api/config_api');
  */
 async function getWeatherData(citiesToRetrieve) {
 	if (!citiesToRetrieve) {
-		throw new Error('Error: getWeatherData expect a valid object');
+		throw new Error('getWeatherData expect a valid object');
 	}
 
 	const OWM_API = new OpenWeatherMapAPI(config_api.openWeatherMapAPI);
