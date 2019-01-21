@@ -1,7 +1,7 @@
 require('dotenv').config();
 const { assert, expect } = require('chai');
 
-const OpenWeatherMapAPI = require('../src/lib/OpenWeatherMapAPI');
+const OpenWeatherMapAPI = require('../src/lib/owm_api/OpenWeatherMapAPI');
 
 const appConfig = require('../src/appConfiguration');
 const config_api = require('../src/lib/owm_api/config_api');
