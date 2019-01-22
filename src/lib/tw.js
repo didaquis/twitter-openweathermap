@@ -13,4 +13,4 @@ const twitterClient = new Twitter({
 	access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET
 });
 
-module.exports = twitterClient;
+module.exports = { twitterClient };

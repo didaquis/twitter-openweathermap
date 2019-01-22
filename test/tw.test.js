@@ -1,7 +1,7 @@
 require('dotenv').config();
 const { assert, expect } = require('chai');
 
-const twitterClient = require('../src/lib/twitter');
+const { twitterClient } = require('../src/lib/tw');
 
 describe('Twitter auth', () => {
 
