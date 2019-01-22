@@ -1,6 +1,6 @@
 const { assert, expect } = require('chai');
 
-const getWeatherData = require('../src/lib/owm');
+const { getWeatherData } = require('../src/lib/owm');
 const appConfig = require('../src/appConfiguration');
 
 describe('owm getWeatherData', () => {

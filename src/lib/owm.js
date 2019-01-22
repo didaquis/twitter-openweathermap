@@ -22,4 +22,4 @@ async function getWeatherData (citiesToRetrieve) {
 	return await Promise.all(results);
 }
 
-module.exports = getWeatherData;
+module.exports = { getWeatherData };

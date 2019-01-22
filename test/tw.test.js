@@ -1,7 +1,7 @@
 require('dotenv').config();
 const { assert, expect } = require('chai');
 
-const { twitterClient } = require('../src/lib/tw');
+const { twitterClient, formatTextToTweet, publishToTwitter } = require('../src/lib/tw');
 
 describe('Twitter auth', () => {
 
@@ -57,5 +57,55 @@ describe('Twitter request', () => {
 
 			done();
 		});
+	});
+});
+
+describe('publishToTwitter', () => {
+	it('should be a function', () => {
+		assert.isFunction(publishToTwitter);
+	});
+
+	it('should throw an error if not receive params', () => {
+		try {
+			publishToTwitter();
+		} catch (e) {
+			const errorMessage = 'Invalid argument to publishToTwitter';
+			expect(e.message).to.equal(errorMessage);
+		}
+	});
+
+	it('should throw an error if receive invalid params', () => {
+		try {
+			const fakeParam = 42;
+			publishToTwitter(fakeParam);
+		} catch (e) {
+			const errorMessage = 'Invalid argument to publishToTwitter';
+			expect(e.message).to.equal(errorMessage);
+		}
+	});
+});
+
+describe('formatTextToTweet', () => {
+	it('should be a function', () => {
+		assert.isFunction(formatTextToTweet);
+	});
+
+	it('should throw an error if not receive params', () => {
+		try {
+			formatTextToTweet();
+		} catch (e) {
+			const errorMessage = 'Invalid argument to formatTextToTweet';
+			expect(e.message).to.equal(errorMessage);
+		}
+	});
+
+	it('should throw an error if receive invalid params', () => {
+		try {
+			const fakeParam = 42;
+			formatTextToTweet(fakeParam);
+		} catch (e) {
+			const errorMessage = 'Invalid argument to formatTextToTweet';
+			expect(e.message).to.equal(errorMessage);
+		}
 	});
 });
