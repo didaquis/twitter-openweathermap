@@ -71,9 +71,8 @@ describe('Testing Open Weather Map API', () => {
 	describe('should be an invalid request', () => {
 		it('should throw error if endpoint is not defined', (done) => {
 			OWM_API.call('')
-				.then(() => {
-					done();
-				}).catch((err) => {
+				.then()
+				.catch((err) => {
 					expect(err.message).to.equal('Only absolute URLs are supported');
 					done();
 				});
@@ -81,9 +80,8 @@ describe('Testing Open Weather Map API', () => {
 
 		it('should throw error 401 if route is invalid', (done) => {
 			OWM_API.call(`${config_api.openWeatherMapAPI.baseUrl}/fake-path`)
-				.then(() => {
-					done();
-				}).catch((err) => {
+				.then()
+				.catch((err) => {
 					const errorForInvalidRoute = '401';
 					expect(err.message).to.equal(errorForInvalidRoute);
 					done();
