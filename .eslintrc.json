@@ -3,10 +3,13 @@
         "browser": true,
         "es6": true,
         "node": true,
-        "mocha": true
+        "mocha": true,
+        "jasmine": true,
+        "jest": true
     },
     "extends": "eslint:recommended",
     "parserOptions": {
+        "ecmaVersion": 8,
         "sourceType": "module"
     },
     "rules": {
