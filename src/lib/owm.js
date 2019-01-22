@@ -7,7 +7,7 @@ const config_api = require('./owm_api/config_api');
  * @param  {Object} citiesToRetrieve Object with info about citys
  * @return {Promise}                 Object with data retrieved from API
  */
-async function getWeatherData(citiesToRetrieve) {
+async function getWeatherData (citiesToRetrieve) {
 	if (!citiesToRetrieve) {
 		throw new Error('getWeatherData expect a valid object');
 	}

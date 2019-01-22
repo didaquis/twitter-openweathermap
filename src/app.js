@@ -4,10 +4,11 @@ const getWeatherData = require('./lib/owm');
 console.log('\n\n Starting application... \n'); // eslint-disable-line no-console
 
 // ************* just for development: WIP ****************
-function publishToTwitter(tweet) {
-	console.log(tweet); // publish on twitter
+function publishToTwitter (tweet) {
+	tweet;
+	// ...
 }
-function factoryFunctionPreparingTweet(data) {
+function factoryFunctionPreparingTweet (data) {
 	// format text...
 	return data;
 }

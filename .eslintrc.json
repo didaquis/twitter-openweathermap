@@ -37,7 +37,7 @@
         "comma-spacing": ["error"],
         "arrow-spacing": ["error"],
         "semi-spacing": ["error"],
-        "space-before-function-paren": ["error", "never"],
+        "space-before-function-paren": ["error"],
         "no-multi-spaces": "error",
         "no-magic-numbers": "warn",
         "valid-typeof": "error"

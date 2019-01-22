@@ -1,12 +1,13 @@
 {
   "name": "twitter-openweathermap",
-  "version": "0.5.26",
+  "version": "0.5.27",
   "private": true,
   "description": "Publish on Twitter data from OpenWeatherMap API",
   "main": "src/app.js",
   "scripts": {
     "start": "node .",
     "dev": "nodemon .",
+    "lint": "eslint --ext .js .",
     "test": "mocha test",
     "test:coverage": "nyc mocha test"
   },

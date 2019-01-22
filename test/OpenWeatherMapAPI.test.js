@@ -136,10 +136,10 @@ describe('Testing Open Weather Map API', () => {
 
 					expect(res).to.have.a.property('weather');
 					assert.isArray(res.weather);
-					expect(res.weather[0]).to.have.a.property('main');
-					assert.isString(res.weather[0].main);
-					expect(res.weather[0]).to.have.a.property('description');
-					assert.isString(res.weather[0].description);
+					expect(res.weather[0]).to.have.a.property('main'); // eslint-disable-line no-magic-numbers
+					assert.isString(res.weather[0].main); // eslint-disable-line no-magic-numbers
+					expect(res.weather[0]).to.have.a.property('description'); // eslint-disable-line no-magic-numbers
+					assert.isString(res.weather[0].description); // eslint-disable-line no-magic-numbers
 
 					expect(res).to.have.a.property('main');
 					assert.isObject(res.main);

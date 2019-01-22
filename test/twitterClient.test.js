@@ -44,7 +44,7 @@ describe('Twitter auth', () => {
 
 describe('Twitter request', () => {
 	it('should be a valid request', (done) => {
-		twitterClient.get('search/tweets', {q: 'Twitter'}, function(error, tweets, response) {
+		twitterClient.get('search/tweets', {q: 'Twitter'}, function (error, tweets, response) {
 			assert.isDefined(response.statusCode);
 			assert.isNumber(response.statusCode);
 

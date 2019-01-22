@@ -10,7 +10,7 @@ class OpenWeatherMapAPI {
 	 * @param {string} lang Language of requested data
 	 * @param {string} units Units of requestes data
 	 */
-	constructor({ baseUrl, lang, units }) {
+	constructor ({ baseUrl, lang, units }) {
 		this.baseUrl = baseUrl;
 		this.lang = `lang=${lang}`;
 		this.units = `units=${units}`;
@@ -23,7 +23,7 @@ class OpenWeatherMapAPI {
 	 * @returns {Promise<Response>} Data received from endpoint
 	 * @throws {string} If something goes wrong
 	 */
-	call(url) {
+	call (url) {
 		return fetch(url)
 			.then(res => {
 				const statusCode_OK = 200;
@@ -40,7 +40,7 @@ class OpenWeatherMapAPI {
 	 * @param {number} idOfCity Identification code of city
 	 * @returns {Promise<Response>} Data received from endpoint
 	 */
-	getWeatherByIdOfCity(idOfCity) {
+	getWeatherByIdOfCity (idOfCity) {
 		if (!idOfCity || !Number.isInteger(idOfCity)) {
 			throw new Error('Invalid Id of city');
 		}
