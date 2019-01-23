@@ -65,22 +65,24 @@ describe('publishToTwitter', () => {
 		assert.isFunction(publishToTwitter);
 	});
 
-	it('should throw an error if not receive params', () => {
+	it('should throw an error if not receive params', (done) => {
 		try {
 			publishToTwitter();
 		} catch (e) {
 			const errorMessage = 'Invalid argument to publishToTwitter';
 			expect(e.message).to.equal(errorMessage);
+			done();
 		}
 	});
 
-	it('should throw an error if receive invalid params', () => {
+	it('should throw an error if receive invalid params', (done) => {
 		try {
 			const fakeParam = 42;
 			publishToTwitter(fakeParam);
 		} catch (e) {
 			const errorMessage = 'Invalid argument to publishToTwitter';
 			expect(e.message).to.equal(errorMessage);
+			done();
 		}
 	});
 });
@@ -90,22 +92,42 @@ describe('formatTextToTweet', () => {
 		assert.isFunction(formatTextToTweet);
 	});
 
-	it('should throw an error if not receive params', () => {
+	it('should throw an error if not receive params', (done) => {
 		try {
 			formatTextToTweet();
 		} catch (e) {
 			const errorMessage = 'Invalid argument to formatTextToTweet';
 			expect(e.message).to.equal(errorMessage);
+			done();
 		}
 	});
 
-	it('should throw an error if receive invalid params', () => {
+	it('should throw an error if receive invalid params', (done) => {
 		try {
 			const fakeParam = 42;
 			formatTextToTweet(fakeParam);
 		} catch (e) {
 			const errorMessage = 'Invalid argument to formatTextToTweet';
 			expect(e.message).to.equal(errorMessage);
+			done();
 		}
+	});
+
+	it('should return text well formatted', () => {
+		// const fakeParam = { coord: { lon: 2.02, lat: 41.57 },
+		// 	weather:[ { id: 800, main: 'Clear', description: 'cielo claro', icon: '01n' } ],
+		// 	base: 'stations',
+		// 	main: { temp: 4.58, pressure: 1006, humidity: 86, temp_min: 3, temp_max: 6 },
+		// 	visibility: 10000,
+		// 	wind: { speed: 2.6, deg: 280 },
+		// 	clouds: { all: 0 },
+		// 	dt: 1548196200,
+		// 	sys: { type: 1, id: 6414, message: 0.0033, country: 'ES', sunrise: 1548141113, sunset: 1548176152 },
+		// 	id: 3108286,
+		// 	name: 'Terrassa',
+		// 	cod: 200 };
+
+		// const fakeReturn = '';
+		// expect(formatTextToTweet(fakeParam)).to.equal(fakeReturn);
 	});
 });

@@ -15,4 +15,19 @@ function classOf (param){
 	return Object.prototype.toString.call(param).slice(beginIndex, endIndex).toLowerCase();
 }
 
-module.exports = { classOf };
+/**
+ * Obtain hours and minutes from timestamp
+ * @param  {integer} timestamp 	Timestamp value. Ex: 1548141113
+ * @return {string}           	Hours and minutes of timestamp. Ex: '23:02'
+ */
+function getTimeFromTimestamp (timestamp) {
+	if (!timestamp || !Number.isInteger(timestamp)) {
+		throw new Error('Invalid argument to getTimeFromTimestamp');
+	}
+
+	const startChart = 16;
+	const endChart = 21;
+	return new Date(timestamp).toString().slice(startChart, endChart);
+}
+
+module.exports = { classOf, getTimeFromTimestamp };
