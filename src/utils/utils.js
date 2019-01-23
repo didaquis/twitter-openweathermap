@@ -22,7 +22,7 @@ function classOf (param){
  */
 function getTimeFromTimestamp (timestamp) {
 	if (!timestamp || !Number.isInteger(timestamp)) {
-		throw new Error('Invalid argument to getTimeFromTimestamp');
+		throw new Error('Invalid argument passed to getTimeFromTimestamp');
 	}
 
 	const startChart = 16;
@@ -32,7 +32,7 @@ function getTimeFromTimestamp (timestamp) {
 
 function capitalizeText (str) {
 	if (!str || typeof str !== 'string' || str.length < 1) {
-		throw new Error('Invalid argument to capitalizeText');
+		throw new Error('Invalid argument passed to capitalizeText');
 	}
 
 	const firstChar = 0;

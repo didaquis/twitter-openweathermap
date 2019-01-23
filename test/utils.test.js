@@ -55,7 +55,7 @@ describe('getTimeFromTimestamp', () => {
 		try {
 			getTimeFromTimestamp();
 		} catch (e) {
-			const errorMessage = 'Invalid argument to getTimeFromTimestamp';
+			const errorMessage = 'Invalid argument passed to getTimeFromTimestamp';
 			expect(e.message).to.equal(errorMessage);
 			done();
 		}
@@ -65,7 +65,7 @@ describe('getTimeFromTimestamp', () => {
 		try {
 			getTimeFromTimestamp('The cake is a lie');
 		} catch (e) {
-			const errorMessage = 'Invalid argument to getTimeFromTimestamp';
+			const errorMessage = 'Invalid argument passed to getTimeFromTimestamp';
 			expect(e.message).to.equal(errorMessage);
 			done();
 		}
@@ -99,7 +99,7 @@ describe('capitalizeText', () => {
 		try {
 			capitalizeText();
 		} catch (e) {
-			const errorMessage = 'Invalid argument to capitalizeText';
+			const errorMessage = 'Invalid argument passed to capitalizeText';
 			expect(e.message).to.equal(errorMessage);
 			done();
 		}
@@ -109,7 +109,7 @@ describe('capitalizeText', () => {
 		try {
 			capitalizeText('');
 		} catch (e) {
-			const errorMessage = 'Invalid argument to capitalizeText';
+			const errorMessage = 'Invalid argument passed to capitalizeText';
 			expect(e.message).to.equal(errorMessage);
 			done();
 		}
@@ -120,7 +120,7 @@ describe('capitalizeText', () => {
 			const fakeParam = 42;
 			capitalizeText(fakeParam);
 		} catch (e) {
-			const errorMessage = 'Invalid argument to capitalizeText';
+			const errorMessage = 'Invalid argument passed to capitalizeText';
 			expect(e.message).to.equal(errorMessage);
 			done();
 		}

@@ -21,7 +21,7 @@ const twitterClient = new Twitter({
  */
 function publishToTwitter (textToTweet) {
 	if (!textToTweet || typeof textToTweet !== 'string') {
-		throw new Error('Invalid argument to publishToTwitter');
+		throw new Error('Invalid argument passed to publishToTwitter');
 	}
 
 	// twitterClient.post('statuses/update', {status: textToTweet }, function (error, tweet, response) {
@@ -43,7 +43,7 @@ function publishToTwitter (textToTweet) {
  */
 function formatTextToTweet (data) {
 	if (!data || classOf(data) !== 'object') {
-		throw new Error('Invalid argument to formatTextToTweet');
+		throw new Error('Invalid argument passed to formatTextToTweet');
 	}
 
 	const firstElement = 0;

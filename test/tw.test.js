@@ -69,7 +69,7 @@ describe('publishToTwitter', () => {
 		try {
 			publishToTwitter();
 		} catch (e) {
-			const errorMessage = 'Invalid argument to publishToTwitter';
+			const errorMessage = 'Invalid argument passed to publishToTwitter';
 			expect(e.message).to.equal(errorMessage);
 			done();
 		}
@@ -80,7 +80,7 @@ describe('publishToTwitter', () => {
 			const fakeParam = 42;
 			publishToTwitter(fakeParam);
 		} catch (e) {
-			const errorMessage = 'Invalid argument to publishToTwitter';
+			const errorMessage = 'Invalid argument passed to publishToTwitter';
 			expect(e.message).to.equal(errorMessage);
 			done();
 		}
@@ -96,7 +96,7 @@ describe('formatTextToTweet', () => {
 		try {
 			formatTextToTweet();
 		} catch (e) {
-			const errorMessage = 'Invalid argument to formatTextToTweet';
+			const errorMessage = 'Invalid argument passed to formatTextToTweet';
 			expect(e.message).to.equal(errorMessage);
 			done();
 		}
@@ -107,7 +107,7 @@ describe('formatTextToTweet', () => {
 			const fakeParam = 42;
 			formatTextToTweet(fakeParam);
 		} catch (e) {
-			const errorMessage = 'Invalid argument to formatTextToTweet';
+			const errorMessage = 'Invalid argument passed to formatTextToTweet';
 			expect(e.message).to.equal(errorMessage);
 			done();
 		}
