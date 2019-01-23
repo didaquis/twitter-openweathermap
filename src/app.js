@@ -15,7 +15,7 @@ setInterval(async () => {
 	} catch (e) {
 		console.error(`Error: ${e.message}`); // eslint-disable-line no-console
 	}
-}, 8000); // WIP: appConfig.publishInterval
+}, appConfig.publishInterval);
 
 
 // Application shutdown management

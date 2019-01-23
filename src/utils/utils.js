@@ -31,7 +31,8 @@ function getTimeFromTimestamp (timestamp) {
 }
 
 function capitalizeText (str) {
-	if (!str || typeof str !== 'string' || str.length < 1) {
+	const minimumLength = 1;
+	if (!str || typeof str !== 'string' || str.length < minimumLength) {
 		throw new Error('Invalid argument passed to capitalizeText');
 	}
 
