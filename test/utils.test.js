@@ -1,6 +1,6 @@
 const { assert, expect } = require('chai');
 
-const { classOf, getTimeFromTimestamp } = require('../src/utils/utils');
+const { classOf, getTimeFromTimestamp, capitalizeText } = require('../src/utils/utils');
 
 describe('classOf', () => {
 	it('should be a function', () => {
@@ -71,3 +71,59 @@ describe('getTimeFromTimestamp', () => {
 		}
 	});
 });
+
+describe('capitalizeText', () => {
+	it('should be a function', () => {
+		assert.isFunction(capitalizeText);
+	});
+
+	it('should return a string', () => {
+		expect(capitalizeText('foo')).to.be.a('string');
+	});
+
+	it('should capitalize a string', () => {
+		const fakeParam = 'what is the meaning of life?';
+		const expectedResult = 'What is the meaning of life?';
+		expect(capitalizeText(fakeParam)).to.equal(expectedResult);
+
+		const anotherFakeParam = 'the answer is 42';
+		const anotherExpectedResult = 'The answer is 42';
+		expect(capitalizeText(anotherFakeParam)).to.equal(anotherExpectedResult);
+
+		const oneMoreFakeParam = 'pi';
+		const oneMoreExpectedResult = 'Pi';
+		expect(capitalizeText(oneMoreFakeParam)).to.equal(oneMoreExpectedResult);
+	});
+
+	it('should throw an error if not receive parameter', (done) => {
+		try {
+			capitalizeText();
+		} catch (e) {
+			const errorMessage = 'Invalid argument to capitalizeText';
+			expect(e.message).to.equal(errorMessage);
+			done();
+		}
+	});
+
+	it('should throw an error if receive string of 0 length as parameter', (done) => {
+		try {
+			capitalizeText('');
+		} catch (e) {
+			const errorMessage = 'Invalid argument to capitalizeText';
+			expect(e.message).to.equal(errorMessage);
+			done();
+		}
+	});
+
+	it('should throw an error if not receive a valid parameter', (done) => {
+		try {
+			const fakeParam = 42;
+			capitalizeText(fakeParam);
+		} catch (e) {
+			const errorMessage = 'Invalid argument to capitalizeText';
+			expect(e.message).to.equal(errorMessage);
+			done();
+		}
+	});
+});
+

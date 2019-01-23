@@ -30,4 +30,14 @@ function getTimeFromTimestamp (timestamp) {
 	return new Date(timestamp).toString().slice(startChart, endChart);
 }
 
-module.exports = { classOf, getTimeFromTimestamp };
+function capitalizeText (str) {
+	if (!str || typeof str !== 'string' || str.length < 1) {
+		throw new Error('Invalid argument to capitalizeText');
+	}
+
+	const firstChar = 0;
+	const secondChar = 1;
+	return str.charAt(firstChar).toUpperCase() + str.slice(secondChar);
+}
+
+module.exports = { classOf, getTimeFromTimestamp, capitalizeText };

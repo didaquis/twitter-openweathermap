@@ -114,20 +114,17 @@ describe('formatTextToTweet', () => {
 	});
 
 	it('should return text well formatted', () => {
-		// const fakeParam = { coord: { lon: 2.02, lat: 41.57 },
-		// 	weather:[ { id: 800, main: 'Clear', description: 'cielo claro', icon: '01n' } ],
-		// 	base: 'stations',
-		// 	main: { temp: 4.58, pressure: 1006, humidity: 86, temp_min: 3, temp_max: 6 },
-		// 	visibility: 10000,
-		// 	wind: { speed: 2.6, deg: 280 },
-		// 	clouds: { all: 0 },
-		// 	dt: 1548196200,
-		// 	sys: { type: 1, id: 6414, message: 0.0033, country: 'ES', sunrise: 1548141113, sunset: 1548176152 },
-		// 	id: 3108286,
-		// 	name: 'Terrassa',
-		// 	cod: 200 };
-
-		// const fakeReturn = '';
-		// expect(formatTextToTweet(fakeParam)).to.equal(fakeReturn);
+		const fakeParam = { coord: { lon: 2.02, lat: 41.57 }, weather: [ { id: 800, main: 'Clear', description: 'cielo claro', icon: '01n' } ], base: 'stations', main: { temp: 7.53, pressure: 999, humidity: 56, temp_min: 7, temp_max: 8 }, visibility: 10000, wind: { speed: 3.6, deg: 320 }, clouds: { all: 0 }, dt: 1548280800, sys: { type: 1, id: 6414, message: 0.0036, country: 'ES', sunrise: 1548227470, sunset: 1548262625 }, id: 3108286, name: 'Terrassa', cod: 200 };
+		const fakeReturn = `
+	Terrassa
+	Temperatura actual: 7.53
+	Temperatura mínima: 7
+	Temperatura máxima: 8
+	Viento: 3.6
+	Nubes: 0
+	Cielo claro
+	Salida del sol: 23:03
+	Puesta del sol: 23:04`;
+		expect(formatTextToTweet(fakeParam)).to.equal(fakeReturn);
 	});
 });
