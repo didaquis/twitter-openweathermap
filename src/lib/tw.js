@@ -36,13 +36,18 @@ function publishToTwitter (textToTweet) {
 	// });
 }
 
-// ************* just for development: WIP ****************
+/**
+ * Create text of tweet using data received from OpenWeatherMAP API
+ * @param  {object} data Raw data from OpenWeatherMAP API
+ * @return {string]}     A templeted string with text of new tweet
+ */
 function formatTextToTweet (data) {
 	if (!data || classOf(data) !== 'object') {
 		throw new Error('Invalid argument to formatTextToTweet');
 	}
 
 	const firstElement = 0;
+
 	const template = `
 	${data.name}
 	Temperatura actual: ${data.main.temp}
@@ -56,6 +61,5 @@ function formatTextToTweet (data) {
 
 	return template;
 }
-// ************* just for development: WIP ****************
 
 module.exports = { twitterClient, formatTextToTweet, publishToTwitter };
