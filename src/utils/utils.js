@@ -1,3 +1,5 @@
+const { logger } = require('../lib/config-log4js');
+
 /**
  * Utility to detect which is the type of the parameter
  * @param  {*} 		param 	Any kind of value
@@ -19,10 +21,13 @@ function classOf (param){
  * Obtain hours and minutes from timestamp
  * @param  {integer} timestamp 	Timestamp value. Ex: 1548141113
  * @return {string}           	Hours and minutes of timestamp. Ex: '23:02'
+ * @throws 						Will throw an error if the argument is not valid
  */
 function getTimeFromTimestamp (timestamp) {
 	if (!timestamp || !Number.isInteger(timestamp)) {
-		throw new Error('Invalid argument passed to getTimeFromTimestamp');
+		const errorMessage = 'Invalid argument passed to getTimeFromTimestamp';
+		logger.error(errorMessage);
+		throw new Error(errorMessage);
 	}
 
 	const startChart = 16;
@@ -34,11 +39,14 @@ function getTimeFromTimestamp (timestamp) {
  * Capitalize first charf of string
  * @param  {string} str
  * @return {string}
+ * @throws 				Will throw an error if the argument is not valid
  */
 function capitalizeText (str) {
 	const minimumLength = 1;
 	if (!str || typeof str !== 'string' || str.length < minimumLength) {
-		throw new Error('Invalid argument passed to capitalizeText');
+		const errorMessage = 'Invalid argument passed to capitalizeText';
+		logger.error(errorMessage);
+		throw new Error(errorMessage);
 	}
 
 	const firstChar = 0;

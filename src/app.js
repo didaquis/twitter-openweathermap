@@ -1,8 +1,28 @@
+/* Home doc */
+/**
+ * @file Entry point of application
+ * @see module:app
+ */
+
+/* Module doc */
+/**
+ * Entry point of application
+ * @module app
+ */
+
+
 const appConfig = require('./appConfiguration');
+const log4js = require('log4js');
+const { logger } = require('./lib/config-log4js');
 const { getWeatherData } = require('./lib/owm');
 const { formatTextToTweet, publishToTwitter } = require('./lib/tw');
 
-console.log('\n\n Starting application... \n'); // eslint-disable-line no-console
+
+logger.info('Starting application...');
+
+/**
+ * Main clock of application. Execute main task periodically
+ */
 
 setInterval(async () => {
 	try {
@@ -13,13 +33,13 @@ setInterval(async () => {
 			publishToTwitter(dataForTweet);
 		});
 	} catch (e) {
-		console.error(`Error: ${e.message}`); // eslint-disable-line no-console
+		logger.error(`Error: ${e.message}`);
 	}
 }, appConfig.publishInterval);
 
-
 // Application shutdown management
 process.on('SIGINT', () => {
-	console.log('\n\n Stopping application... \n'); // eslint-disable-line no-console
+	logger.info('Stopping application...');
+	log4js.shutdown();
 	process.exit();
 });

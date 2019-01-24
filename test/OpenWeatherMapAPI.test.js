@@ -78,12 +78,13 @@ describe('Testing Open Weather Map API', () => {
 				});
 		});
 
-		it('should throw error 401 if route is invalid', (done) => {
+		it('should throw error if route is invalid', (done) => {
 			OWM_API.call(`${config_api.openWeatherMapAPI.baseUrl}/fake-path`)
 				.then()
-				.catch((err) => {
-					const errorForInvalidRoute = '401';
-					expect(err.message).to.equal(errorForInvalidRoute);
+				.catch((e) => {
+					const fakeCodeStatus = '401';
+					const errorMessage = `Fetch data response: ${fakeCodeStatus}`;
+					expect(e.message).to.equal(errorMessage);
 					done();
 				});
 		});

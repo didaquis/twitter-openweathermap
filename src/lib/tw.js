@@ -2,6 +2,7 @@ const Twitter = require('twitter');
 
 require('dotenv').config();
 
+const { logger } = require('../lib/config-log4js');
 const { classOf, capitalizeText } = require('../utils/utils');
 
 /**
@@ -17,36 +18,48 @@ const twitterClient = new Twitter({
 
 /**
  * Publish a new tweet
- * @param {string} textToTweet Text of tweet
+ * @param {string} textToTweet 	Text of tweet
+ * @throws 						Will throw an error if the argument is not valid
+ * @throws 						Will throw an error if Twitter send an error
+ * @throws 						Will throw an error if Twitter send a status code different then 200
  */
 function publishToTwitter (textToTweet) {
 	if (!textToTweet || typeof textToTweet !== 'string') {
-		throw new Error('Invalid argument passed to publishToTwitter');
+		const errorMessage = 'Invalid argument passed to publishToTwitter';
+		logger.error(errorMessage);
+		throw new Error(errorMessage);
 	}
 
 	twitterClient.post('statuses/update', {status: textToTweet }, function (error, tweet, response) {
 		if (error) {
-			throw new Error(`Trying to publish a tweet: ${error.message}`);
+			const errorMessage = `Trying to publish a tweet: ${JSON.stringify(error)}`;
+			logger.error(errorMessage);
+			throw new Error(errorMessage);
 		}
 		const statusCode_OK = 200;
 		if (response.statusCode !== statusCode_OK) {
-			throw new Error(`Status code of response after try to publish a tweet: ${response.statusCode}`);
+			const errorMessage = `Status code of response after the attempt to publish a tweet: ${response.statusCode}`;
+			logger.error(errorMessage);
+			throw new Error(errorMessage);
 		}
 
 		const urlOfPublishedTweet = `https://twitter.com/${tweet.user.name}/status/${tweet.id_str}`;
 
-		console.log(`\nTweet published: \n ${urlOfPublishedTweet}`); // eslint-disable-line no-console
+		logger.info(`Tweet published: ${urlOfPublishedTweet}`);
 	});
 }
 
 /**
  * Create text of tweet using data received from OpenWeatherMAP API
  * @param  {object} data Raw data from OpenWeatherMAP API
- * @return {string]}     A templeted string with text of new tweet
+ * @return {string}      A templeted string with text of new tweet
+ * @throws 				 Will throw an error if the argument is not valid
  */
 function formatTextToTweet (data) {
 	if (!data || classOf(data) !== 'object') {
-		throw new Error('Invalid argument passed to formatTextToTweet');
+		const errorMessage = 'Invalid argument passed to formatTextToTweet';
+		logger.error(errorMessage);
+		throw new Error(errorMessage);
 	}
 
 	const firstElement = 0;

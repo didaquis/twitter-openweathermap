@@ -1,6 +1,6 @@
 {
   "name": "twitter-openweathermap",
-  "version": "0.7.38",
+  "version": "0.8.42",
   "private": true,
   "description": "Publish on Twitter data from OpenWeatherMap API",
   "main": "src/app.js",
@@ -9,7 +9,9 @@
     "dev": "nodemon .",
     "lint": "eslint --ext .js .",
     "test": "mocha test",
-    "test:coverage": "nyc mocha test"
+    "test:coverage": "nyc mocha test",
+    "doc-view": "jsdoc --private -c ./conf_jsdoc.json -r && live-server --host=localhost --port=4400 --open=doc/",
+    "purge": "rm -fr ./doc  && rm -fr ./logs"
   },
   "keywords": [
     "Twitter",
@@ -23,11 +25,14 @@
   },
   "dependencies": {
     "dotenv": "^6.2.0",
+    "log4js": "^3.0.6",
     "node-fetch": "^2.3.0",
     "twitter": "^1.7.1"
   },
   "devDependencies": {
     "chai": "^4.2.0",
+    "jsdoc": "^3.5.5",
+    "live-server": "^1.2.1",
     "mocha": "^5.2.0",
     "nodemon": "^1.18.9",
     "nyc": "^13.1.0"

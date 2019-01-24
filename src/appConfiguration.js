@@ -1,3 +1,20 @@
+/* Home doc */
+/**
+ * @file Main configuration for the application
+ * @see module:appConfiguration
+ */
+
+/* Module doc */
+/**
+ * Main configuration for the application
+ * @module appConfiguration
+ */
+
+
+/**
+ * App configuration
+ * @type {object}
+ */
 const appConfiguration = Object.freeze({
 	citiesToRetrieve: {
 		terrassa: {

@@ -1,6 +1,8 @@
 const fetch = require('node-fetch');
 require('dotenv').config();
 
+const { logger } = require('../config-log4js');
+
 /** Class representing a request to a public OpenWeatherMap API. */
 class OpenWeatherMapAPI {
 
@@ -21,14 +23,16 @@ class OpenWeatherMapAPI {
 	 * Make a request to public API
 	 * @param {string} URL of endpoint
 	 * @returns {Promise<Response>} Data received from endpoint
-	 * @throws {string} If something goes wrong
+	 * @throws 						Will throw an error if status code of response is not 200
 	 */
 	call (url) {
 		return fetch(url)
 			.then(res => {
 				const statusCode_OK = 200;
 				if (res.status !== statusCode_OK) {
-					throw new Error(res.status);
+					const errorMessage = `Fetch data response: ${res.status}`;
+					logger.error(errorMessage);
+					throw new Error(errorMessage);
 				}
 
 				return res.json();
@@ -39,6 +43,7 @@ class OpenWeatherMapAPI {
 	 * Retrieve weather data
 	 * @param {number} idOfCity Identification code of city
 	 * @returns {Promise<Response>} Data received from endpoint
+	 * @throws 						Will throw an error if the argument is not valid
 	 */
 	getWeatherByIdOfCity (idOfCity) {
 		if (!idOfCity || !Number.isInteger(idOfCity)) {
