@@ -26,7 +26,7 @@ function publishToTwitter (textToTweet) {
 
 	twitterClient.post('statuses/update', {status: textToTweet }, function (error, tweet, response) {
 		if (error) {
-			throw error;
+			throw new Error(`Trying to publish a tweet: ${error.message}`);
 		}
 		const statusCode_OK = 200;
 		if (response.statusCode !== statusCode_OK) {

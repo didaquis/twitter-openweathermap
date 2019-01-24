@@ -30,6 +30,11 @@ function getTimeFromTimestamp (timestamp) {
 	return new Date(timestamp).toString().slice(startChart, endChart);
 }
 
+/**
+ * Capitalize first charf of string
+ * @param  {string} str
+ * @return {string}
+ */
 function capitalizeText (str) {
 	const minimumLength = 1;
 	if (!str || typeof str !== 'string' || str.length < minimumLength) {
