@@ -7,7 +7,7 @@ const appConfiguration = Object.freeze({
 			id: 3128760
 		}
 	},
-	publishInterval: 1200000
+	publishInterval: 1200000 // 1200000 = 20 minutes
 });
 
 module.exports = appConfiguration;

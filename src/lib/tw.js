@@ -32,7 +32,10 @@ function publishToTwitter (textToTweet) {
 		if (response.statusCode !== statusCode_OK) {
 			throw new Error(`Status code of response after try to publish a tweet: ${response.statusCode}`);
 		}
-		console.log(`\nTweet published: \n ${JSON.stringify(tweet)}`); // eslint-disable-line no-console
+
+		const urlOfPublishedTweet = `https://twitter.com/${tweet.user.name}/status/${tweet.id_str}`;
+
+		console.log(`\nTweet published: \n ${urlOfPublishedTweet}`); // eslint-disable-line no-console
 	});
 }
 
