@@ -24,7 +24,8 @@ logger.info('Starting application...');
  * Main clock of application. Execute main task periodically
  */
 
-setInterval(async () => {
+
+(async function mainClock () {
 	try {
 		let weatherData = await getWeatherData(appConfig.citiesToRetrieve);
 
@@ -35,7 +36,10 @@ setInterval(async () => {
 	} catch (e) {
 		logger.error(`Error: ${e.message}`);
 	}
-}, appConfig.publishInterval);
+
+	setTimeout(mainClock, appConfig.publishInterval);
+})();
+
 
 // Application shutdown management
 process.on('SIGINT', () => {
