@@ -70,8 +70,8 @@ function formatTextToTweet (data) {
 	Temperatura media ahora: ${data.main.temp}
 	Temperatura mínima ahora: ${data.main.temp_min}
 	Temperatura máxima ahora: ${data.main.temp_max}
-	Viento: ${data.wind.speed}
-	Nubes: ${data.clouds.all}
+	Viento: ${data.wind.speed} m/s
+	Nubes: ${data.clouds.all} %
 	${capitalizeText(data.weather[firstElement].description)}`;
 
 	return template;

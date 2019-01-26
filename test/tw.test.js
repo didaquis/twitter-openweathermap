@@ -121,8 +121,8 @@ describe('formatTextToTweet', () => {
 	Temperatura media ahora: 7.53
 	Temperatura mínima ahora: 7
 	Temperatura máxima ahora: 8
-	Viento: 3.6
-	Nubes: 0
+	Viento: 3.6 m/s
+	Nubes: 0 %
 	Cielo claro`;
 		expect(formatTextToTweet(fakeParam)).to.equal(fakeReturn);
 	});
