@@ -67,9 +67,9 @@ function formatTextToTweet (data) {
 	const template = `
 	El tiempo en: ${data.name}
 
-	Temperatura actual: ${data.main.temp}
-	Temperatura mínima: ${data.main.temp_min}
-	Temperatura máxima: ${data.main.temp_max}
+	Temperatura media ahora: ${data.main.temp}
+	Temperatura mínima ahora: ${data.main.temp_min}
+	Temperatura máxima ahora: ${data.main.temp_max}
 	Viento: ${data.wind.speed}
 	Nubes: ${data.clouds.all}
 	${capitalizeText(data.weather[firstElement].description)}`;

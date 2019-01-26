@@ -118,9 +118,9 @@ describe('formatTextToTweet', () => {
 		const fakeReturn = `
 	El tiempo en: Terrassa
 
-	Temperatura actual: 7.53
-	Temperatura mínima: 7
-	Temperatura máxima: 8
+	Temperatura media ahora: 7.53
+	Temperatura mínima ahora: 7
+	Temperatura máxima ahora: 8
 	Viento: 3.6
 	Nubes: 0
 	Cielo claro`;
