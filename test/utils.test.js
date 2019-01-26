@@ -35,19 +35,19 @@ describe('getTimeFromTimestamp', () => {
 
 	it('should return a valid values', () => {
 		const fakeParam = 1548141113;
-		const expectResult = '23:02';
+		const expectResult = '07:11';
 		expect(getTimeFromTimestamp(fakeParam)).to.equal(expectResult);
 
 		const anotherFakeParam = 1559279152;
-		const anotherExpectResult = '02:07';
+		const anotherExpectResult = '05:05';
 		expect(getTimeFromTimestamp(anotherFakeParam)).to.equal(anotherExpectResult);
 
 		const OneMoreFakeParam = 1969279199;
-		const OneMoreExpectResult = '20:01';
+		const OneMoreExpectResult = '13:59';
 		expect(getTimeFromTimestamp(OneMoreFakeParam)).to.equal(OneMoreExpectResult);
 
 		const lastFakeParam = 1948534252;
-		const lastExpectResult = '14:15';
+		const lastExpectResult = '11:30';
 		expect(getTimeFromTimestamp(lastFakeParam)).to.equal(lastExpectResult);
 	});
 

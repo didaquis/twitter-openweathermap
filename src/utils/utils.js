@@ -18,9 +18,9 @@ function classOf (param){
 }
 
 /**
- * Obtain hours and minutes from timestamp
+ * Obtain hours and minutes (UTC) from timestamp
  * @param  {integer} timestamp 	Timestamp value. Ex: 1548141113
- * @return {string}           	Hours and minutes of timestamp. Ex: '23:02'
+ * @return {string}           	Hours and minutes of timestamp. Ex: '07:11'
  * @throws 						Will throw an error if the argument is not valid
  */
 function getTimeFromTimestamp (timestamp) {
@@ -30,9 +30,12 @@ function getTimeFromTimestamp (timestamp) {
 		throw new Error(errorMessage);
 	}
 
-	const startChart = 16;
-	const endChart = 21;
-	return new Date(timestamp).toString().slice(startChart, endChart);
+	const miliseconds = 1000;
+	timestamp = timestamp * miliseconds;
+
+	const startChart = 17;
+	const endChart = 22;
+	return new Date(timestamp).toUTCString().slice(startChart, endChart);
 }
 
 /**
