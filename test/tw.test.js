@@ -120,6 +120,7 @@ describe('formatTextToTweet', () => {
 
 	Cielo claro
 	Temperatura: 7.53
+	Humedad: 56 %
 	Viento: 3.6 m/s
 	Nubes: 0 %
 	Salida del sol: 08:11

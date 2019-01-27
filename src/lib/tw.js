@@ -70,6 +70,7 @@ function formatTextToTweet (data) {
 
 	${capitalizeText(data.weather[firstElement].description)}
 	Temperatura: ${data.main.temp}
+	Humedad: ${data.main.humidity} %
 	Viento: ${data.wind.speed} m/s
 	Nubes: ${data.clouds.all} %
 	Salida del sol: ${getTimeFromTimestamp(data.sys.sunrise, appConfig.citiesToRetrieve[data.name.toLowerCase()].utc)}
