@@ -1,6 +1,6 @@
 {
   "name": "twitter-openweathermap",
-  "version": "0.9.61",
+  "version": "0.9.62",
   "private": true,
   "description": "Publish on Twitter data from OpenWeatherMap API",
   "main": "src/app.js",
@@ -10,7 +10,7 @@
     "lint": "eslint --ext .js .",
     "test": "mocha test",
     "test:coverage": "nyc mocha test",
-    "doc-view": "jsdoc --private -c ./conf_jsdoc.json -r && live-server --host=localhost --port=4400 --open=doc/",
+    "doc-view": "jsdoc --private -c ./conf_jsdoc.json -r && live-server --host=localhost --port=4400 --open=doc/ --ignore=node_modules/,test/*,src/*,.git/,.",
     "purge": "rm -fr ./doc  && rm -fr ./logs && rm -fr ./.nyc_output"
   },
   "keywords": [
