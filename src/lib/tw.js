@@ -66,14 +66,12 @@ function formatTextToTweet (data) {
 	const firstElement = 0;
 
 	const template = `
-	El tiempo en: ${data.name}
+	${data.name}
 
-	Temperatura media ahora: ${data.main.temp}
-	Temperatura mínima ahora: ${data.main.temp_min}
-	Temperatura máxima ahora: ${data.main.temp_max}
+	${capitalizeText(data.weather[firstElement].description)}
+	Temperatura: ${data.main.temp}
 	Viento: ${data.wind.speed} m/s
 	Nubes: ${data.clouds.all} %
-	${capitalizeText(data.weather[firstElement].description)}
 	Salida del sol: ${getTimeFromTimestamp(data.sys.sunrise, appConfig.citiesToRetrieve[data.name.toLowerCase()].utc)}
 	Puesta del sol: ${getTimeFromTimestamp(data.sys.sunset, appConfig.citiesToRetrieve[data.name.toLowerCase()].utc)}`;
 
