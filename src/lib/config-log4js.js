@@ -25,8 +25,8 @@ const log4js = require('log4js');
 log4js.configure({
 	appenders: {
 		out:{ type: 'stdout' },
-		file_log_info: { type: 'file', filename: 'logs/application.log', maxLogSize: 20480, keepFileExt: true },
-		file_log_error: { type: 'file', filename: 'logs/application_error.log', maxLogSize: 20480, keepFileExt: true },
+		file_log_info: { type: 'file', filename: 'logs/application.log', maxLogSize: 204800, keepFileExt: true },
+		file_log_error: { type: 'file', filename: 'logs/application_error.log', maxLogSize: 204800, keepFileExt: true },
 		file_log_info_filter: { type:'logLevelFilter', level: 'info', appender: 'file_log_info' },
 		file_log_error_filter: { type:'logLevelFilter', level: 'error', appender: 'file_log_error' }
 	},
