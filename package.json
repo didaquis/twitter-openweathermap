@@ -1,6 +1,6 @@
 {
   "name": "twitter-openweathermap",
-  "version": "0.9.62",
+  "version": "0.9.63",
   "private": true,
   "description": "Publish on Twitter data from OpenWeatherMap API",
   "main": "src/app.js",
@@ -35,6 +35,7 @@
     "live-server": "^1.2.1",
     "mocha": "^5.2.0",
     "nodemon": "^1.18.9",
-    "nyc": "^13.1.0"
+    "nyc": "^13.1.0",
+    "sinon": "^7.2.3"
   }
 }
