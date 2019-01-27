@@ -52,14 +52,14 @@ function utcOffsetConversion (timestamp, utcOffset) {
 	let offsetValue;
 
 	switch (utcOffset.charAt(firstCharacter)) {
-	case '+':
-		offsetValue = utcOffset.slice(firstCharacter);
-		return timestamp + (secondsOnHour * parseInt(offsetValue));
-	case '0':
-		return timestamp;
-	case '-':
-		offsetValue = utcOffset.slice(firstCharacter);
-		return timestamp - (secondsOnHour * parseInt(offsetValue));
+		case '+':
+			offsetValue = utcOffset.slice(firstCharacter);
+			return timestamp + (secondsOnHour * parseInt(offsetValue));
+		case '0':
+			return timestamp;
+		case '-':
+			offsetValue = utcOffset.slice(firstCharacter);
+			return timestamp - (secondsOnHour * parseInt(offsetValue));
 	}
 }
 
