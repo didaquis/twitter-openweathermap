@@ -1,6 +1,6 @@
 const { assert, expect } = require('chai');
 
-const { classOf, getTimeFromTimestamp, capitalizeText } = require('../src/utils/utils');
+const { classOf, getTimeFromTimestamp, utcOffsetConversion, capitalizeText } = require('../src/utils/utils');
 
 describe('classOf', () => {
 	it('should be a function', () => {
@@ -29,29 +29,34 @@ describe('getTimeFromTimestamp', () => {
 	});
 
 	it('should return a string', () => {
-		const fakeParam = 1548141113;
-		expect(getTimeFromTimestamp(fakeParam)).to.be.a('string');
+		const firstFakeParam = 1548141113;
+		const secondFakeParam = '+1';
+		expect(getTimeFromTimestamp(firstFakeParam, secondFakeParam)).to.be.a('string');
 	});
 
 	it('should return a valid values', () => {
 		const fakeParam = 1548141113;
-		const expectResult = '07:11';
-		expect(getTimeFromTimestamp(fakeParam)).to.equal(expectResult);
+		const secondFakeParam = '+1';
+		const expectResult = '08:11';
+		expect(getTimeFromTimestamp(fakeParam, secondFakeParam)).to.equal(expectResult);
 
 		const anotherFakeParam = 1559279152;
-		const anotherExpectResult = '05:05';
-		expect(getTimeFromTimestamp(anotherFakeParam)).to.equal(anotherExpectResult);
+		const anotherSecondFakeParam = '+2';
+		const anotherExpectResult = '07:05';
+		expect(getTimeFromTimestamp(anotherFakeParam, anotherSecondFakeParam)).to.equal(anotherExpectResult);
 
-		const OneMoreFakeParam = 1969279199;
-		const OneMoreExpectResult = '13:59';
-		expect(getTimeFromTimestamp(OneMoreFakeParam)).to.equal(OneMoreExpectResult);
+		const oneMoreFakeParam = 1969279199;
+		const oneMoreSecondFakeParam = '0';
+		const oneMoreExpectResult = '13:59';
+		expect(getTimeFromTimestamp(oneMoreFakeParam, oneMoreSecondFakeParam)).to.equal(oneMoreExpectResult);
 
 		const lastFakeParam = 1948534252;
-		const lastExpectResult = '11:30';
-		expect(getTimeFromTimestamp(lastFakeParam)).to.equal(lastExpectResult);
+		const lastSecondFakeParam = '-1';
+		const lastExpectResult = '12:30';
+		expect(getTimeFromTimestamp(lastFakeParam, lastSecondFakeParam)).to.equal(lastExpectResult);
 	});
 
-	it('should throw an error if not receive parameter', (done) => {
+	it('should throw an error if not receive first parameter', (done) => {
 		try {
 			getTimeFromTimestamp();
 		} catch (e) {
@@ -61,11 +66,121 @@ describe('getTimeFromTimestamp', () => {
 		}
 	});
 
-	it('should throw an error if not receive a valid parameter', (done) => {
+	it('should throw an error if not receive a first valid parameter', (done) => {
 		try {
-			getTimeFromTimestamp('The cake is a lie');
+			const fakeNonValidParam = 'The cake is a lie';
+			getTimeFromTimestamp(fakeNonValidParam);
 		} catch (e) {
 			const errorMessage = 'Invalid argument passed to getTimeFromTimestamp';
+			expect(e.message).to.equal(errorMessage);
+			done();
+		}
+	});
+
+	it('should throw an error if not receive second parameter', (done) => {
+		try {
+			const fakeParam = 1548141113;
+			getTimeFromTimestamp(fakeParam);
+		} catch (e) {
+			const errorMessage = 'Invalid argument passed to getTimeFromTimestamp';
+			expect(e.message).to.equal(errorMessage);
+			done();
+		}
+	});
+
+	it('should throw an error if not receive a second valid parameter', (done) => {
+		try {
+			const fakeParam = 1548141113;
+			const fakeNonValidParam = 42;
+			getTimeFromTimestamp(fakeParam, fakeNonValidParam);
+		} catch (e) {
+			const errorMessage = 'Invalid argument passed to getTimeFromTimestamp';
+			expect(e.message).to.equal(errorMessage);
+			done();
+		}
+	});
+});
+
+describe('utcOffsetConversion', () => {
+	it('should be a function', () => {
+		assert.isFunction(utcOffsetConversion);
+	});
+
+	it('should return an integer', () => {
+		const firstFakeParam = 1548141113;
+		const secondFakeParam = '+1';
+		expect(utcOffsetConversion(firstFakeParam, secondFakeParam)).to.be.a('number');
+		expect(Number.isInteger(utcOffsetConversion(firstFakeParam, secondFakeParam))).to.be.true;
+	});
+
+	it('should return a valid values', () => {
+		const fakeParam = 1548141113;
+		const secondFakeParam = '+1';
+		const expectResult = 1548144713;
+		expect(utcOffsetConversion(fakeParam, secondFakeParam)).to.equal(expectResult);
+
+		const anotherFakeParam = 1559279152;
+		const anotherSecondFakeParam = '+2';
+		const anotherExpectResult = 1559286352;
+		expect(utcOffsetConversion(anotherFakeParam, anotherSecondFakeParam)).to.equal(anotherExpectResult);
+
+		const oneMoreFakeParam = 1969279199;
+		const oneMoreSecondFakeParam = '0';
+		const oneMoreExpectResult = 1969279199;
+		expect(utcOffsetConversion(oneMoreFakeParam, oneMoreSecondFakeParam)).to.equal(oneMoreExpectResult);
+
+		const lastFakeParam = 1948534252;
+		const lastSecondFakeParam = '-1';
+		const lastExpectResult = 1948537852;
+		expect(utcOffsetConversion(lastFakeParam, lastSecondFakeParam)).to.equal(lastExpectResult);
+	});
+
+
+
+
+
+
+
+
+	it('should throw an error if not receive first parameter', (done) => {
+		try {
+			utcOffsetConversion();
+		} catch (e) {
+			const errorMessage = 'Invalid argument passed to utcOffsetConversion';
+			expect(e.message).to.equal(errorMessage);
+			done();
+		}
+	});
+
+	it('should throw an error if not receive a first valid parameter', (done) => {
+		try {
+			const fakeNonValidParam = 'The cake is a lie';
+			utcOffsetConversion(fakeNonValidParam);
+		} catch (e) {
+			const errorMessage = 'Invalid argument passed to utcOffsetConversion';
+			expect(e.message).to.equal(errorMessage);
+			done();
+		}
+	});
+
+	it('should throw an error if not receive second parameter', (done) => {
+		try {
+			const fakeParam = 1548141113;
+			utcOffsetConversion(fakeParam);
+		} catch (e) {
+			const errorMessage = 'Invalid argument passed to utcOffsetConversion';
+			expect(e.message).to.equal(errorMessage);
+			done();
+		}
+	});
+
+	it('should throw an error if not receive a second valid parameter', (done) => {
+		try {
+			const fakeParam = 1548141113;
+			const fakeNonValidParam = 42;
+			utcOffsetConversion(fakeParam, fakeNonValidParam);
+		} catch (e) {
+			const errorMessage = 'Invalid argument passed to utcOffsetConversion';
 			expect(e.message).to.equal(errorMessage);
 			done();
 		}

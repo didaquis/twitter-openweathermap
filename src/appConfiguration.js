@@ -18,10 +18,12 @@
 const appConfiguration = Object.freeze({
 	citiesToRetrieve: {
 		terrassa: {
-			id: 3108286
+			id: 3108286,
+			utc: '+1'
 		},
 		barcelona: {
-			id: 3128760
+			id: 3128760,
+			utc: '+1'
 		}
 	},
 	publishInterval: 1200000 // 1200000 = 20 minutes

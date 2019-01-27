@@ -23,14 +23,13 @@ logger.info('Starting application...');
 /**
  * Main clock of application. Execute main task periodically
  */
-
-
 (async function mainClock () {
 	try {
 		let weatherData = await getWeatherData(appConfig.citiesToRetrieve);
 
 		weatherData.forEach( (data) => {
 			let dataForTweet = formatTextToTweet(data);
+
 			publishToTwitter(dataForTweet);
 		});
 	} catch (e) {

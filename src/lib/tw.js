@@ -3,7 +3,8 @@ const Twitter = require('twitter');
 require('dotenv').config();
 
 const { logger } = require('../lib/config-log4js');
-const { classOf, capitalizeText } = require('../utils/utils');
+const { classOf, capitalizeText, getTimeFromTimestamp } = require('../utils/utils');
+const appConfig = require('../appConfiguration');
 
 /**
  * Create a new instance of Twitter client class to communicate with Twitter API
@@ -72,7 +73,9 @@ function formatTextToTweet (data) {
 	Temperatura máxima ahora: ${data.main.temp_max}
 	Viento: ${data.wind.speed} m/s
 	Nubes: ${data.clouds.all} %
-	${capitalizeText(data.weather[firstElement].description)}`;
+	${capitalizeText(data.weather[firstElement].description)}
+	Salida del sol: ${getTimeFromTimestamp(data.sys.sunrise, appConfig.citiesToRetrieve[data.name.toLowerCase()].utc)}
+	Puesta del sol: ${getTimeFromTimestamp(data.sys.sunset, appConfig.citiesToRetrieve[data.name.toLowerCase()].utc)}`;
 
 	return template;
 }

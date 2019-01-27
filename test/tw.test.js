@@ -123,7 +123,9 @@ describe('formatTextToTweet', () => {
 	Temperatura máxima ahora: 8
 	Viento: 3.6 m/s
 	Nubes: 0 %
-	Cielo claro`;
+	Cielo claro
+	Salida del sol: 08:11
+	Puesta del sol: 17:57`;
 		expect(formatTextToTweet(fakeParam)).to.equal(fakeReturn);
 	});
 });

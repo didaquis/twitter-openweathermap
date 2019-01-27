@@ -23,19 +23,44 @@ function classOf (param){
  * @return {string}           	Hours and minutes of timestamp. Ex: '07:11'
  * @throws 						Will throw an error if the argument is not valid
  */
-function getTimeFromTimestamp (timestamp) {
-	if (!timestamp || !Number.isInteger(timestamp)) {
+function getTimeFromTimestamp (timestamp, utcOffset) {
+	if (!timestamp || !Number.isInteger(timestamp) || !utcOffset || typeof utcOffset !== 'string') {
 		const errorMessage = 'Invalid argument passed to getTimeFromTimestamp';
 		logger.error(errorMessage);
 		throw new Error(errorMessage);
 	}
 
+	timestamp = utcOffsetConversion(timestamp, utcOffset);
+
 	const miliseconds = 1000;
-	timestamp = timestamp * miliseconds;
+	let timestampWithMiliseconds = timestamp * miliseconds;
 
 	const startChart = 17;
 	const endChart = 22;
-	return new Date(timestamp).toUTCString().slice(startChart, endChart);
+	return new Date(timestampWithMiliseconds).toUTCString().slice(startChart, endChart);
+}
+
+function utcOffsetConversion (timestamp, utcOffset) {
+	if (!timestamp || !Number.isInteger(timestamp) || !utcOffset || typeof utcOffset !== 'string') {
+		const errorMessage = 'Invalid argument passed to utcOffsetConversion';
+		logger.error(errorMessage);
+		throw new Error(errorMessage);
+	}
+
+	const secondsOnHour = 3600;
+	const firstCharacter = 0;
+	let offsetValue;
+
+	switch (utcOffset.charAt(firstCharacter)) {
+	case '+':
+		offsetValue = utcOffset.slice(firstCharacter);
+		return timestamp + (secondsOnHour * parseInt(offsetValue));
+	case '0':
+		return timestamp;
+	case '-':
+		offsetValue = utcOffset.slice(firstCharacter);
+		return timestamp - (secondsOnHour * parseInt(offsetValue));
+	}
 }
 
 /**
@@ -57,4 +82,4 @@ function capitalizeText (str) {
 	return str.charAt(firstChar).toUpperCase() + str.slice(secondChar);
 }
 
-module.exports = { classOf, getTimeFromTimestamp, capitalizeText };
+module.exports = { classOf, getTimeFromTimestamp, utcOffsetConversion, capitalizeText };
