@@ -35,13 +35,13 @@ function publishToTwitter (textToTweet) {
 		if (error) {
 			const errorMessage = `Trying to publish a tweet: ${JSON.stringify(error)}`;
 			logger.error(errorMessage);
-			throw new Error(errorMessage);
+			return new Error(errorMessage);
 		}
 		const statusCode_OK = 200;
 		if (response.statusCode !== statusCode_OK) {
 			const errorMessage = `Status code of response after the attempt to publish a tweet: ${response.statusCode}`;
 			logger.error(errorMessage);
-			throw new Error(errorMessage);
+			return new Error(errorMessage);
 		}
 
 		const urlOfPublishedTweet = `https://twitter.com/${tweet.user.name}/status/${tweet.id_str}`;
