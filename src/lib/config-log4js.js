@@ -1,13 +1,13 @@
 /* Home doc */
 /**
- * @file Manages the configuration settings for logger module.
- * @see module:logger
+ * @file Configuration settings for log4js module
+ * @see module:log4js
  */
 
 /* Module doc */
 /**
- * Configuration settings for logger module
- * @module logger
+ * Configuration settings for log4js module
+ * @module log4js
  */
 
 const log4js = require('log4js');
@@ -36,7 +36,9 @@ log4js.configure({
 });
 
 /**
- * Logger, use log4js config settings 
+ * Logger, use log4js config settings
+ * @example <caption>Example usage of logger</caption>
+ *          logger.info('foo text');
  */
 const logger = log4js.getLogger();
 

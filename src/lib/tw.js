@@ -1,3 +1,15 @@
+/* Home doc */
+/**
+ * @file Twitter client functions
+ * @see module:tw
+ */
+
+/* Module doc */
+/**
+ * Twitter client functions
+ * @module tw
+ */
+
 const Twitter = require('twitter');
 
 require('dotenv').config();
@@ -7,7 +19,7 @@ const { classOf, capitalizeText, getTimeFromTimestamp } = require('../utils/util
 const appConfig = require('../appConfiguration');
 
 /**
- * Create a new instance of Twitter client class to communicate with Twitter API
+ * An instance of Twitter client class to communicate with Twitter API
  * @type {Twitter}
  */
 const twitterClient = new Twitter({
@@ -18,11 +30,13 @@ const twitterClient = new Twitter({
 });
 
 /**
- * Publish a new tweet
+ * Publish a new tweet to Twitter
  * @param {string} textToTweet 	Text of tweet
  * @throws 						Will throw an error if the argument is not valid
  * @throws 						Will throw an error if Twitter send an error
- * @throws 						Will throw an error if Twitter send a status code different then 200
+ * @throws 						Will throw an error if Twitter send a status code different than 200
+ * @function publishToTwitter
+ * @async
  */
 function publishToTwitter (textToTweet) {
 	if (!textToTweet || typeof textToTweet !== 'string') {
@@ -54,6 +68,7 @@ function publishToTwitter (textToTweet) {
  * @param  {object} data Raw data from OpenWeatherMAP API
  * @return {string}      A templeted string with text of new tweet
  * @throws 				 Will throw an error if the argument is not valid
+ * @function formatTextToTweet
  */
 function formatTextToTweet (data) {
 	if (!data || classOf(data) !== 'object') {
@@ -81,6 +96,13 @@ function formatTextToTweet (data) {
 	return template;
 }
 
+/**
+ * Validate if data required for generate text of tweet is provided
+ * @param  {object} data  Raw data from OpenWeatherMAP API
+ * @return {boolean}      Return true if all required data is provided
+ * @function templateTextValidation
+ * @private
+ */
 function templateTextValidation (data) {
 	const firstElement = 0;
 

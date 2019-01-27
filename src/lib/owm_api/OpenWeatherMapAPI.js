@@ -1,9 +1,21 @@
+/* Home doc */
+/**
+ * @file Open Weather Map API client
+ * @see module:OpenWeatherMapAPI
+ */
+
+/* Module doc */
+/**
+ * Open Weather Map API client
+ * @module OpenWeatherMapAPI
+ */
+
 const fetch = require('node-fetch');
 require('dotenv').config();
 
 const { logger } = require('../config-log4js');
 
-/** Class representing a request to a public OpenWeatherMap API. */
+/** OpenWeatherMap API client */
 class OpenWeatherMapAPI {
 
 	/**
@@ -21,9 +33,10 @@ class OpenWeatherMapAPI {
 
 	/**
 	 * Make a request to public API
-	 * @param {string} URL of endpoint
+	 * @param {string} url 			URL of endpoint
 	 * @returns {Promise<Response>} Data received from endpoint
 	 * @throws 						Will throw an error if status code of response is not 200
+	 * @async
 	 */
 	call (url) {
 		return fetch(url)
@@ -41,9 +54,10 @@ class OpenWeatherMapAPI {
 
 	/**
 	 * Retrieve weather data
-	 * @param {number} idOfCity Identification code of city
+	 * @param {integer} idOfCity    Identification code of city
 	 * @returns {Promise<Response>} Data received from endpoint
 	 * @throws 						Will throw an error if the argument is not valid
+	 * @async
 	 */
 	getWeatherByIdOfCity (idOfCity) {
 		if (!idOfCity || !Number.isInteger(idOfCity)) {

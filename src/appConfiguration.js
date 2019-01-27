@@ -29,4 +29,5 @@ const appConfiguration = Object.freeze({
 	publishInterval: 1200000 // 1200000 = 20 minutes
 });
 
+/** App Configuration */
 module.exports = appConfiguration;

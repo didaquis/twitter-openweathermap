@@ -21,7 +21,9 @@ const { formatTextToTweet, publishToTwitter } = require('./lib/tw');
 logger.info('Starting application...');
 
 /**
- * Main clock of application. Execute main task periodically
+ * Main clock of application. Execute main tasks periodically
+ * @async
+ * @function mainClock
  */
 (async function mainClock () {
 	try {

@@ -1,3 +1,15 @@
+/* Home doc */
+/**
+ * @file Open Weather Map functions
+ * @see module:owm
+ */
+
+/* Module doc */
+/**
+ * Open Weather Map functions
+ * @module owm
+ */
+
 const OpenWeatherMapAPI = require('./owm_api/OpenWeatherMapAPI');
 
 const config_api = require('./owm_api/config_api');
@@ -5,10 +17,13 @@ const config_api = require('./owm_api/config_api');
 const { logger } = require('../lib/config-log4js');
 
 /**
- * Request data from api and send to callback
- * @param  {Object} citiesToRetrieve Object with info about citys
- * @return {Promise}                 Object with data retrieved from API
- * @throws 							 Will throw an error if the argument is not valid
+ * Request data from OWM API and return a promise with all results
+ * @param  {Object}  citiesToRetrieve 	 Object with info about one or more cities
+ * @param  {integer} citiesToRetrieve.id Id of city
+ * @return {Promise}                 	 Object with data retrieved from API
+ * @throws 							 	 Will throw an error if the argument is not valid
+ * @function getWeatherData
+ * @async
  */
 async function getWeatherData (citiesToRetrieve) {
 	if (!citiesToRetrieve) {

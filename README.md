@@ -8,14 +8,14 @@ Example of tweet published by this application: https://twitter.com/didipi_bot/s
 ## Requirements
 * Node.js 9.4 or higher
 * A Twitter account and Twitter app registered for use their API
-* A registered account on OpenWeatherMap and a token for use theri API
+* A registered account on OpenWeatherMap and a token for use their API
 
 
 ## How to use
 
 ### Prepare the application:
 * Download this repo: https://github.com/didaquis/twitter-openweathermap
-* Install dependencies:`npm install`
+* Install dependencies: `npm install`
 * You must configure the authentication data of Twitter API and OpenWeatherMap API:
   * Write your credentials in file `_env`
   * Rename the file `_env` to `.env`
@@ -41,7 +41,7 @@ Example of tweet published by this application: https://twitter.com/didipi_bot/s
 	}
   // ...
   ```
-  * If you wish, you can configure interval of execution. This value are the number of miliseconds of delay before new execution of code.
+  * If you wish, you can configure interval of execution. This value is the number of miliseconds of delay before new execution of code. Recommended value is `1200000` (20 minutes).
 * If you want, you can edit some value of OpenWeatherMap API on the file `src/lib/owm_api/config_api.js`. This step is not necessary.
 
 **Warning:** You must keep in mind the API restrictions. For example, you can't publish one thousand tweets in a row or publish the same data over and over again. Both Twitter and OpenWeatherMap impose a series of limitations in their API.
