@@ -55,7 +55,7 @@ Example of tweet published by this application: https://twitter.com/didipi_bot/s
 * For run test: `npm run test`
 * For run test and coverage report: `npm run test:coverage`
 * For run documentation: `npm run doc-view`
-* For delete `doc` and `logs` folders: `npm run purge`
+* For delete `doc`, `.nyc_output` and `logs` folders: `npm run purge`
 * For run linter: `npm run lint`
 
 
