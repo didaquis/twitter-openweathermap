@@ -27,6 +27,12 @@ logger.info('Starting application...');
 	try {
 		let weatherData = await getWeatherData(appConfig.citiesToRetrieve);
 
+		const minimumLengthExpected = 1;
+		if (!Array.isArray(weatherData) || weatherData.length < minimumLengthExpected ) {
+			const errorMessage = 'Invalid data received from API';
+			throw new Error(errorMessage);
+		}
+
 		weatherData.forEach( (data) => {
 			let dataForTweet = formatTextToTweet(data);
 
