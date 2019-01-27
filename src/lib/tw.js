@@ -27,7 +27,6 @@ const twitterClient = new Twitter({
 function publishToTwitter (textToTweet) {
 	if (!textToTweet || typeof textToTweet !== 'string') {
 		const errorMessage = 'Invalid argument passed to publishToTwitter';
-		logger.error(errorMessage);
 		throw new Error(errorMessage);
 	}
 
@@ -59,12 +58,15 @@ function publishToTwitter (textToTweet) {
 function formatTextToTweet (data) {
 	if (!data || classOf(data) !== 'object') {
 		const errorMessage = 'Invalid argument passed to formatTextToTweet';
-		logger.error(errorMessage);
+		throw new Error(errorMessage);
+	}
+
+	if (!templateTextValidation (data)) {
+		const errorMessage = 'Required data on formatTextToTweet not found';
 		throw new Error(errorMessage);
 	}
 
 	const firstElement = 0;
-
 	const template = `
 	${data.name}
 
@@ -79,4 +81,41 @@ function formatTextToTweet (data) {
 	return template;
 }
 
-module.exports = { twitterClient, formatTextToTweet, publishToTwitter };
+function templateTextValidation (data) {
+	const firstElement = 0;
+
+	if (typeof data === 'undefined') {
+		return false;
+	}
+	if (typeof data.name === 'undefined') {
+		return false;
+	}
+	if (typeof data.weather === 'undefined') {
+		return false;
+	}
+	if (typeof data.weather[firstElement].description === 'undefined') {
+		return false;
+	}
+	if (typeof data.main.temp === 'undefined') {
+		return false;
+	}
+	if (typeof data.main.humidity === 'undefined') {
+		return false;
+	}
+	if (typeof data.wind.speed === 'undefined') {
+		return false;
+	}
+	if (typeof data.clouds.all === 'undefined') {
+		return false;
+	}
+	if (typeof data.sys.sunrise === 'undefined') {
+		return false;
+	}
+	if (typeof data.sys.sunset === 'undefined') {
+		return false;
+	}
+
+	return true;
+}
+
+module.exports = { twitterClient, publishToTwitter, formatTextToTweet, templateTextValidation };
