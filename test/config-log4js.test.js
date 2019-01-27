@@ -26,7 +26,7 @@ describe('logger', () => {
 
 		logger.info(fakeParam);
 
-		assert(stub.called);
+		assert(stub.called, 'logger.info is not called');
 		assert(stub.calledOnce);
 		assert(stub.calledWithExactly(fakeParam));
 		sinon.restore();
@@ -42,7 +42,7 @@ describe('logger', () => {
 
 		logger.error(fakeParam);
 
-		assert(stub.called);
+		assert(stub.called, 'logger.error is not called');
 		assert(stub.calledOnce);
 		assert(stub.calledWithExactly(fakeParam));
 		sinon.restore();

@@ -1,10 +1,14 @@
 require('dotenv').config();
-const { assert, expect } = require('chai');
+const chai = require('chai');
+const expect = chai.expect;
+const assert = chai.assert;
+const sinon = require('sinon');
 
 const OpenWeatherMapAPI = require('../src/lib/owm_api/OpenWeatherMapAPI');
 
 const appConfig = require('../src/appConfiguration');
 const config_api = require('../src/lib/owm_api/config_api');
+const { logger } = require('../src/lib/config-log4js');
 
 describe('Testing Open Weather Map API', () => {
 
@@ -14,29 +18,6 @@ describe('Testing Open Weather Map API', () => {
 	before('Init API', () => {
 		OWM_API = new OpenWeatherMapAPI(config_api.openWeatherMapAPI);
 		OWM_APIKEY = process.env.OPENWEATHERMAP_APIKEY;
-	});
-
-	describe('Open Weather Map configuration', () => {
-		it('should be an object with valid properties', () => {
-			assert.isObject(config_api);
-
-			expect(config_api.hasOwnProperty('openWeatherMapAPI')).to.be.true;
-
-			expect(config_api.openWeatherMapAPI.hasOwnProperty('baseUrl')).to.be.true;
-			expect(config_api.openWeatherMapAPI.hasOwnProperty('lang')).to.be.true;
-			expect(config_api.openWeatherMapAPI.hasOwnProperty('units')).to.be.true;
-		});
-
-		it('should have a valid values', () => {
-			const regex_url = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)/;
-			assert.match(config_api.openWeatherMapAPI.baseUrl, regex_url);
-
-			const regex_lang = /[a-zA-Z]{2,10}/;
-			assert.match(config_api.openWeatherMapAPI.lang, regex_lang);
-
-			const regex_units = /metric/;
-			assert.match(config_api.openWeatherMapAPI.units, regex_units);
-		});
 	});
 
 	describe('API should be load correctly', () => {
@@ -79,12 +60,20 @@ describe('Testing Open Weather Map API', () => {
 		});
 
 		it('should throw error if route is invalid', (done) => {
+			const expectedError = 'Fetch data response: 401';
+			logger.error = sinon.stub(logger, 'error').callsFake((param) => {
+				assert.isString(param);
+				expect(param).to.equal(expectedError);
+			});
+
 			OWM_API.call(`${config_api.openWeatherMapAPI.baseUrl}/fake-path`)
 				.then()
 				.catch((e) => {
 					const fakeCodeStatus = '401';
 					const errorMessage = `Fetch data response: ${fakeCodeStatus}`;
 					expect(e.message).to.equal(errorMessage);
+					assert(logger.error.called, 'logger.error is not called');
+					sinon.restore();
 					done();
 				});
 		});
@@ -112,17 +101,23 @@ describe('Testing Open Weather Map API', () => {
 		});
 
 		it('should return a valid response if idOfCity is a valid id', (done) => {
+			let spy = sinon.spy(OWM_API, 'call');
+
 			const firstProperty = 0;
 			OWM_API.getWeatherByIdOfCity(appConfig.citiesToRetrieve[Object.keys(appConfig.citiesToRetrieve)[firstProperty]].id)
 				.then((res) => {
 					assert.isObject(res);
 					const codeForSuccess = 200;
 					expect(res.cod).to.equal(codeForSuccess);
+					assert(spy.called, 'logger.error is not called');
+					spy.restore();
 					done();
 				});
 		});
 
 		it('should return a valid structured data if idOfCity is a valid id', (done) => {
+			let spy = sinon.spy(OWM_API, 'call');
+
 			const firstProperty = 0;
 			OWM_API.getWeatherByIdOfCity(appConfig.citiesToRetrieve[Object.keys(appConfig.citiesToRetrieve)[firstProperty]].id)
 				.then((res) => {
@@ -176,6 +171,8 @@ describe('Testing Open Weather Map API', () => {
 					expect(res.sys).to.have.a.property('sunset');
 					assert.isNumber(res.sys.sunset);
 
+					assert(spy.called, 'logger.error is not called');
+					spy.restore();
 					done();
 				});
 		});

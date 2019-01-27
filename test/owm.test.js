@@ -1,7 +1,11 @@
-const { assert, expect } = require('chai');
+const chai = require('chai');
+const expect = chai.expect;
+const assert = chai.assert;
+const sinon = require('sinon');
 
 const { getWeatherData } = require('../src/lib/owm');
 const appConfig = require('../src/appConfiguration');
+const { logger } = require('../src/lib/config-log4js');
 
 describe('owm getWeatherData', () => {
 	it('should be a function', () => {
@@ -9,9 +13,17 @@ describe('owm getWeatherData', () => {
 	});
 
 	it('should throw an error if no receive params', (done) => {
+		const expectedError = 'getWeatherData expect a valid object';
+		logger.error = sinon.stub(logger, 'error').callsFake((param) => {
+			assert.isString(param);
+			expect(param).to.equal(expectedError);
+		});
+
 		getWeatherData().then().catch((e) => {
 			const errorMessage = 'getWeatherData expect a valid object';
 			expect(e.message).to.equal(errorMessage);
+			assert(logger.error.called, 'logger.error is not called');
+			sinon.restore();
 			done();
 		});
 	});
@@ -25,6 +37,7 @@ describe('owm getWeatherData', () => {
 				data.forEach((d) => {
 					assert.isObject(d);
 				});
+
 				done();
 			})
 			.catch();
