@@ -1,6 +1,6 @@
 const { assert, expect } = require('chai');
 
-const { classOf, getTimeFromTimestamp, utcOffsetConversion, capitalizeText } = require('../src/utils/utils');
+const { classOf, getTimeFromTimestamp, utcOffsetConversion, capitalizeText, randomValue } = require('../src/utils/utils');
 
 describe('classOf', () => {
 	it('should be a function', () => {
@@ -242,3 +242,33 @@ describe('capitalizeText', () => {
 	});
 });
 
+describe('randomValue', () => {
+	it('should be a function', () => {
+		assert.isFunction(randomValue);
+	});
+
+	it('should return a string', () => {
+		expect(randomValue()).to.be.a('string');
+	});
+
+	it('should return a string of 32 chars', () => {
+		const expectedLength = 32;
+		expect(randomValue()).to.have.lengthOf(expectedLength);
+	});
+
+	it('should return a random value on every call', () => {
+		let collision = false;
+		let result;
+		const results = [];
+		const numberOfTest = 1000;
+		for (let i = 0; i < numberOfTest; i++) {
+			result = randomValue();
+			if (results.includes(result)) {
+				collision = true;
+			}
+			results.push(result);
+		}
+		expect(results).to.have.lengthOf(numberOfTest);
+		expect(collision).to.be.false;
+	});
+});

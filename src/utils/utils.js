@@ -10,6 +10,8 @@
  * @module utils
  */
 
+const md5 = require('md5');
+const uuidv4 = require('uuid/v4');
 const { logger } = require('../lib/config-log4js');
 
 /**
@@ -106,4 +108,12 @@ function capitalizeText (str) {
 	return str.charAt(firstChar).toUpperCase() + str.slice(secondChar);
 }
 
-module.exports = { classOf, getTimeFromTimestamp, utcOffsetConversion, capitalizeText };
+/**
+ * Create a random value of 32 chars of length
+ * @return {string}
+ */
+function randomValue () {
+	return md5(uuidv4());
+}
+
+module.exports = { classOf, getTimeFromTimestamp, utcOffsetConversion, capitalizeText, randomValue };

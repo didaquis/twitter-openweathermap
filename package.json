@@ -1,6 +1,6 @@
 {
   "name": "twitter-openweathermap",
-  "version": "0.9.64",
+  "version": "0.9.65",
   "private": true,
   "description": "Publish on Twitter data from OpenWeatherMap API",
   "main": "src/app.js",
@@ -26,8 +26,10 @@
   "dependencies": {
     "dotenv": "^6.2.0",
     "log4js": "^3.0.6",
+    "md5": "^2.2.1",
     "node-fetch": "^2.3.0",
-    "twitter": "^1.7.1"
+    "twitter": "^1.7.1",
+    "uuid": "^3.3.2"
   },
   "devDependencies": {
     "chai": "^4.2.0",
