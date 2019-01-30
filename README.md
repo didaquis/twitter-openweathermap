@@ -20,7 +20,7 @@ Example of tweet published by this application: https://twitter.com/didipi_bot/s
   * Write your credentials in file `_env`
   * Rename the file `_env` to `.env`
 * You must edit the file `src/appConfiguration.js` for configure the application.
-  * For each city to retrieve data from OpenWeatherMap API you need to create a new property inside `citiesToRetrieve`. The name of the property is just for reference, choose any valid string. This key must contain a new object with property `id` and his value must be a valid ID value of city. You can see list of ID values of cityes on the documentation of OpenWeatherMap API. You must include another property called `utc` with a value equivalent to UTC local time of the city.
+  * For each city to retrieve data from OpenWeatherMap API you need to create a new property inside `citiesToRetrieve`. The name of the property is just for reference, choose any valid string. This key must contain a new object with property `id` and his value must be a valid ID value of city. You can see list of ID values of cities on the documentation of OpenWeatherMap API. You must include another property called `utc` with a value equivalent to UTC local time of the city.
   ```
   /* Example of configuration */
   // ...
