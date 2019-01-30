@@ -16,20 +16,20 @@ const { logger } = require('../lib/config-log4js');
 
 /**
  * Utility to detect which is the type of the parameter
- * @param  {*} 		param 	Any kind of value
+ * @param  {*} 		any 	Any kind of value
  * @return {string}    		Type of the param ( 'array' | 'string' | 'number' ...)
  * @function classOf
  */
-function classOf (param){
-	if (param === null){
+function classOf (any){
+	if (any === null){
 		return 'null';
 	}
-	if (param === undefined){
+	if (any === undefined){
 		return 'undefined';
 	}
 	const beginIndex = 8;
 	const endIndex = -1;
-	return Object.prototype.toString.call(param).slice(beginIndex, endIndex).toLowerCase();
+	return Object.prototype.toString.call(any).slice(beginIndex, endIndex).toLowerCase();
 }
 
 /**
