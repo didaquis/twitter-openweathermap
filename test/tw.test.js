@@ -98,7 +98,7 @@ describe('formatTextToTweet', () => {
 		try {
 			formatTextToTweet();
 		} catch (e) {
-			const errorMessage = 'Invalid argument passed to formatTextToTweet';
+			const errorMessage = 'Invalid arguments passed to formatTextToTweet';
 			expect(e.message).to.equal(errorMessage);
 			done();
 		}
@@ -107,9 +107,21 @@ describe('formatTextToTweet', () => {
 	it('should throw an error if receive invalid params', (done) => {
 		try {
 			const fakeParam = 42;
+			const anotherFakeParam = '1234abc';
+			formatTextToTweet(fakeParam, anotherFakeParam);
+		} catch (e) {
+			const errorMessage = 'Invalid arguments passed to formatTextToTweet';
+			expect(e.message).to.equal(errorMessage);
+			done();
+		}
+	});
+
+	it('should throw an error if only receive first params', (done) => {
+		try {
+			const fakeParam = { coord: { lon: 2.02, lat: 41.57 }, weather: [ { id: 800, main: 'Clear', description: 'cielo claro', icon: '01n' } ], base: 'stations', main: { temp: 7.53, pressure: 999, humidity: 56, temp_min: 7, temp_max: 8 }, visibility: 10000, wind: { speed: 3.6, deg: 320 }, clouds: { all: 0 }, dt: 1548280800, sys: { type: 1, id: 6414, message: 0.0036, country: 'ES', sunrise: 1548227470, sunset: 1548262625 }, id: 3108286, name: 'Terrassa', cod: 200 };
 			formatTextToTweet(fakeParam);
 		} catch (e) {
-			const errorMessage = 'Invalid argument passed to formatTextToTweet';
+			const errorMessage = 'Invalid arguments passed to formatTextToTweet';
 			expect(e.message).to.equal(errorMessage);
 			done();
 		}
@@ -118,7 +130,8 @@ describe('formatTextToTweet', () => {
 	it('should throw an error if not receive required data', (done) => {
 		try {
 			const fakeParamWithMissingData = { coord: { lon: 2.02, lat: 41.57 }, weather: [ { id: 800, main: 'Clear', description: 'cielo claro', icon: '01n' } ], base: 'stations', visibility: 10000, wind: { speed: 3.6, deg: 320 }, clouds: { all: 0 }, dt: 1548280800, id: 3108286, cod: 200 };
-			formatTextToTweet(fakeParamWithMissingData);
+			const anotherFakeParam = '1234abc';
+			formatTextToTweet(fakeParamWithMissingData, anotherFakeParam);
 		} catch (e) {
 			const errorMessage = 'Required data on formatTextToTweet not found';
 			expect(e.message).to.equal(errorMessage);
@@ -128,17 +141,21 @@ describe('formatTextToTweet', () => {
 
 	it('should return text well formatted', () => {
 		const fakeParam = { coord: { lon: 2.02, lat: 41.57 }, weather: [ { id: 800, main: 'Clear', description: 'cielo claro', icon: '01n' } ], base: 'stations', main: { temp: 7.53, pressure: 999, humidity: 56, temp_min: 7, temp_max: 8 }, visibility: 10000, wind: { speed: 3.6, deg: 320 }, clouds: { all: 0 }, dt: 1548280800, sys: { type: 1, id: 6414, message: 0.0036, country: 'ES', sunrise: 1548227470, sunset: 1548262625 }, id: 3108286, name: 'Terrassa', cod: 200 };
+		const anotherFakeParam = '1234abc';
 		const fakeReturn = `
 	Terrassa
 
 	Cielo claro
-	Temperatura: 7.53
+	Temperatura: 7.53 ℃
 	Humedad: 56 %
 	Viento: 3.6 m/s
 	Nubes: 0 %
 	Salida del sol: 08:11
-	Puesta del sol: 17:57`;
-		expect(formatTextToTweet(fakeParam)).to.equal(fakeReturn);
+	Puesta del sol: 17:57
+	-------------------------
+	ID: 1234abc`;
+
+		expect(formatTextToTweet(fakeParam, anotherFakeParam)).to.equal(fakeReturn);
 	});
 });
 

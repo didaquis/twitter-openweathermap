@@ -16,6 +16,7 @@ const log4js = require('log4js');
 const { logger } = require('./lib/config-log4js');
 const { getWeatherData } = require('./lib/owm');
 const { formatTextToTweet, publishToTwitter } = require('./lib/tw');
+const { randomValue } = require('./utils/utils');
 
 
 logger.info('Starting application...');
@@ -36,7 +37,7 @@ logger.info('Starting application...');
 		}
 
 		weatherData.forEach( (data) => {
-			let dataForTweet = formatTextToTweet(data);
+			let dataForTweet = formatTextToTweet(data, randomValue());
 
 			publishToTwitter(dataForTweet);
 		});

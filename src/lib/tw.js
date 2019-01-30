@@ -65,14 +65,15 @@ function publishToTwitter (textToTweet) {
 
 /**
  * Create text of tweet using data received from OpenWeatherMAP API
- * @param  {object} data Raw data from OpenWeatherMAP API
- * @return {string}      A templeted string with text of new tweet
- * @throws 				 Will throw an error if the argument is not valid
+ * @param  {object} data 		Raw data from OpenWeatherMAP API
+ * @param  {string} randomID 	A random value to avoid error with code 187 of Twitter API (Status is a duplicate)
+ * @return {string}      		A templeted string with text of new tweet
+ * @throws 				 		Will throw an error if the argument is not valid
  * @function formatTextToTweet
  */
-function formatTextToTweet (data) {
-	if (!data || classOf(data) !== 'object') {
-		const errorMessage = 'Invalid argument passed to formatTextToTweet';
+function formatTextToTweet (data, randomID) {
+	if (!data || classOf(data) !== 'object' || !randomID || classOf(randomID) !== 'string') {
+		const errorMessage = 'Invalid arguments passed to formatTextToTweet';
 		throw new Error(errorMessage);
 	}
 
@@ -86,12 +87,14 @@ function formatTextToTweet (data) {
 	${data.name}
 
 	${capitalizeText(data.weather[firstElement].description)}
-	Temperatura: ${data.main.temp}
+	Temperatura: ${data.main.temp} ℃
 	Humedad: ${data.main.humidity} %
 	Viento: ${data.wind.speed} m/s
 	Nubes: ${data.clouds.all} %
 	Salida del sol: ${getTimeFromTimestamp(data.sys.sunrise, appConfig.citiesToRetrieve[data.name.toLowerCase()].utc)}
-	Puesta del sol: ${getTimeFromTimestamp(data.sys.sunset, appConfig.citiesToRetrieve[data.name.toLowerCase()].utc)}`;
+	Puesta del sol: ${getTimeFromTimestamp(data.sys.sunset, appConfig.citiesToRetrieve[data.name.toLowerCase()].utc)}
+	-------------------------
+	ID: ${randomID}`;
 
 	return template;
 }
