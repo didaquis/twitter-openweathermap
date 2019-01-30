@@ -1,6 +1,10 @@
-const { assert, expect } = require('chai');
+const chai = require('chai');
+const expect = chai.expect;
+const assert = chai.assert;
+const sinon = require('sinon');
 
 const { classOf, getTimeFromTimestamp, utcOffsetConversion, capitalizeText, randomValue } = require('../src/utils/utils');
+const { logger } = require('../src/lib/config-log4js');
 
 describe('classOf', () => {
 	it('should be a function', () => {
@@ -29,12 +33,18 @@ describe('getTimeFromTimestamp', () => {
 	});
 
 	it('should return a string', () => {
+		logger.error = sinon.stub(logger, 'error');
+
 		const firstFakeParam = 1548141113;
 		const secondFakeParam = '+1';
 		expect(getTimeFromTimestamp(firstFakeParam, secondFakeParam)).to.be.a('string');
+		assert(logger.error.notCalled, 'logger.error is called');
+		sinon.restore();
 	});
 
 	it('should return a valid values', () => {
+		logger.error = sinon.stub(logger, 'error');
+
 		const fakeParam = 1548141113;
 		const secondFakeParam = '+1';
 		const expectResult = '08:11';
@@ -54,48 +64,75 @@ describe('getTimeFromTimestamp', () => {
 		const lastSecondFakeParam = '-1';
 		const lastExpectResult = '12:30';
 		expect(getTimeFromTimestamp(lastFakeParam, lastSecondFakeParam)).to.equal(lastExpectResult);
+
+		assert(logger.error.notCalled, 'logger.error is called');
+		sinon.restore();
 	});
 
 	it('should throw an error if not receive first parameter', (done) => {
+		const errorMessage = 'Invalid argument passed to getTimeFromTimestamp';
+		logger.error = sinon.stub(logger, 'error').callsFake((param) => {
+			assert.isString(param);
+			expect(param).to.equal(errorMessage);
+		});
 		try {
 			getTimeFromTimestamp();
 		} catch (e) {
-			const errorMessage = 'Invalid argument passed to getTimeFromTimestamp';
 			expect(e.message).to.equal(errorMessage);
+			assert(logger.error.called, 'logger.error is not called');
+			sinon.restore();
 			done();
 		}
 	});
 
 	it('should throw an error if not receive a first valid parameter', (done) => {
+		const errorMessage = 'Invalid argument passed to getTimeFromTimestamp';
+		logger.error = sinon.stub(logger, 'error').callsFake((param) => {
+			assert.isString(param);
+			expect(param).to.equal(errorMessage);
+		});
 		try {
 			const fakeNonValidParam = 'The cake is a lie';
 			getTimeFromTimestamp(fakeNonValidParam);
 		} catch (e) {
-			const errorMessage = 'Invalid argument passed to getTimeFromTimestamp';
 			expect(e.message).to.equal(errorMessage);
+			assert(logger.error.called, 'logger.error is not called');
+			sinon.restore();
 			done();
 		}
 	});
 
 	it('should throw an error if not receive second parameter', (done) => {
+		const errorMessage = 'Invalid argument passed to getTimeFromTimestamp';
+		logger.error = sinon.stub(logger, 'error').callsFake((param) => {
+			assert.isString(param);
+			expect(param).to.equal(errorMessage);
+		});
 		try {
 			const fakeParam = 1548141113;
 			getTimeFromTimestamp(fakeParam);
 		} catch (e) {
-			const errorMessage = 'Invalid argument passed to getTimeFromTimestamp';
 			expect(e.message).to.equal(errorMessage);
+			assert(logger.error.called, 'logger.error is not called');
+			sinon.restore();
 			done();
 		}
 	});
 
 	it('should throw an error if not receive a second valid parameter', (done) => {
+		const errorMessage = 'Invalid argument passed to getTimeFromTimestamp';
+		logger.error = sinon.stub(logger, 'error').callsFake((param) => {
+			assert.isString(param);
+			expect(param).to.equal(errorMessage);
+		});
 		try {
 			const fakeParam = 1548141113;
 			const fakeNonValidParam = 42;
 			getTimeFromTimestamp(fakeParam, fakeNonValidParam);
 		} catch (e) {
-			const errorMessage = 'Invalid argument passed to getTimeFromTimestamp';
 			expect(e.message).to.equal(errorMessage);
+			assert(logger.error.called, 'logger.error is not called');
+			sinon.restore();
 			done();
 		}
 	});
@@ -107,13 +144,19 @@ describe('utcOffsetConversion', () => {
 	});
 
 	it('should return an integer', () => {
+		logger.error = sinon.stub(logger, 'error');
+
 		const firstFakeParam = 1548141113;
 		const secondFakeParam = '+1';
 		expect(utcOffsetConversion(firstFakeParam, secondFakeParam)).to.be.a('number');
 		expect(Number.isInteger(utcOffsetConversion(firstFakeParam, secondFakeParam))).to.be.true;
+		assert(logger.error.notCalled, 'logger.error is called');
+		sinon.restore();
 	});
 
 	it('should return a valid values', () => {
+		logger.error = sinon.stub(logger, 'error');
+
 		const fakeParam = 1548141113;
 		const secondFakeParam = '+1';
 		const expectResult = 1548144713;
@@ -133,55 +176,74 @@ describe('utcOffsetConversion', () => {
 		const lastSecondFakeParam = '-1';
 		const lastExpectResult = 1948537852;
 		expect(utcOffsetConversion(lastFakeParam, lastSecondFakeParam)).to.equal(lastExpectResult);
+		assert(logger.error.notCalled, 'logger.error is called');
+		sinon.restore();
 	});
 
-
-
-
-
-
-
-
 	it('should throw an error if not receive first parameter', (done) => {
+		const errorMessage = 'Invalid argument passed to utcOffsetConversion';
+		logger.error = sinon.stub(logger, 'error').callsFake((param) => {
+			assert.isString(param);
+			expect(param).to.equal(errorMessage);
+		});
 		try {
 			utcOffsetConversion();
 		} catch (e) {
-			const errorMessage = 'Invalid argument passed to utcOffsetConversion';
 			expect(e.message).to.equal(errorMessage);
+			assert(logger.error.called, 'logger.error is not called');
+			sinon.restore();
 			done();
 		}
 	});
 
 	it('should throw an error if not receive a first valid parameter', (done) => {
+		const errorMessage = 'Invalid argument passed to utcOffsetConversion';
+		logger.error = sinon.stub(logger, 'error').callsFake((param) => {
+			assert.isString(param);
+			expect(param).to.equal(errorMessage);
+		});
 		try {
 			const fakeNonValidParam = 'The cake is a lie';
 			utcOffsetConversion(fakeNonValidParam);
 		} catch (e) {
-			const errorMessage = 'Invalid argument passed to utcOffsetConversion';
 			expect(e.message).to.equal(errorMessage);
+			assert(logger.error.called, 'logger.error is not called');
+			sinon.restore();
 			done();
 		}
 	});
 
 	it('should throw an error if not receive second parameter', (done) => {
+		const errorMessage = 'Invalid argument passed to utcOffsetConversion';
+		logger.error = sinon.stub(logger, 'error').callsFake((param) => {
+			assert.isString(param);
+			expect(param).to.equal(errorMessage);
+		});
 		try {
 			const fakeParam = 1548141113;
 			utcOffsetConversion(fakeParam);
 		} catch (e) {
-			const errorMessage = 'Invalid argument passed to utcOffsetConversion';
 			expect(e.message).to.equal(errorMessage);
+			assert(logger.error.called, 'logger.error is not called');
+			sinon.restore();
 			done();
 		}
 	});
 
 	it('should throw an error if not receive a second valid parameter', (done) => {
+		const errorMessage = 'Invalid argument passed to utcOffsetConversion';
+		logger.error = sinon.stub(logger, 'error').callsFake((param) => {
+			assert.isString(param);
+			expect(param).to.equal(errorMessage);
+		});
 		try {
 			const fakeParam = 1548141113;
 			const fakeNonValidParam = 42;
 			utcOffsetConversion(fakeParam, fakeNonValidParam);
 		} catch (e) {
-			const errorMessage = 'Invalid argument passed to utcOffsetConversion';
 			expect(e.message).to.equal(errorMessage);
+			assert(logger.error.called, 'logger.error is not called');
+			sinon.restore();
 			done();
 		}
 	});
@@ -193,10 +255,17 @@ describe('capitalizeText', () => {
 	});
 
 	it('should return a string', () => {
+		logger.error = sinon.stub(logger, 'error');
+
 		expect(capitalizeText('foo')).to.be.a('string');
+
+		assert(logger.error.notCalled, 'logger.error is called');
+		sinon.restore();
 	});
 
 	it('should capitalize a string', () => {
+		logger.error = sinon.stub(logger, 'error');
+
 		const fakeParam = 'what is the meaning of life?';
 		const expectedResult = 'What is the meaning of life?';
 		expect(capitalizeText(fakeParam)).to.equal(expectedResult);
@@ -208,35 +277,56 @@ describe('capitalizeText', () => {
 		const oneMoreFakeParam = 'pi';
 		const oneMoreExpectedResult = 'Pi';
 		expect(capitalizeText(oneMoreFakeParam)).to.equal(oneMoreExpectedResult);
+
+		assert(logger.error.notCalled, 'logger.error is called');
+		sinon.restore();
 	});
 
 	it('should throw an error if not receive parameter', (done) => {
+		const errorMessage = 'Invalid argument passed to capitalizeText';
+		logger.error = sinon.stub(logger, 'error').callsFake((param) => {
+			assert.isString(param);
+			expect(param).to.equal(errorMessage);
+		});
 		try {
 			capitalizeText();
 		} catch (e) {
-			const errorMessage = 'Invalid argument passed to capitalizeText';
 			expect(e.message).to.equal(errorMessage);
+			assert(logger.error.called, 'logger.error is not called');
+			sinon.restore();
 			done();
 		}
 	});
 
 	it('should throw an error if receive string of 0 length as parameter', (done) => {
+		const errorMessage = 'Invalid argument passed to capitalizeText';
+		logger.error = sinon.stub(logger, 'error').callsFake((param) => {
+			assert.isString(param);
+			expect(param).to.equal(errorMessage);
+		});
 		try {
 			capitalizeText('');
 		} catch (e) {
-			const errorMessage = 'Invalid argument passed to capitalizeText';
 			expect(e.message).to.equal(errorMessage);
+			assert(logger.error.called, 'logger.error is not called');
+			sinon.restore();
 			done();
 		}
 	});
 
 	it('should throw an error if not receive a valid parameter', (done) => {
+		const errorMessage = 'Invalid argument passed to capitalizeText';
+		logger.error = sinon.stub(logger, 'error').callsFake((param) => {
+			assert.isString(param);
+			expect(param).to.equal(errorMessage);
+		});
 		try {
 			const fakeParam = 42;
 			capitalizeText(fakeParam);
 		} catch (e) {
-			const errorMessage = 'Invalid argument passed to capitalizeText';
 			expect(e.message).to.equal(errorMessage);
+			assert(logger.error.called, 'logger.error is not called');
+			sinon.restore();
 			done();
 		}
 	});
