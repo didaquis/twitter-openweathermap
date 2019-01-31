@@ -4,6 +4,7 @@ This is a Twitter bot made for Node.js. This bot publishes current weather data 
 
 Example of tweet published by this application: https://twitter.com/didipi_bot/status/1090734186057682945
 
+![Example of tweet published](./docs_assets/example_of_tweet.png)
 
 ## Requirements
 * Node.js 9.4 or higher
