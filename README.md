@@ -60,6 +60,10 @@ Example of tweet published by this application: https://twitter.com/didipi_bot/s
 * For run linter: `npm run lint`
 
 
+## For deployment:
+It's a Node.js app so you can deploy this software almost anywhere: Raspberry Pi, Heroku...
+
+
 ## Useful links
 
 ### OpenWeatherMap
