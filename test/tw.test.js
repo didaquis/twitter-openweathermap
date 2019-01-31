@@ -2,8 +2,10 @@ require('dotenv').config();
 const chai = require('chai');
 const expect = chai.expect;
 const assert = chai.assert;
+const sinon = require('sinon');
 
 const { twitterClient, publishToTwitter, formatTextToTweet, templateTextValidation } = require('../src/lib/tw');
+const { logger } = require('../src/lib/config-log4js');
 
 describe('Twitter auth', () => {
 
@@ -86,6 +88,104 @@ describe('publishToTwitter', () => {
 			expect(e.message).to.equal(errorMessage);
 			done();
 		}
+	});
+
+	it('should call to twitterClient.post and this return error', (done) => {
+		logger.info = sinon.spy(logger, 'info');
+
+		logger.error = sinon.stub(logger, 'error').callsFake((param) => {
+			let error = { fakeError: 'lol' };
+			const errorMessage = `Trying to publish a tweet: ${JSON.stringify(error)}`;
+			assert.isString(param);
+			expect(param).to.equal(errorMessage);
+		});
+
+		twitterClient.post = sinon.stub(twitterClient, 'post').callsFake((endpoint, data, callback) => {
+			callback();
+		});
+
+		const fakeEndpoint = 'statuses/update';
+		const fakeTextToTweet = 'fake tweet';
+		const callback = function () {
+			let error = { fakeError: 'lol' };
+			const errorMessage = `Trying to publish a tweet: ${JSON.stringify(error)}`;
+			logger.error(errorMessage);
+			return new Error(errorMessage);
+		};
+
+		twitterClient.post(fakeEndpoint, { status: fakeTextToTweet }, callback);
+
+		assert(twitterClient.post.called, 'twitterClient.post is not called');
+		assert(logger.error.called, 'logger.error is not called');
+		assert(logger.info.notCalled, 'logger.info is called');
+		sinon.restore();
+		done();
+	});
+
+	it('should call to twitterClient.post and this return response.statusCode with value different than 200', (done) => {
+		logger.info = sinon.spy(logger, 'info');
+
+		logger.error = sinon.stub(logger, 'error').callsFake((param) => {
+			const fakeStatusCode = 666;
+			let response = { statusCode: fakeStatusCode };
+			const errorMessage = `Status code of response after the attempt to publish a tweet: ${response.statusCode}`;
+			assert.isString(param);
+			expect(param).to.equal(errorMessage);
+		});
+
+		twitterClient.post = sinon.stub(twitterClient, 'post').callsFake((endpoint, data, callback) => {
+			callback();
+		});
+
+		const fakeEndpoint = 'statuses/update';
+		const fakeTextToTweet = 'fake tweet';
+		const callback = function () {
+			const fakeStatusCode = 666;
+			let response = { statusCode: fakeStatusCode };
+			const errorMessage = `Status code of response after the attempt to publish a tweet: ${response.statusCode}`;
+			logger.error(errorMessage);
+			return new Error(errorMessage);
+		};
+
+		twitterClient.post(fakeEndpoint, { status: fakeTextToTweet }, callback);
+
+		assert(twitterClient.post.called, 'twitterClient.post is not called');
+		assert(logger.error.called, 'logger.error is not called');
+		assert(logger.info.notCalled, 'logger.info is called');
+		sinon.restore();
+		done();
+	});
+
+	it('should publish a tweet', (done) => {
+		logger.info = sinon.stub(logger, 'info').callsFake((param) => {
+			const expectedString = 'Tweet published: https://twitter.com/foo/status/7890def';
+			assert.isString(param);
+			expect(param).to.equal(expectedString);
+		});
+
+		twitterClient.post = sinon.stub(twitterClient, 'post').callsFake((endpoint, data, callback) => {
+			callback();
+		});
+
+		const fakeEndpoint = 'statuses/update';
+		const fakeTextToTweet = 'fake tweet';
+		const callback = function () {
+			let tweet = {
+				user: {
+					name: 'foo'
+				},
+				id_str: '7890def'
+			};
+			const urlOfPublishedTweet = `https://twitter.com/${tweet.user.name}/status/${tweet.id_str}`;
+			logger.info(`Tweet published: ${urlOfPublishedTweet}`);
+		};
+
+		twitterClient.post(fakeEndpoint, { status: fakeTextToTweet }, callback);
+
+		assert(twitterClient.post.called, 'twitterClient.post is not called');
+		assert(logger.info.called, 'logger.info is not called');
+		sinon.restore();
+		done();
 	});
 });
 

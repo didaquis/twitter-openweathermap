@@ -44,7 +44,7 @@ function publishToTwitter (textToTweet) {
 		throw new Error(errorMessage);
 	}
 
-	twitterClient.post('statuses/update', {status: textToTweet }, function (error, tweet, response) {
+	twitterClient.post('statuses/update', { status: textToTweet }, function (error, tweet, response) {
 		if (error) {
 			const errorMessage = `Trying to publish a tweet: ${JSON.stringify(error)}`;
 			logger.error(errorMessage);
