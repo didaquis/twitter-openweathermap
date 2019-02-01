@@ -31,37 +31,48 @@ const twitterClient = new Twitter({
 
 /**
  * Publish a new tweet to Twitter
- * @param {string} textToTweet 	Text of tweet
- * @throws 						Will throw an error if the argument is not valid
- * @throws 						Will throw an error if Twitter send an error
- * @throws 						Will throw an error if Twitter send a status code different than 200
+ * @param {string}   textToTweet 	Text of tweet
+ * @param {function} callback 		Callback
+ * @throws 							Will throw an error if the argument is not valid
  * @function publishToTwitter
  * @async
  */
-function publishToTwitter (textToTweet) {
-	if (!textToTweet || typeof textToTweet !== 'string') {
+function publishToTwitter (textToTweet, callback) {
+	if (!textToTweet || typeof textToTweet !== 'string' || typeof callback !== 'function') {
 		const errorMessage = 'Invalid argument passed to publishToTwitter';
 		throw new Error(errorMessage);
 	}
 
-	twitterClient.post('statuses/update', { status: textToTweet }, function (error, tweet, response) {
-		if (error) {
-			const errorMessage = `Trying to publish a tweet: ${JSON.stringify(error)}`;
-			logger.error(errorMessage);
-			return new Error(errorMessage);
-		}
-		const statusCode_OK = 200;
-		if (response.statusCode !== statusCode_OK) {
-			const errorMessage = `Status code of response after the attempt to publish a tweet: ${response.statusCode}`;
-			logger.error(errorMessage);
-			return new Error(errorMessage);
-		}
-
-		const urlOfPublishedTweet = `https://twitter.com/${tweet.user.name}/status/${tweet.id_str}`;
-
-		logger.info(`Tweet published: ${urlOfPublishedTweet}`);
-	});
+	twitterClient.post('statuses/update', { status: textToTweet }, callback);
 }
+
+/**
+ * Manage the response of Tweeter
+ * @param  {object|null} error  	Error object from Twitter API
+ * @param  {object} 	 tweet    	Tweet object from Twitter API
+ * @param  {object} 	 response 	Response object from Twitter API
+ * @throws 							Will throw an error if Twitter send an error
+ * @throws 							Will throw an error if Twitter send a status code different than 200
+ * @function manageTwitterResponse
+ */
+function manageTwitterResponse (error, tweet, response) {
+	if (error) {
+		const errorMessage = `Trying to publish a tweet: ${JSON.stringify(error)}`;
+		logger.error(errorMessage);
+		return new Error(errorMessage);
+	}
+	const statusCode_OK = 200;
+	if (response.statusCode !== statusCode_OK) {
+		const errorMessage = `Status code of response after the attempt to publish a tweet: ${response.statusCode}`;
+		logger.error(errorMessage);
+		return new Error(errorMessage);
+	}
+
+	const urlOfPublishedTweet = `https://twitter.com/${tweet.user.name}/status/${tweet.id_str}`;
+
+	logger.info(`Tweet published: ${urlOfPublishedTweet}`);
+}
+
 
 /**
  * Create text of tweet using data received from OpenWeatherMAP API
@@ -143,4 +154,4 @@ function templateTextValidation (data) {
 	return true;
 }
 
-module.exports = { twitterClient, publishToTwitter, formatTextToTweet, templateTextValidation };
+module.exports = { twitterClient, publishToTwitter, manageTwitterResponse, formatTextToTweet, templateTextValidation };
