@@ -61,6 +61,7 @@ function manageTwitterResponse (error, tweet, response) {
 		logger.error(errorMessage);
 		return new Error(errorMessage);
 	}
+
 	const statusCode_OK = 200;
 	if (response.statusCode !== statusCode_OK) {
 		const errorMessage = `Status code of response after the attempt to publish a tweet: ${response.statusCode}`;
