@@ -10,6 +10,7 @@ describe('Enviroment vars', () => {
 	let openweathermap_apikey;
 
 	before('Reading the enviroment vars', () => {
+		console.log('\n NOTE: You need to configure ".env" file for pass "Enviroment vars" test suite \n'); // eslint-disable-line no-console
 		twitter_consumer_key = process.env.TWITTER_CONSUMER_KEY;
 		twitter_consumer_secret = process.env.TWITTER_CONSUMER_SECRET;
 		twitter_access_token_key = process.env.TWITTER_ACCESS_TOKEN_KEY;
