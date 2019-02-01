@@ -21,6 +21,11 @@ describe('Testing Open Weather Map API', () => {
 	});
 
 	describe('API should be load correctly', () => {
+
+		before(() => {
+			console.log('\n NOTE: You need to configure ".env" file for pass "API should be load correctly" test suite \n'); // eslint-disable-line no-console
+		});
+
 		it('should load object', () => {
 			expect(OWM_API).to.be.an('object');
 		});
@@ -100,7 +105,7 @@ describe('Testing Open Weather Map API', () => {
 			}
 		});
 
-		it('should return a valid response if idOfCity is a valid id', (done) => {
+		it('should return a valid response if idOfCity is a valid id (real request)', (done) => {
 			let spy = sinon.spy(OWM_API, 'call');
 
 			const firstProperty = 0;
@@ -109,13 +114,13 @@ describe('Testing Open Weather Map API', () => {
 					assert.isObject(res);
 					const codeForSuccess = 200;
 					expect(res.cod).to.equal(codeForSuccess);
-					assert(spy.called, 'logger.error should be called');
+					assert(spy.called, 'OWM_API.call should be called');
 					spy.restore();
 					done();
 				});
 		});
 
-		it('should return a valid structured data if idOfCity is a valid id', (done) => {
+		it('should return a valid structured data if idOfCity is a valid id (real request)', (done) => {
 			let spy = sinon.spy(OWM_API, 'call');
 
 			const firstProperty = 0;
