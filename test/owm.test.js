@@ -22,7 +22,7 @@ describe('owm getWeatherData', () => {
 		getWeatherData().then().catch((e) => {
 			const errorMessage = 'getWeatherData expect a valid object';
 			expect(e.message).to.equal(errorMessage);
-			assert(logger.error.called, 'logger.error is not called');
+			assert(logger.error.called, 'logger.error should be called');
 			sinon.restore();
 			done();
 		});

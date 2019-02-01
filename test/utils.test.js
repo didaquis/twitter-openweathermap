@@ -38,7 +38,7 @@ describe('getTimeFromTimestamp', () => {
 		const firstFakeParam = 1548141113;
 		const secondFakeParam = '+1';
 		expect(getTimeFromTimestamp(firstFakeParam, secondFakeParam)).to.be.a('string');
-		assert(logger.error.notCalled, 'logger.error is called');
+		assert(logger.error.notCalled, 'logger.error should not be called');
 		sinon.restore();
 	});
 
@@ -65,7 +65,7 @@ describe('getTimeFromTimestamp', () => {
 		const lastExpectResult = '12:30';
 		expect(getTimeFromTimestamp(lastFakeParam, lastSecondFakeParam)).to.equal(lastExpectResult);
 
-		assert(logger.error.notCalled, 'logger.error is called');
+		assert(logger.error.notCalled, 'logger.error should not be called');
 		sinon.restore();
 	});
 
@@ -79,7 +79,7 @@ describe('getTimeFromTimestamp', () => {
 			getTimeFromTimestamp();
 		} catch (e) {
 			expect(e.message).to.equal(errorMessage);
-			assert(logger.error.called, 'logger.error is not called');
+			assert(logger.error.called, 'logger.error should be called');
 			sinon.restore();
 			done();
 		}
@@ -96,7 +96,7 @@ describe('getTimeFromTimestamp', () => {
 			getTimeFromTimestamp(fakeNonValidParam);
 		} catch (e) {
 			expect(e.message).to.equal(errorMessage);
-			assert(logger.error.called, 'logger.error is not called');
+			assert(logger.error.called, 'logger.error should be called');
 			sinon.restore();
 			done();
 		}
@@ -113,7 +113,7 @@ describe('getTimeFromTimestamp', () => {
 			getTimeFromTimestamp(fakeParam);
 		} catch (e) {
 			expect(e.message).to.equal(errorMessage);
-			assert(logger.error.called, 'logger.error is not called');
+			assert(logger.error.called, 'logger.error should be called');
 			sinon.restore();
 			done();
 		}
@@ -131,7 +131,7 @@ describe('getTimeFromTimestamp', () => {
 			getTimeFromTimestamp(fakeParam, fakeNonValidParam);
 		} catch (e) {
 			expect(e.message).to.equal(errorMessage);
-			assert(logger.error.called, 'logger.error is not called');
+			assert(logger.error.called, 'logger.error should be called');
 			sinon.restore();
 			done();
 		}
@@ -150,7 +150,7 @@ describe('utcOffsetConversion', () => {
 		const secondFakeParam = '+1';
 		expect(utcOffsetConversion(firstFakeParam, secondFakeParam)).to.be.a('number');
 		expect(Number.isInteger(utcOffsetConversion(firstFakeParam, secondFakeParam))).to.be.true;
-		assert(logger.error.notCalled, 'logger.error is called');
+		assert(logger.error.notCalled, 'logger.error should not be called');
 		sinon.restore();
 	});
 
@@ -176,7 +176,7 @@ describe('utcOffsetConversion', () => {
 		const lastSecondFakeParam = '-1';
 		const lastExpectResult = 1948537852;
 		expect(utcOffsetConversion(lastFakeParam, lastSecondFakeParam)).to.equal(lastExpectResult);
-		assert(logger.error.notCalled, 'logger.error is called');
+		assert(logger.error.notCalled, 'logger.error should not be called');
 		sinon.restore();
 	});
 
@@ -190,7 +190,7 @@ describe('utcOffsetConversion', () => {
 			utcOffsetConversion();
 		} catch (e) {
 			expect(e.message).to.equal(errorMessage);
-			assert(logger.error.called, 'logger.error is not called');
+			assert(logger.error.called, 'logger.error should be called');
 			sinon.restore();
 			done();
 		}
@@ -207,7 +207,7 @@ describe('utcOffsetConversion', () => {
 			utcOffsetConversion(fakeNonValidParam);
 		} catch (e) {
 			expect(e.message).to.equal(errorMessage);
-			assert(logger.error.called, 'logger.error is not called');
+			assert(logger.error.called, 'logger.error should be called');
 			sinon.restore();
 			done();
 		}
@@ -224,7 +224,7 @@ describe('utcOffsetConversion', () => {
 			utcOffsetConversion(fakeParam);
 		} catch (e) {
 			expect(e.message).to.equal(errorMessage);
-			assert(logger.error.called, 'logger.error is not called');
+			assert(logger.error.called, 'logger.error should be called');
 			sinon.restore();
 			done();
 		}
@@ -242,7 +242,7 @@ describe('utcOffsetConversion', () => {
 			utcOffsetConversion(fakeParam, fakeNonValidParam);
 		} catch (e) {
 			expect(e.message).to.equal(errorMessage);
-			assert(logger.error.called, 'logger.error is not called');
+			assert(logger.error.called, 'logger.error should be called');
 			sinon.restore();
 			done();
 		}
@@ -259,7 +259,7 @@ describe('capitalizeText', () => {
 
 		expect(capitalizeText('foo')).to.be.a('string');
 
-		assert(logger.error.notCalled, 'logger.error is called');
+		assert(logger.error.notCalled, 'logger.error should not be called');
 		sinon.restore();
 	});
 
@@ -278,7 +278,7 @@ describe('capitalizeText', () => {
 		const oneMoreExpectedResult = 'Pi';
 		expect(capitalizeText(oneMoreFakeParam)).to.equal(oneMoreExpectedResult);
 
-		assert(logger.error.notCalled, 'logger.error is called');
+		assert(logger.error.notCalled, 'logger.error should not be called');
 		sinon.restore();
 	});
 
@@ -292,7 +292,7 @@ describe('capitalizeText', () => {
 			capitalizeText();
 		} catch (e) {
 			expect(e.message).to.equal(errorMessage);
-			assert(logger.error.called, 'logger.error is not called');
+			assert(logger.error.called, 'logger.error should be called');
 			sinon.restore();
 			done();
 		}
@@ -308,7 +308,7 @@ describe('capitalizeText', () => {
 			capitalizeText('');
 		} catch (e) {
 			expect(e.message).to.equal(errorMessage);
-			assert(logger.error.called, 'logger.error is not called');
+			assert(logger.error.called, 'logger.error should be called');
 			sinon.restore();
 			done();
 		}
@@ -325,7 +325,7 @@ describe('capitalizeText', () => {
 			capitalizeText(fakeParam);
 		} catch (e) {
 			expect(e.message).to.equal(errorMessage);
-			assert(logger.error.called, 'logger.error is not called');
+			assert(logger.error.called, 'logger.error should be called');
 			sinon.restore();
 			done();
 		}

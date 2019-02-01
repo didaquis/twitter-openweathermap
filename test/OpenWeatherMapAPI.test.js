@@ -72,7 +72,7 @@ describe('Testing Open Weather Map API', () => {
 					const fakeCodeStatus = '401';
 					const errorMessage = `Fetch data response: ${fakeCodeStatus}`;
 					expect(e.message).to.equal(errorMessage);
-					assert(logger.error.called, 'logger.error is not called');
+					assert(logger.error.called, 'logger.error should be called');
 					sinon.restore();
 					done();
 				});
@@ -109,7 +109,7 @@ describe('Testing Open Weather Map API', () => {
 					assert.isObject(res);
 					const codeForSuccess = 200;
 					expect(res.cod).to.equal(codeForSuccess);
-					assert(spy.called, 'logger.error is not called');
+					assert(spy.called, 'logger.error should be called');
 					spy.restore();
 					done();
 				});
@@ -171,7 +171,7 @@ describe('Testing Open Weather Map API', () => {
 					expect(res.sys).to.have.a.property('sunset');
 					assert.isNumber(res.sys.sunset);
 
-					assert(spy.called, 'logger.error is not called');
+					assert(spy.called, 'logger.error should be called');
 					spy.restore();
 					done();
 				});

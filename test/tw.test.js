@@ -141,9 +141,9 @@ describe('publishToTwitter', () => {
 		const fakeTextToTweet = 'fake tweet';
 		twitterClient.post(fakeEndpoint, { status: fakeTextToTweet }, manageTwitterResponse);
 
-		assert(twitterClient.post.called, 'twitterClient.post is not called');
-		assert(logger.error.called, 'logger.error is not called');
-		assert(logger.info.notCalled, 'logger.info is called');
+		assert(twitterClient.post.called, 'twitterClient.post should be called');
+		assert(logger.error.called, 'logger.error should be called');
+		assert(logger.info.notCalled, 'logger.info should not be called');
 		sinon.restore();
 		done();
 	});
@@ -175,9 +175,9 @@ describe('publishToTwitter', () => {
 		const fakeTextToTweet = 'fake tweet';
 		twitterClient.post(fakeEndpoint, { status: fakeTextToTweet }, manageTwitterResponse);
 
-		assert(twitterClient.post.called, 'twitterClient.post is not called');
-		assert(logger.error.called, 'logger.error is not called');
-		assert(logger.info.notCalled, 'logger.info is called');
+		assert(twitterClient.post.called, 'twitterClient.post should be called');
+		assert(logger.error.called, 'logger.error should be called');
+		assert(logger.info.notCalled, 'logger.info should not be called');
 		sinon.restore();
 		done();
 	});
@@ -211,8 +211,8 @@ describe('publishToTwitter', () => {
 		const fakeTextToTweet = 'fake tweet';
 		twitterClient.post(fakeEndpoint, { status: fakeTextToTweet }, manageTwitterResponse);
 
-		assert(twitterClient.post.called, 'twitterClient.post is not called');
-		assert(logger.info.called, 'logger.info is not called');
+		assert(twitterClient.post.called, 'twitterClient.post should be called');
+		assert(logger.info.called, 'logger.info should be called');
 		sinon.restore();
 		done();
 	});
@@ -235,8 +235,8 @@ describe('manageTwitterResponse', () => {
 
 		expect(manageTwitterResponse(error, tweet, response) instanceof Error).to.be.true;
 
-		assert(logger.error.called, 'logger.error is not called');
-		assert(logger.info.notCalled, 'logger.info is called');
+		assert(logger.error.called, 'logger.error should be called');
+		assert(logger.info.notCalled, 'logger.info should not be called');
 		sinon.restore();
 	});
 
@@ -261,8 +261,8 @@ describe('manageTwitterResponse', () => {
 
 		expect(manageTwitterResponse(error, tweet, response) instanceof Error).to.be.true;
 
-		assert(logger.error.called, 'logger.error is not called');
-		assert(logger.info.notCalled, 'logger.info is called');
+		assert(logger.error.called, 'logger.error should be called');
+		assert(logger.info.notCalled, 'logger.info should not be called');
 		sinon.restore();
 	});
 
@@ -282,7 +282,7 @@ describe('manageTwitterResponse', () => {
 		};
 		const response = { statusCode: 200 };
 		manageTwitterResponse(error, tweet, response);
-		assert(logger.info.called, 'logger.info is not called');
+		assert(logger.info.called, 'logger.info should be called');
 		sinon.restore();
 	});
 });
