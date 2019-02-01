@@ -218,6 +218,75 @@ describe('publishToTwitter', () => {
 	});
 });
 
+describe('manageTwitterResponse', () => {
+	it('should return error if first param is not null', () => {
+		logger.info = sinon.spy(logger, 'info');
+
+		logger.error = sinon.stub(logger, 'error').callsFake((param) => {
+			const error = 'fake-error';
+			const errorMessage = `Trying to publish a tweet: ${JSON.stringify(error)}`;
+			assert.isString(param);
+			expect(param).to.equal(errorMessage);
+		});
+
+		const error = 'fake-error';
+		const tweet = {};
+		const response = { statusCode: 777 };
+
+		expect(manageTwitterResponse(error, tweet, response) instanceof Error).to.be.true;
+
+		assert(logger.error.called, 'logger.error is not called');
+		assert(logger.info.notCalled, 'logger.info is called');
+		sinon.restore();
+	});
+
+	it('should return error if third param have statusCode property value different than 200', () => {
+		logger.info = sinon.spy(logger, 'info');
+
+		logger.error = sinon.stub(logger, 'error').callsFake((param) => {
+			const response = { statusCode: 777 };
+			const errorMessage = `Status code of response after the attempt to publish a tweet: ${response.statusCode}`;
+			assert.isString(param);
+			expect(param).to.equal(errorMessage);
+		});
+
+		const error = null;
+		const tweet = {
+			user: {
+				name: 'foo'
+			},
+			id_str: '7890def'
+		};
+		const response = { statusCode: 777 };
+
+		expect(manageTwitterResponse(error, tweet, response) instanceof Error).to.be.true;
+
+		assert(logger.error.called, 'logger.error is not called');
+		assert(logger.info.notCalled, 'logger.info is called');
+		sinon.restore();
+	});
+
+	it('shoud not return error (and call to logger.info) if first param is null and third param have statusCode property with value of 200', () => {
+		logger.info = sinon.stub(logger, 'info').callsFake((param) => {
+			const expectedString = 'Tweet published: https://twitter.com/foo/status/7890def';
+			assert.isString(param);
+			expect(param).to.equal(expectedString);
+		});
+
+		const error = null;
+		const tweet = {
+			user: {
+				name: 'foo'
+			},
+			id_str: '7890def'
+		};
+		const response = { statusCode: 200 };
+		manageTwitterResponse(error, tweet, response);
+		assert(logger.info.called, 'logger.info is not called');
+		sinon.restore();
+	});
+});
+
 describe('formatTextToTweet', () => {
 	it('should be a function', () => {
 		assert.isFunction(formatTextToTweet);
