@@ -189,6 +189,8 @@ describe('publishToTwitter', () => {
 			expect(param).to.equal(expectedString);
 		});
 
+		let spy = sinon.spy(manageTwitterResponse);
+
 		twitterClient.post = sinon.stub(twitterClient, 'post').callsFake((endpoint, data, callback) => {
 			const expectedEndoint = 'statuses/update';
 			const expectedData = { status: 'fake tweet' };
@@ -209,10 +211,12 @@ describe('publishToTwitter', () => {
 
 		const fakeEndpoint = 'statuses/update';
 		const fakeTextToTweet = 'fake tweet';
-		twitterClient.post(fakeEndpoint, { status: fakeTextToTweet }, manageTwitterResponse);
+		twitterClient.post(fakeEndpoint, { status: fakeTextToTweet }, spy);
 
 		assert(twitterClient.post.called, 'twitterClient.post should be called');
 		assert(logger.info.called, 'logger.info should be called');
+
+		assert(spy.called, 'manageTwitterResponse should be called');
 		sinon.restore();
 		done();
 	});
