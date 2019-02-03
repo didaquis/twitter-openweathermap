@@ -105,6 +105,27 @@ describe('Testing Open Weather Map API', () => {
 			}
 		});
 
+		it('should return a valid response if idOfCity is a valid id (stub request)', (done) => {
+			OWM_API.getWeatherByIdOfCity = sinon.stub(OWM_API, 'getWeatherByIdOfCity').callsFake((idOfCity) => {
+				const expectedIdOfCity = 42;
+				expect(idOfCity).to.equal(expectedIdOfCity);
+				const res = {
+					cod: 200
+				};
+				return Promise.resolve(res);
+			});
+
+			const idOfCity = 42;
+			OWM_API.getWeatherByIdOfCity(idOfCity)
+				.then((res) => {
+					assert.isObject(res);
+					const codeForSuccess = 200;
+					expect(res.cod).to.equal(codeForSuccess);
+					sinon.restore();
+					done();
+				});
+		});
+
 		it('should return a valid response if idOfCity is a valid id (real request)', (done) => {
 			let spy = sinon.spy(OWM_API, 'call');
 
