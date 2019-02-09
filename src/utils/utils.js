@@ -18,15 +18,9 @@ const { logger } = require('../lib/config-log4js');
  * Utility to detect which is the type of the parameter
  * @param  {*} 		any 	Any kind of value
  * @return {string}    		Type of the param ( 'array' | 'string' | 'number' ...)
- * @function classOf
+ * @function typeOf
  */
-function classOf (any){
-	if (any === null){
-		return 'null';
-	}
-	if (any === undefined){
-		return 'undefined';
-	}
+function typeOf (any){
 	const beginIndex = 8;
 	const endIndex = -1;
 	return Object.prototype.toString.call(any).slice(beginIndex, endIndex).toLowerCase();
@@ -116,4 +110,4 @@ function randomValue () {
 	return md5(uuidv4());
 }
 
-module.exports = { classOf, getTimeFromTimestamp, utcOffsetConversion, capitalizeText, randomValue };
+module.exports = { typeOf, getTimeFromTimestamp, utcOffsetConversion, capitalizeText, randomValue };

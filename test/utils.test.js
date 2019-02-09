@@ -3,27 +3,31 @@ const expect = chai.expect;
 const assert = chai.assert;
 const sinon = require('sinon');
 
-const { classOf, getTimeFromTimestamp, utcOffsetConversion, capitalizeText, randomValue } = require('../src/utils/utils');
+const { typeOf, getTimeFromTimestamp, utcOffsetConversion, capitalizeText, randomValue } = require('../src/utils/utils');
 const { logger } = require('../src/lib/config-log4js');
 
-describe('classOf', () => {
+describe('typeOf', () => {
 	it('should be a function', () => {
-		assert.isFunction(classOf);
+		assert.isFunction(typeOf);
 	});
 
 	it('should return a string', () => {
-		assert.isString(classOf(''));
-		assert.isString(classOf(true));
+		assert.isString(typeOf(''));
+		assert.isString(typeOf(true));
 	});
 
 	it('should return right type of parameter', () => {
-		expect(classOf(true)).to.equal('boolean');
-		expect(classOf(null)).to.equal('null');
-		expect(classOf(undefined)).to.equal('undefined');
-		expect(classOf([])).to.equal('array');
-		expect(classOf({})).to.equal('object');
+		expect(typeOf(true)).to.equal('boolean');
+		expect(typeOf(null)).to.equal('null');
+		expect(typeOf(undefined)).to.equal('undefined');
+		expect(typeOf([])).to.equal('array');
+		expect(typeOf({})).to.equal('object');
+		expect(typeOf(new Date())).to.equal('date');
+		expect(typeOf(new Map())).to.equal('map');
+		expect(typeOf(() => {})).to.equal('function');
+		expect(typeOf(NaN)).to.equal('number');
 		const fakeParam = 42;
-		expect(classOf(fakeParam)).to.equal('number');
+		expect(typeOf(fakeParam)).to.equal('number');
 	});
 });
 

@@ -15,7 +15,7 @@ const Twitter = require('twitter');
 require('dotenv').config();
 
 const { logger } = require('../lib/config-log4js');
-const { classOf, capitalizeText, getTimeFromTimestamp } = require('../utils/utils');
+const { typeOf, capitalizeText, getTimeFromTimestamp } = require('../utils/utils');
 const appConfig = require('../appConfiguration');
 
 /**
@@ -84,7 +84,7 @@ function manageTwitterResponse (error, tweet, response) {
  * @function formatTextToTweet
  */
 function formatTextToTweet (data, randomID) {
-	if (!data || classOf(data) !== 'object' || !randomID || classOf(randomID) !== 'string') {
+	if (!data || typeOf(data) !== 'object' || !randomID || typeOf(randomID) !== 'string') {
 		const errorMessage = 'Invalid arguments passed to formatTextToTweet';
 		throw new Error(errorMessage);
 	}
