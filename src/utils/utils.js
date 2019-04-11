@@ -83,8 +83,8 @@ function utcOffsetConversion (timestamp, utcOffset) {
 }
 
 /**
- * Capitalize first charf of string
- * @param  {string} str
+ * Capitalize first chart of string
+ * @param  {string} str String to capitalize
  * @return {string}
  * @throws 				Will throw an error if the argument is not valid
  * @function capitalizeText
