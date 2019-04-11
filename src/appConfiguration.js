@@ -19,11 +19,11 @@ const appConfiguration = Object.freeze({
 	citiesToRetrieve: {
 		terrassa: {
 			id: 3108286,
-			utc: '+1'
+			timezone: 'Europe/Madrid'
 		},
 		barcelona: {
 			id: 3128760,
-			utc: '+1'
+			timezone: 'Europe/Madrid'
 		}
 	},
 	publishInterval: 1200000 // 1200000 = 20 minutes

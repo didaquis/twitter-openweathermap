@@ -12,6 +12,7 @@
 
 const md5 = require('md5');
 const uuidv4 = require('uuid/v4');
+const moment = require('moment-timezone');
 const { logger } = require('../lib/config-log4js');
 
 /**
@@ -27,59 +28,26 @@ function typeOf (any){
 }
 
 /**
- * Obtain hours and minutes (UTC) from timestamp
+ * Obtain hours and minutes (UTC with timezone) from timestamp
  * @param  {integer} timestamp 	Timestamp value. Ex: 1548141113
- * @param  {string}  utcOffset 	UTC offset: Ex '+2'
+ * @param  {string}  timezone 	Timezone. Ex: 'Europe/Madrid'
  * @return {string}           	Hours and minutes of timestamp. Ex: '07:11'
  * @throws 						Will throw an error if the arguments are not valid
  * @function getTimeFromTimestamp
  */
-function getTimeFromTimestamp (timestamp, utcOffset) {
-	if (!timestamp || !Number.isInteger(timestamp) || !utcOffset || typeof utcOffset !== 'string') {
+function getTimeFromTimestamp (timestamp, timezone) {
+	const regex_timezone = /[a-zA-Z]{4,24}\/[a-zA-Z_]{4,24}/;
+	if (!timestamp || !Number.isInteger(timestamp) || !timezone || typeof timezone !== 'string' || !regex_timezone.test(timezone)) {
 		const errorMessage = 'Invalid argument passed to getTimeFromTimestamp';
 		logger.error(errorMessage);
 		throw new Error(errorMessage);
 	}
 
-	timestamp = utcOffsetConversion(timestamp, utcOffset);
-
 	const miliseconds = 1000;
 	let timestampWithMiliseconds = timestamp * miliseconds;
 
-	const startChart = 17;
-	const endChart = 22;
-	return new Date(timestampWithMiliseconds).toUTCString().slice(startChart, endChart);
-}
-
-/**
- * Apply UTC offset to timestamp
- * @param  {integer} timestamp 	Timestamp value. Ex: 1548141113
- * @param  {string}  utcOffset 	UTC offset: Ex '+2'
- * @return {integer}            Timestamp after applying the offset
- * @throws 						Will throw an error if the arguments are not valid
- * @function utcOffsetConversion
- */
-function utcOffsetConversion (timestamp, utcOffset) {
-	if (!timestamp || !Number.isInteger(timestamp) || !utcOffset || typeof utcOffset !== 'string') {
-		const errorMessage = 'Invalid argument passed to utcOffsetConversion';
-		logger.error(errorMessage);
-		throw new Error(errorMessage);
-	}
-
-	const secondsOnHour = 3600;
-	const firstCharacter = 0;
-	let offsetValue;
-
-	switch (utcOffset.charAt(firstCharacter)) {
-		case '+':
-			offsetValue = utcOffset.slice(firstCharacter);
-			return timestamp + (secondsOnHour * parseInt(offsetValue));
-		case '0':
-			return timestamp;
-		case '-':
-			offsetValue = utcOffset.slice(firstCharacter);
-			return timestamp - (secondsOnHour * parseInt(offsetValue));
-	}
+	moment.tz.setDefault(timezone);
+	return moment(timestampWithMiliseconds).format('HH:mm');
 }
 
 /**
@@ -110,4 +78,4 @@ function randomValue () {
 	return md5(uuidv4());
 }
 
-module.exports = { typeOf, getTimeFromTimestamp, utcOffsetConversion, capitalizeText, randomValue };
+module.exports = { typeOf, getTimeFromTimestamp, capitalizeText, randomValue };

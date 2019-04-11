@@ -21,23 +21,23 @@ Example of tweet published by this application: https://twitter.com/didipi_bot/s
   * Write your credentials in file `_env`
   * Rename the file `_env` to `.env`
 * You must edit the file `src/appConfiguration.js` for configure the application.
-  * For each city to retrieve data from OpenWeatherMap API you need to create a new property inside `citiesToRetrieve`. The name of the property is just for reference, choose any valid string. This key must contain a new object with property `id` and his value must be a valid ID value of city. You can see list of ID values of cities on the documentation of OpenWeatherMap API. You must include another property called `utc` with a value equivalent to UTC local time of the city.
+  * For each city to retrieve data from OpenWeatherMap API you need to create a new property inside `citiesToRetrieve`. The name of the property is just for reference, choose any valid string (my recomendation is use the name of city). This key must contain a new object with property `id` and his value must be a valid ID value of city. You can see list of ID values of cities on the documentation of OpenWeatherMap API. You must include another property called `timezone` with the timezone of the city.
   ```
   /* Example of configuration */
   // ...
   citiesToRetrieve: {
 		fooCity: {
 			id: 1111111,
-			utc: '+1'
+			timezone: 'Europe/Madrid'
 		},
 		barCity: {
 			id: 2222222,
-			utc: '0'
+			timezone: 'Asia/Tokyo'
 		},
 		,
 		bizCity: {
 			id: 333333,
-			utc: '-2'
+			timezone: 'Australia/Sydney'
 		}
 	}
   // ...
@@ -65,6 +65,9 @@ It's a Node.js app so you can deploy this software almost anywhere: Raspberry Pi
 
 
 ## Useful links
+
+### Timezone identifier
+* https://en.wikipedia.org/wiki/List_of_tz_database_time_zones (timezone identifier)
 
 ### OpenWeatherMap
 * https://openweathermap.org/api (Current weather data API)

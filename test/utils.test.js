@@ -3,7 +3,7 @@ const expect = chai.expect;
 const assert = chai.assert;
 const sinon = require('sinon');
 
-const { typeOf, getTimeFromTimestamp, utcOffsetConversion, capitalizeText, randomValue } = require('../src/utils/utils');
+const { typeOf, getTimeFromTimestamp, capitalizeText, randomValue } = require('../src/utils/utils');
 const { logger } = require('../src/lib/config-log4js');
 
 describe('typeOf', () => {
@@ -40,33 +40,92 @@ describe('getTimeFromTimestamp', () => {
 		logger.error = sinon.stub(logger, 'error');
 
 		const firstFakeParam = 1548141113;
-		const secondFakeParam = '+1';
+		const secondFakeParam = 'Europe/Madrid';
 		expect(getTimeFromTimestamp(firstFakeParam, secondFakeParam)).to.be.a('string');
 		assert(logger.error.notCalled, 'logger.error should not be called');
 		sinon.restore();
 	});
 
-	it('should return a valid values', () => {
+	it('should return a valid values in winter time', () => {
+		logger.error = sinon.stub(logger, 'error');
+
+		const fakeParamWinterTime = 1546304461;
+		const secondFakeParam = 'Europe/Madrid';
+		const expectResultWinterTime = '02:01';
+		expect(getTimeFromTimestamp(fakeParamWinterTime, secondFakeParam)).to.equal(expectResultWinterTime);
+
+		assert(logger.error.notCalled, 'logger.error should not be called');
+		sinon.restore();
+	});
+
+	it('should return a valid values in summer time (daylight saving time)', () => {
+		logger.error = sinon.stub(logger, 'error');
+
+		const fakeParamSummerTime = 1555007207;
+		const secondFakeParam = 'Europe/Madrid';
+		const expectResultSummerTime = '20:26';
+		expect(getTimeFromTimestamp(fakeParamSummerTime, secondFakeParam)).to.equal(expectResultSummerTime);
+
+		assert(logger.error.notCalled, 'logger.error should not be called');
+		sinon.restore();
+	});
+
+	it('should return a valid values for the Europe/Madrid timezone', () => {
 		logger.error = sinon.stub(logger, 'error');
 
 		const fakeParam = 1548141113;
-		const secondFakeParam = '+1';
+		const secondFakeParam = 'Europe/Madrid';
 		const expectResult = '08:11';
 		expect(getTimeFromTimestamp(fakeParam, secondFakeParam)).to.equal(expectResult);
 
 		const anotherFakeParam = 1559279152;
-		const anotherSecondFakeParam = '+2';
+		const anotherSecondFakeParam = 'Europe/Madrid';
 		const anotherExpectResult = '07:05';
 		expect(getTimeFromTimestamp(anotherFakeParam, anotherSecondFakeParam)).to.equal(anotherExpectResult);
 
 		const oneMoreFakeParam = 1969279199;
-		const oneMoreSecondFakeParam = '0';
-		const oneMoreExpectResult = '13:59';
+		const oneMoreSecondFakeParam = 'Europe/Madrid';
+		const oneMoreExpectResult = '15:59';
 		expect(getTimeFromTimestamp(oneMoreFakeParam, oneMoreSecondFakeParam)).to.equal(oneMoreExpectResult);
 
 		const lastFakeParam = 1948534252;
-		const lastSecondFakeParam = '-1';
-		const lastExpectResult = '12:30';
+		const lastSecondFakeParam = 'Europe/Madrid';
+		const lastExpectResult = '13:30';
+		expect(getTimeFromTimestamp(lastFakeParam, lastSecondFakeParam)).to.equal(lastExpectResult);
+
+		assert(logger.error.notCalled, 'logger.error should not be called');
+		sinon.restore();
+	});
+
+	it('should return a valid values for others timezones', () => {
+		logger.error = sinon.stub(logger, 'error');
+
+		const fakeParam = 1548141113;
+		const secondFakeParam = 'Atlantic/Azores';
+		const nonExpectResult = '08:11';
+		const expectResult = '06:11';
+		expect(getTimeFromTimestamp(fakeParam, secondFakeParam)).not.to.equal(nonExpectResult);
+		expect(getTimeFromTimestamp(fakeParam, secondFakeParam)).to.equal(expectResult);
+
+		const anotherFakeParam = 1559279152;
+		const anotherSecondFakeParam = 'America/Sao_Paulo';
+		const anotherNonExpectResult = '07:05';
+		const anotherExpectResult = '02:05';
+		expect(getTimeFromTimestamp(anotherFakeParam, anotherSecondFakeParam)).not.to.equal(anotherNonExpectResult);
+		expect(getTimeFromTimestamp(anotherFakeParam, anotherSecondFakeParam)).to.equal(anotherExpectResult);
+
+		const oneMoreFakeParam = 1969279199;
+		const oneMoreSecondFakeParam = 'Asia/Tokyo';
+		const oneMoreNonExpectResult = '15:59';
+		const oneMoreExpectResult = '22:59';
+		expect(getTimeFromTimestamp(oneMoreFakeParam, oneMoreSecondFakeParam)).not.to.equal(oneMoreNonExpectResult);
+		expect(getTimeFromTimestamp(oneMoreFakeParam, oneMoreSecondFakeParam)).to.equal(oneMoreExpectResult);
+
+		const lastFakeParam = 1948534252;
+		const lastSecondFakeParam = 'America/New_York';
+		const lastNonExpectResult = '13:30';
+		const lastExpectResult = '07:30';
+		expect(getTimeFromTimestamp(lastFakeParam, lastSecondFakeParam)).not.to.equal(lastNonExpectResult);
 		expect(getTimeFromTimestamp(lastFakeParam, lastSecondFakeParam)).to.equal(lastExpectResult);
 
 		assert(logger.error.notCalled, 'logger.error should not be called');
@@ -131,119 +190,8 @@ describe('getTimeFromTimestamp', () => {
 		});
 		try {
 			const fakeParam = 1548141113;
-			const fakeNonValidParam = 42;
+			const fakeNonValidParam = null;
 			getTimeFromTimestamp(fakeParam, fakeNonValidParam);
-		} catch (e) {
-			expect(e.message).to.equal(errorMessage);
-			assert(logger.error.called, 'logger.error should be called');
-			sinon.restore();
-			done();
-		}
-	});
-});
-
-describe('utcOffsetConversion', () => {
-	it('should be a function', () => {
-		assert.isFunction(utcOffsetConversion);
-	});
-
-	it('should return an integer', () => {
-		logger.error = sinon.stub(logger, 'error');
-
-		const firstFakeParam = 1548141113;
-		const secondFakeParam = '+1';
-		expect(utcOffsetConversion(firstFakeParam, secondFakeParam)).to.be.a('number');
-		expect(Number.isInteger(utcOffsetConversion(firstFakeParam, secondFakeParam))).to.be.true;
-		assert(logger.error.notCalled, 'logger.error should not be called');
-		sinon.restore();
-	});
-
-	it('should return a valid values', () => {
-		logger.error = sinon.stub(logger, 'error');
-
-		const fakeParam = 1548141113;
-		const secondFakeParam = '+1';
-		const expectResult = 1548144713;
-		expect(utcOffsetConversion(fakeParam, secondFakeParam)).to.equal(expectResult);
-
-		const anotherFakeParam = 1559279152;
-		const anotherSecondFakeParam = '+2';
-		const anotherExpectResult = 1559286352;
-		expect(utcOffsetConversion(anotherFakeParam, anotherSecondFakeParam)).to.equal(anotherExpectResult);
-
-		const oneMoreFakeParam = 1969279199;
-		const oneMoreSecondFakeParam = '0';
-		const oneMoreExpectResult = 1969279199;
-		expect(utcOffsetConversion(oneMoreFakeParam, oneMoreSecondFakeParam)).to.equal(oneMoreExpectResult);
-
-		const lastFakeParam = 1948534252;
-		const lastSecondFakeParam = '-1';
-		const lastExpectResult = 1948537852;
-		expect(utcOffsetConversion(lastFakeParam, lastSecondFakeParam)).to.equal(lastExpectResult);
-		assert(logger.error.notCalled, 'logger.error should not be called');
-		sinon.restore();
-	});
-
-	it('should throw an error if not receive first parameter', (done) => {
-		const errorMessage = 'Invalid argument passed to utcOffsetConversion';
-		logger.error = sinon.stub(logger, 'error').callsFake((param) => {
-			assert.isString(param);
-			expect(param).to.equal(errorMessage);
-		});
-		try {
-			utcOffsetConversion();
-		} catch (e) {
-			expect(e.message).to.equal(errorMessage);
-			assert(logger.error.called, 'logger.error should be called');
-			sinon.restore();
-			done();
-		}
-	});
-
-	it('should throw an error if not receive a first valid parameter', (done) => {
-		const errorMessage = 'Invalid argument passed to utcOffsetConversion';
-		logger.error = sinon.stub(logger, 'error').callsFake((param) => {
-			assert.isString(param);
-			expect(param).to.equal(errorMessage);
-		});
-		try {
-			const fakeNonValidParam = 'The cake is a lie';
-			utcOffsetConversion(fakeNonValidParam);
-		} catch (e) {
-			expect(e.message).to.equal(errorMessage);
-			assert(logger.error.called, 'logger.error should be called');
-			sinon.restore();
-			done();
-		}
-	});
-
-	it('should throw an error if not receive second parameter', (done) => {
-		const errorMessage = 'Invalid argument passed to utcOffsetConversion';
-		logger.error = sinon.stub(logger, 'error').callsFake((param) => {
-			assert.isString(param);
-			expect(param).to.equal(errorMessage);
-		});
-		try {
-			const fakeParam = 1548141113;
-			utcOffsetConversion(fakeParam);
-		} catch (e) {
-			expect(e.message).to.equal(errorMessage);
-			assert(logger.error.called, 'logger.error should be called');
-			sinon.restore();
-			done();
-		}
-	});
-
-	it('should throw an error if not receive a second valid parameter', (done) => {
-		const errorMessage = 'Invalid argument passed to utcOffsetConversion';
-		logger.error = sinon.stub(logger, 'error').callsFake((param) => {
-			assert.isString(param);
-			expect(param).to.equal(errorMessage);
-		});
-		try {
-			const fakeParam = 1548141113;
-			const fakeNonValidParam = 42;
-			utcOffsetConversion(fakeParam, fakeNonValidParam);
 		} catch (e) {
 			expect(e.message).to.equal(errorMessage);
 			assert(logger.error.called, 'logger.error should be called');
