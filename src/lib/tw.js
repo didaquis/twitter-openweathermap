@@ -47,7 +47,7 @@ function publishToTwitter (textToTweet, callback) {
 }
 
 /**
- * Manage the response of Tweeter
+ * Manage the response of Twitter
  * @param  {object|null} error  	Error object from Twitter API
  * @param  {object} 	 tweet    	Tweet object from Twitter API
  * @param  {object} 	 response 	Response object from Twitter API
