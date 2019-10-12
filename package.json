@@ -1,6 +1,6 @@
 {
   "name": "twitter-openweathermap",
-  "version": "1.11.86",
+  "version": "1.11.87",
   "private": true,
   "description": "Publish on Twitter data from OpenWeatherMap API",
   "main": "src/app.js",
@@ -19,7 +19,7 @@
     "bot"
   ],
   "author": "Dídac García (https://didaquis.github.io/)",
-  "license": "ISC",
+  "license": "MIT",
   "engines": {
     "node": "^9.4.0"
   },
@@ -27,18 +27,18 @@
     "dotenv": "^6.2.0",
     "log4js": "^3.0.6",
     "md5": "^2.2.1",
-    "moment-timezone": "^0.5.23",
-    "node-fetch": "^2.3.0",
+    "moment-timezone": "^0.5.26",
+    "node-fetch": "^2.6.0",
     "twitter": "^1.7.1",
-    "uuid": "^3.3.2"
+    "uuid": "^3.3.3"
   },
   "devDependencies": {
     "chai": "^4.2.0",
-    "jsdoc": "^3.5.5",
+    "jsdoc": "^3.6.3",
     "live-server": "^1.2.1",
-    "mocha": "^5.2.0",
-    "nodemon": "^1.18.9",
-    "nyc": "^13.1.0",
-    "sinon": "^7.2.3"
+    "mocha": "^6.2.1",
+    "nodemon": "^1.19.3",
+    "nyc": "^14.1.1",
+    "sinon": "^7.5.0"
   }
 }
