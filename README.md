@@ -1,6 +1,6 @@
 # twitter-openweathermap
 
-This is a Twitter bot made for Node.js. This bot publishes current weather data of the cities that you choose. Meteorological data are provided by OpenWeatherMap API. 
+This is a Twitter bot maded in Node.js. This bot publishes current weather data of the cities that you choose. Meteorological data are provided by OpenWeatherMap API. 
 
 Example of tweet published by this application: https://twitter.com/didipi_bot/status/1090734186057682945
 
