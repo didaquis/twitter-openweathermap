@@ -11,7 +11,7 @@
  */
 
 const md5 = require('md5');
-const uuidv4 = require('uuid/v4');
+const { v4: uuidv4 } = require('uuid');
 const moment = require('moment-timezone');
 const { logger } = require('../lib/config-log4js');
 
