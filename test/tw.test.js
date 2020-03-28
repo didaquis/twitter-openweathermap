@@ -309,8 +309,8 @@ describe('formatTextToTweet', () => {
 	it('should throw an error if receive invalid params', (done) => {
 		try {
 			const fakeParam = 42;
-			const anotherFakeParam = '1234abc';
-			formatTextToTweet(fakeParam, anotherFakeParam);
+			const fakeRandomValue = '34f7eba5a38d60c2db4c';
+			formatTextToTweet(fakeParam, fakeRandomValue);
 		} catch (e) {
 			const errorMessage = 'Invalid arguments passed to formatTextToTweet';
 			expect(e.message).to.equal(errorMessage);
@@ -332,7 +332,7 @@ describe('formatTextToTweet', () => {
 	it('should throw an error if not receive required data', (done) => {
 		try {
 			const fakeParamWithMissingData = { coord: { lon: 2.02, lat: 41.57 }, weather: [ { id: 800, main: 'Clear', description: 'cielo claro', icon: '01n' } ], base: 'stations', visibility: 10000, wind: { speed: 3.6, deg: 320 }, clouds: { all: 0 }, dt: 1548280800, id: 3108286, cod: 200 };
-			const anotherFakeParam = '1234abc';
+			const anotherFakeParam = '34f7eba5a38d60c2db4c';
 			formatTextToTweet(fakeParamWithMissingData, anotherFakeParam);
 		} catch (e) {
 			const errorMessage = 'Required data on formatTextToTweet not found';
@@ -343,7 +343,7 @@ describe('formatTextToTweet', () => {
 
 	it('should return text well formatted', () => {
 		const fakeParam = { coord: { lon: 2.02, lat: 41.57 }, weather: [ { id: 800, main: 'Clear', description: 'cielo claro', icon: '01n' } ], base: 'stations', main: { temp: 7.53, pressure: 999, humidity: 56, temp_min: 7, temp_max: 8 }, visibility: 10000, wind: { speed: 3.6, deg: 320 }, clouds: { all: 0 }, dt: 1548280800, sys: { type: 1, id: 6414, message: 0.0036, country: 'ES', sunrise: 1548227470, sunset: 1548262625 }, id: 3108286, name: 'Terrassa', cod: 200 };
-		const anotherFakeParam = '1234abc';
+		const fakeRandomValue = '34f7eba5a38d60c2db4c';
 		const fakeReturn = `
 	Terrassa
 
@@ -355,9 +355,9 @@ describe('formatTextToTweet', () => {
 	Salida del sol: 08:11
 	Puesta del sol: 17:57
 	-------------------------
-	ID: 1234abc`;
+	ID: 34f7eba5a38d60c2db4c`;
 
-		expect(formatTextToTweet(fakeParam, anotherFakeParam)).to.equal(fakeReturn);
+		expect(formatTextToTweet(fakeParam, fakeRandomValue)).to.equal(fakeReturn);
 	});
 });
 

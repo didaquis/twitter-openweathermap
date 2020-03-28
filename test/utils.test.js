@@ -293,12 +293,12 @@ describe('randomValue', () => {
 		expect(randomValue()).to.be.a('string');
 	});
 
-	it('should return a string of 32 chars', () => {
-		const expectedLength = 32;
+	it('should return a string of 20 chars', () => {
+		const expectedLength = 20;
 		expect(randomValue()).to.have.lengthOf(expectedLength);
 	});
 
-	it('should return a random value on every call', () => {
+	it('should return a different random value on every call', () => {
 		let collision = false;
 		let result;
 		const results = [];

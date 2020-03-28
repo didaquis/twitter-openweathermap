@@ -33,7 +33,7 @@ log4js.configure({
 });
 
 /**
- * Logger object that provides the methods to log data (all loggers are printed in console and in logs file).
+ * Logger object that provides some methods to log data (all loggers are printed in console and in logs file).
  * @async
  * @example <caption>Usage of logger:</caption>
  *          logger.trace('trace'); 	// Log file: application_trace.log

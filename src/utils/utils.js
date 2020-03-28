@@ -75,7 +75,9 @@ function capitalizeText (str) {
  * @return {string}
  */
 function randomValue () {
-	return md5(uuidv4());
+	const crypto = require('crypto');
+	const numberOfBytes = 10;
+	return crypto.randomBytes(numberOfBytes).toString('hex');
 }
 
 module.exports = { typeOf, getTimeFromTimestamp, capitalizeText, randomValue };
