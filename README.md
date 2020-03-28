@@ -2,7 +2,7 @@
 
 This is a Twitter bot maded in Node.js. This bot publishes current weather data of the cities that you choose. Meteorological data are provided by OpenWeatherMap API. 
 
-Example of tweet published by this application: https://twitter.com/didipi_bot/status/1090734186057682945
+Example of tweet published by this application: https://twitter.com/didipi_bot/status/1243827584607150081
 
 ![Example of tweet published](./docs_assets/example_of_tweet.png)
 
@@ -18,8 +18,8 @@ Example of tweet published by this application: https://twitter.com/didipi_bot/s
 * Download this repo: https://github.com/didaquis/twitter-openweathermap
 * Install dependencies: `npm install`
 * You must configure the authentication data of Twitter API and OpenWeatherMap API:
-  * Write your credentials in file `_env`
-  * Rename the file `_env` to `.env`
+  * Duplicate the configuration file `_env` and rename it as `.env`
+  * Write your credentials in file `.env`
 * You must edit the file `src/appConfiguration.js` for configure the application.
   * For each city to retrieve data from OpenWeatherMap API you need to create a new property inside `citiesToRetrieve`. The name of the property is just for reference, choose any valid string (my recomendation is use the name of city). This key must contain a new object with property `id` and his value must be a valid ID value of city. You can see list of ID values of cities on the documentation of OpenWeatherMap API. You must include another property called `timezone` with the timezone of the city.
   ```
@@ -42,13 +42,13 @@ Example of tweet published by this application: https://twitter.com/didipi_bot/s
 	}
   // ...
   ```
-  * If you wish, you can configure interval of execution. This value is the number of miliseconds of delay before new execution of code. Recommended value is `1200000` (20 minutes).
+  * If you wish, you can modify the interval of execution. This value is the number of miliseconds of delay before new execution of code. Recommended value is `1200000` (20 minutes).
 * If you want, you can edit some value of OpenWeatherMap API on the file `src/lib/owm_api/config_api.js`. This step is not necessary.
 
-**Warning:** You must keep in mind the API restrictions. For example, you can't publish one thousand tweets in a row or publish the same data over and over again. Both Twitter and OpenWeatherMap impose a series of limitations in their API.
+**Warning:** You must keep in mind the API restrictions. For example, you can't publish thousands of tweets in a row or publish the same data over and over again. Both Twitter and OpenWeatherMap impose a series of limitations in their API.
 
 ### Execute the application:
-* Execute script with `node .` or `npm start`
+* Run the script `npm start`
 
 
 ## For development:
@@ -61,7 +61,7 @@ Example of tweet published by this application: https://twitter.com/didipi_bot/s
 
 
 ## For deployment:
-It's a Node.js app so you can deploy this software almost anywhere: Raspberry Pi, Heroku...
+It's a Node.js app, so you can deploy this software almost anywhere: Raspberry Pi, Heroku...
 
 
 ## Useful links
