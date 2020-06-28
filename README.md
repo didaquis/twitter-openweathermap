@@ -7,7 +7,7 @@ Example of tweet published by this application: https://twitter.com/didipi_bot/s
 ![Example of tweet published](./docs_assets/example_of_tweet.png)
 
 ## Requirements
-* Node.js 9.4 or higher
+* Node.js 10 or higher
 * A Twitter account and Twitter app registered for use their API
 * A registered account on OpenWeatherMap and a token for use their API
 
