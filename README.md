@@ -20,26 +20,27 @@ Example of tweet published by this application: https://twitter.com/didipi_bot/s
 * You must configure the authentication data of Twitter API and OpenWeatherMap API:
   * Duplicate the configuration file `_env` and rename it as `.env`
   * Write your credentials in file `.env`
-* You must edit the file `src/appConfiguration.js` for configure the application.
-  * For each city to retrieve data from OpenWeatherMap API you need to create a new property inside `locations`. The name of the property is just for reference, choose any valid string (my recomendation is use the name of city). This key must contain a new object with property `id` and his value must be a valid ID value of city. You can see list of ID values of cities on the documentation of OpenWeatherMap API. You must include another property called `timezone` with the timezone of the city.
+* You must edit the file `src/appConfiguration.js` to configure your desired locations. For each city to retrieve data from OpenWeatherMap API you need to create a new object inside `locations`. 
+  * Every location must be an object with properties `id` and `timezone`. 
+  * The `id` value must be a valid ID value of city. You can see list of ID values of cities on the documentation of OpenWeatherMap API. 
+  * The property `timezone` must indicate the timezone of that city.
   ```
   /* Example of configuration */
   // ...
-  locations: {
-		fooCity: {
+  locations: [
+		{
 			id: 1111111,
 			timezone: 'Europe/Madrid'
 		},
-		barCity: {
+		{
 			id: 2222222,
 			timezone: 'Asia/Tokyo'
 		},
-		,
-		bizCity: {
+		{
 			id: 333333,
 			timezone: 'Australia/Sydney'
 		}
-	}
+  ]
   // ...
   ```
   * If you wish, you can modify the interval of execution. This value is the number of miliseconds of delay before new execution of code. Recommended value is `1200000` (20 minutes).
@@ -52,7 +53,7 @@ Example of tweet published by this application: https://twitter.com/didipi_bot/s
 
 
 ## For development:
-* For run app: `npm run dev` (Tweets are not published in development mode)
+* For run app: `npm run dev` (tweets are not published in development mode)
 * For run test: `npm run test`
 * For run test and coverage report: `npm run test:coverage`
 * For run documentation: `npm run doc-view`

@@ -15,8 +15,8 @@ const Twitter = require('twitter');
 require('dotenv').config();
 
 const { logger } = require('../lib/config-log4js');
-const { typeOf, capitalizeText, getTimeFromTimestamp } = require('../utils/utils');
-const { appConfiguration, isProduction } = require('../appConfiguration');
+const { typeOf, capitalizeText, getTimeFromTimestamp, isProduction } = require('../utils/utils');
+const { appConfiguration } = require('../appConfiguration');
 
 /**
  * An instance of Twitter client class to communicate with Twitter API

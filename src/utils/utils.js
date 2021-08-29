@@ -78,4 +78,12 @@ function randomValue () {
 	return crypto.randomBytes(numberOfBytes).toString('hex');
 }
 
-module.exports = { typeOf, getTimeFromTimestamp, capitalizeText, randomValue };
+/**
+ * Return true if this app is running in production mode
+ * @returns {Boolean}
+ */
+const isProduction = () => {
+	return process.env.NODE_ENV === 'production';
+};
+
+module.exports = { typeOf, getTimeFromTimestamp, capitalizeText, randomValue, isProduction };

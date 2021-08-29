@@ -33,13 +33,5 @@ const appConfiguration = Object.freeze({
 	publishInterval: 1200000 // 1200000 = 20 minutes
 });
 
-/**
- * Return true if this app is running in production mode
- * @returns Boolean
- */
-const isProduction = () => {
-	return process.env.NODE_ENV === 'production';
-};
-
 /** App Configuration */
-module.exports = { appConfiguration, isProduction };
+module.exports = { appConfiguration };
