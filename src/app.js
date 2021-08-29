@@ -11,7 +11,7 @@
  */
 
 
-const appConfig = require('./appConfiguration');
+const { appConfiguration } = require('./appConfiguration');
 const log4js = require('log4js');
 const { logger } = require('./lib/config-log4js');
 const { getWeatherData } = require('./lib/owm');
@@ -28,7 +28,7 @@ logger.info('Starting application...');
  */
 (async function mainClock () {
 	try {
-		let weatherData = await getWeatherData(appConfig.citiesToRetrieve);
+		const weatherData = await getWeatherData(appConfiguration.citiesToRetrieve);
 
 		const minimumLengthExpected = 1;
 		if (!Array.isArray(weatherData) || weatherData.length < minimumLengthExpected ) {
@@ -37,7 +37,7 @@ logger.info('Starting application...');
 		}
 
 		weatherData.forEach( (data) => {
-			let dataForTweet = formatTextToTweet(data, randomValue());
+			const dataForTweet = formatTextToTweet(data, randomValue());
 
 			publishToTwitter(dataForTweet, manageTwitterResponse);
 		});
@@ -45,7 +45,7 @@ logger.info('Starting application...');
 		logger.error(`Error: ${e.message}`);
 	}
 
-	setTimeout(mainClock, appConfig.publishInterval);
+	setTimeout(mainClock, appConfiguration.publishInterval);
 })();
 
 

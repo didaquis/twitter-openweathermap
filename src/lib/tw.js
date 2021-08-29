@@ -16,7 +16,7 @@ require('dotenv').config();
 
 const { logger } = require('../lib/config-log4js');
 const { typeOf, capitalizeText, getTimeFromTimestamp } = require('../utils/utils');
-const appConfig = require('../appConfiguration');
+const { appConfiguration, isProduction } = require('../appConfiguration');
 
 /**
  * An instance of Twitter client class to communicate with Twitter API
@@ -41,6 +41,11 @@ function publishToTwitter (textToTweet, callback) {
 	if (!textToTweet || typeof textToTweet !== 'string' || typeof callback !== 'function') {
 		const errorMessage = 'Invalid argument passed to publishToTwitter';
 		throw new Error(errorMessage);
+	}
+
+	if (!isProduction()){
+		logger.debug(textToTweet);
+		return;
 	}
 
 	twitterClient.post('statuses/update', { status: textToTweet }, callback);
@@ -103,8 +108,8 @@ function formatTextToTweet (data, randomID) {
 	Humedad: ${data.main.humidity} %
 	Viento: ${data.wind.speed} m/s
 	Nubes: ${data.clouds.all} %
-	Salida del sol: ${getTimeFromTimestamp(data.sys.sunrise, appConfig.citiesToRetrieve[data.name.toLowerCase()].timezone)}
-	Puesta del sol: ${getTimeFromTimestamp(data.sys.sunset, appConfig.citiesToRetrieve[data.name.toLowerCase()].timezone)}
+	Salida del sol: ${getTimeFromTimestamp(data.sys.sunrise, appConfiguration.citiesToRetrieve[data.name.toLowerCase()].timezone)}
+	Puesta del sol: ${getTimeFromTimestamp(data.sys.sunset, appConfiguration.citiesToRetrieve[data.name.toLowerCase()].timezone)}
 	-------------------------
 	ID: ${randomID}`;
 

@@ -4,7 +4,7 @@ const assert = chai.assert;
 const sinon = require('sinon');
 
 const { getWeatherData } = require('../src/lib/owm');
-const appConfig = require('../src/appConfiguration');
+const { appConfiguration } = require('../src/appConfiguration');
 const { logger } = require('../src/lib/config-log4js');
 
 describe('owm getWeatherData', () => {
@@ -29,7 +29,7 @@ describe('owm getWeatherData', () => {
 	});
 
 	it('should return data', (done) => {
-		getWeatherData(appConfig.citiesToRetrieve)
+		getWeatherData(appConfiguration.citiesToRetrieve)
 			.then((data) => {
 				expect(data).not.to.be.undefined;
 				assert.isArray(data);

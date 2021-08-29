@@ -6,7 +6,7 @@ const sinon = require('sinon');
 
 const OpenWeatherMapAPI = require('../src/lib/owm_api/OpenWeatherMapAPI');
 
-const appConfig = require('../src/appConfiguration');
+const { appConfiguration } = require('../src/appConfiguration');
 const config_api = require('../src/lib/owm_api/config_api');
 const { logger } = require('../src/lib/config-log4js');
 
@@ -130,7 +130,7 @@ describe('Testing Open Weather Map API', () => {
 			let spy = sinon.spy(OWM_API, 'call');
 
 			const firstProperty = 0;
-			OWM_API.getWeatherByIdOfCity(appConfig.citiesToRetrieve[Object.keys(appConfig.citiesToRetrieve)[firstProperty]].id)
+			OWM_API.getWeatherByIdOfCity(appConfiguration.citiesToRetrieve[Object.keys(appConfiguration.citiesToRetrieve)[firstProperty]].id)
 				.then((res) => {
 					assert.isObject(res);
 					const codeForSuccess = 200;
@@ -145,13 +145,13 @@ describe('Testing Open Weather Map API', () => {
 			let spy = sinon.spy(OWM_API, 'call');
 
 			const firstProperty = 0;
-			OWM_API.getWeatherByIdOfCity(appConfig.citiesToRetrieve[Object.keys(appConfig.citiesToRetrieve)[firstProperty]].id)
+			OWM_API.getWeatherByIdOfCity(appConfiguration.citiesToRetrieve[Object.keys(appConfiguration.citiesToRetrieve)[firstProperty]].id)
 				.then((res) => {
 					assert.isObject(res);
 					const codeForSuccess = 200;
 					expect(res.cod).to.equal(codeForSuccess);
 
-					expect(res.id).to.equal(appConfig.citiesToRetrieve[Object.keys(appConfig.citiesToRetrieve)[firstProperty]].id);
+					expect(res.id).to.equal(appConfiguration.citiesToRetrieve[Object.keys(appConfiguration.citiesToRetrieve)[firstProperty]].id);
 
 					expect(res).to.have.a.property('id');
 					assert.isNumber(res.id);

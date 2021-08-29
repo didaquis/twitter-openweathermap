@@ -1,35 +1,35 @@
 const { assert, expect } = require('chai');
 
-const appConfig = require('../src/appConfiguration');
+const { appConfiguration } = require('../src/appConfiguration');
 
 describe('Application configuration', () => {
 	it('should be an object with valid properties', () => {
-		assert.isObject(appConfig);
+		assert.isObject(appConfiguration);
 
-		expect(appConfig.hasOwnProperty('citiesToRetrieve')).to.be.true;
-		expect(appConfig.hasOwnProperty('publishInterval')).to.be.true;
+		expect(appConfiguration.hasOwnProperty('citiesToRetrieve')).to.be.true;
+		expect(appConfiguration.hasOwnProperty('publishInterval')).to.be.true;
 
-		assert.isObject(appConfig.citiesToRetrieve);
+		assert.isObject(appConfiguration.citiesToRetrieve);
 
-		for (let city in appConfig.citiesToRetrieve) {
-			assert.isObject(appConfig.citiesToRetrieve[city]);
-			expect(appConfig.citiesToRetrieve[city].hasOwnProperty('id')).to.be.true;
-			expect(appConfig.citiesToRetrieve[city].hasOwnProperty('timezone')).to.be.true;
+		for (let city in appConfiguration.citiesToRetrieve) {
+			assert.isObject(appConfiguration.citiesToRetrieve[city]);
+			expect(appConfiguration.citiesToRetrieve[city].hasOwnProperty('id')).to.be.true;
+			expect(appConfiguration.citiesToRetrieve[city].hasOwnProperty('timezone')).to.be.true;
 		}
 	});
 
 	it('should have a valid values', () => {
 		const regex_timezone = /[a-zA-Z]{4,24}\/[a-zA-Z_]{4,24}/;
 
-		for (let city in appConfig.citiesToRetrieve) {
-			assert.isNumber(appConfig.citiesToRetrieve[city].id);
-			expect(Number.isInteger(appConfig.citiesToRetrieve[city].id)).to.be.true;
+		for (let city in appConfiguration.citiesToRetrieve) {
+			assert.isNumber(appConfiguration.citiesToRetrieve[city].id);
+			expect(Number.isInteger(appConfiguration.citiesToRetrieve[city].id)).to.be.true;
 
-			assert.isString(appConfig.citiesToRetrieve[city].timezone);
-			assert.match(appConfig.citiesToRetrieve[city].timezone, regex_timezone);
+			assert.isString(appConfiguration.citiesToRetrieve[city].timezone);
+			assert.match(appConfiguration.citiesToRetrieve[city].timezone, regex_timezone);
 		}
 
-		assert.isNumber(appConfig.publishInterval);
-		expect(Number.isInteger(appConfig.publishInterval)).to.be.true;
+		assert.isNumber(appConfiguration.publishInterval);
+		expect(Number.isInteger(appConfiguration.publishInterval)).to.be.true;
 	});
 });
