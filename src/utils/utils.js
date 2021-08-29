@@ -10,13 +10,14 @@
  * @module utils
  */
 
+const crypto = require('crypto');
 const moment = require('moment-timezone');
 const { logger } = require('../lib/config-log4js');
 
 /**
  * Utility to detect which is the type of the parameter
  * @param  {*} 		any 	Any kind of value
- * @return {string}    		Type of the param ( 'array' | 'string' | 'number' ...)
+ * @returns {string}    		Type of the param ( 'array' | 'string' | 'number' ...)
  * @function typeOf
  */
 function typeOf (any){
@@ -29,7 +30,7 @@ function typeOf (any){
  * Obtain hours and minutes (UTC with timezone) from timestamp
  * @param  {integer} timestamp 	Timestamp value. Ex: 1548141113
  * @param  {string}  timezone 	Timezone. Ex: 'Europe/Madrid'
- * @return {string}           	Hours and minutes of timestamp. Ex: '07:11'
+ * @returns {string}           	Hours and minutes of timestamp. Ex: '07:11'
  * @throws 						Will throw an error if the arguments are not valid
  * @function getTimeFromTimestamp
  */
@@ -51,7 +52,7 @@ function getTimeFromTimestamp (timestamp, timezone) {
 /**
  * Capitalize first chart of string
  * @param  {string} str String to capitalize
- * @return {string}
+ * @returns {string}
  * @throws 				Will throw an error if the argument is not valid
  * @function capitalizeText
  */
@@ -69,18 +70,17 @@ function capitalizeText (str) {
 }
 
 /**
- * Create a random value of 32 chars of length
- * @return {string}
+ * Create a random value of 20 chars of length
+ * @returns {string}
  */
-function randomValue () {
-	const crypto = require('crypto');
+const randomValue = () => {
 	const numberOfBytes = 10;
 	return crypto.randomBytes(numberOfBytes).toString('hex');
 }
 
 /**
  * Return true if this app is running in production mode
- * @returns {Boolean}
+ * @returns {boolean}
  */
 const isProduction = () => {
 	return process.env.NODE_ENV === 'production';

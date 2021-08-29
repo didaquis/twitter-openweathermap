@@ -84,7 +84,7 @@ function manageTwitterResponse (error, tweet, response) {
  * Create text of tweet using data received from OpenWeatherMAP API
  * @param  {object} data 		Raw data from OpenWeatherMAP API
  * @param  {string} randomID 	A random value to avoid error with code 187 of Twitter API (Status is a duplicate)
- * @return {string}      		A templeted string with text of new tweet
+ * @returns {string}      		The text of a tweet generated using a template
  * @throws 				 		Will throw an error if the argument is not valid
  * @function formatTextToTweet
  */
@@ -123,7 +123,7 @@ function formatTextToTweet (data, randomID) {
 /**
  * Validate if data required for generate text of tweet is provided
  * @param  {object} data  Raw data from OpenWeatherMAP API
- * @return {boolean}      Return true if all required data is provided
+ * @returns {boolean}      Return true if all required data is provided
  * @function templateTextValidation
  * @private
  */

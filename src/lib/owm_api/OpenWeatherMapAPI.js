@@ -34,7 +34,7 @@ class OpenWeatherMapAPI {
 	/**
 	 * Make a request to public API
 	 * @param {string} url 			URL of endpoint
-	 * @returns {Promise<Response>} Data received from endpoint
+	 * @returns {Promise<Object>} 	Data received from endpoint
 	 * @throws 						Will throw an error if status code of response is not 200
 	 * @async
 	 */
@@ -55,7 +55,7 @@ class OpenWeatherMapAPI {
 	/**
 	 * Retrieve weather data
 	 * @param {integer} idOfCity    Identification code of city
-	 * @returns {Promise<Response>} Data received from endpoint
+	 * @returns {Promise<Object>} 	Data received from endpoint
 	 * @throws 						Will throw an error if the argument is not valid
 	 * @async
 	 */
