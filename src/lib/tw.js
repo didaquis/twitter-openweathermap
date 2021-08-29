@@ -99,17 +99,21 @@ function formatTextToTweet (data, randomID) {
 		throw new Error(errorMessage);
 	}
 
+	const findLocationById = (id) => {
+		return appConfiguration.locations.find((location) => location.id === id);
+	}; 
+
 	const firstElement = 0;
 	const template = `
-	${data.name}
+	${capitalizeText(data.name)}
 
 	${capitalizeText(data.weather[firstElement].description)}
 	Temperatura: ${data.main.temp} ℃
 	Humedad: ${data.main.humidity} %
 	Viento: ${data.wind.speed} m/s
 	Nubes: ${data.clouds.all} %
-	Salida del sol: ${getTimeFromTimestamp(data.sys.sunrise, appConfiguration.citiesToRetrieve[data.name.toLowerCase()].timezone)}
-	Puesta del sol: ${getTimeFromTimestamp(data.sys.sunset, appConfiguration.citiesToRetrieve[data.name.toLowerCase()].timezone)}
+	Salida del sol: ${getTimeFromTimestamp(data.sys.sunrise, findLocationById(data.id).timezone)}
+	Puesta del sol: ${getTimeFromTimestamp(data.sys.sunset, findLocationById(data.id).timezone)}
 	-------------------------
 	ID: ${randomID}`;
 

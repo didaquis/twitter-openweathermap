@@ -28,7 +28,7 @@ logger.info('Starting application...');
  */
 (async function mainClock () {
 	try {
-		const weatherData = await getWeatherData(appConfiguration.citiesToRetrieve);
+		const weatherData = await getWeatherData(appConfiguration.locations);
 
 		const minimumLengthExpected = 1;
 		if (!Array.isArray(weatherData) || weatherData.length < minimumLengthExpected ) {
@@ -36,7 +36,7 @@ logger.info('Starting application...');
 			throw new Error(errorMessage);
 		}
 
-		weatherData.forEach( (data) => {
+		weatherData.forEach((data) => {
 			const dataForTweet = formatTextToTweet(data, randomValue());
 
 			publishToTwitter(dataForTweet, manageTwitterResponse);

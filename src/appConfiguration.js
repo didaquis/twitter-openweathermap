@@ -16,16 +16,20 @@
  * @type {object}
  */
 const appConfiguration = Object.freeze({
-	citiesToRetrieve: {
-		terrassa: {
-			id: 3108286,
+	locations: [
+		{
+			id: 3108286, // Terrassa
 			timezone: 'Europe/Madrid'
 		},
-		barcelona: {
-			id: 3128760,
+		{
+			id: 3128760, // Barcelona
 			timezone: 'Europe/Madrid'
-		}
-	},
+		},
+		{
+			id: 3119694, // La Garriga
+			timezone: 'Europe/Madrid'
+		},
+	],
 	publishInterval: 1200000 // 1200000 = 20 minutes
 });
 

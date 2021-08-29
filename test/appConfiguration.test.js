@@ -6,27 +6,27 @@ describe('Application configuration', () => {
 	it('should be an object with valid properties', () => {
 		assert.isObject(appConfiguration);
 
-		expect(appConfiguration.hasOwnProperty('citiesToRetrieve')).to.be.true;
+		expect(appConfiguration.hasOwnProperty('locations')).to.be.true;
 		expect(appConfiguration.hasOwnProperty('publishInterval')).to.be.true;
 
-		assert.isObject(appConfiguration.citiesToRetrieve);
+		assert.isArray(appConfiguration.locations);
 
-		for (let city in appConfiguration.citiesToRetrieve) {
-			assert.isObject(appConfiguration.citiesToRetrieve[city]);
-			expect(appConfiguration.citiesToRetrieve[city].hasOwnProperty('id')).to.be.true;
-			expect(appConfiguration.citiesToRetrieve[city].hasOwnProperty('timezone')).to.be.true;
+		for (const location of appConfiguration.locations) {
+			assert.isObject(location);
+			expect(location.hasOwnProperty('id')).to.be.true;
+			expect(location.hasOwnProperty('timezone')).to.be.true;
 		}
 	});
 
 	it('should have a valid values', () => {
 		const regex_timezone = /[a-zA-Z]{4,24}\/[a-zA-Z_]{4,24}/;
 
-		for (let city in appConfiguration.citiesToRetrieve) {
-			assert.isNumber(appConfiguration.citiesToRetrieve[city].id);
-			expect(Number.isInteger(appConfiguration.citiesToRetrieve[city].id)).to.be.true;
+		for (const location of appConfiguration.locations) {
+			assert.isNumber(location.id);
+			expect(Number.isInteger(location.id)).to.be.true;
 
-			assert.isString(appConfiguration.citiesToRetrieve[city].timezone);
-			assert.match(appConfiguration.citiesToRetrieve[city].timezone, regex_timezone);
+			assert.isString(location.timezone);
+			assert.match(location.timezone, regex_timezone);
 		}
 
 		assert.isNumber(appConfiguration.publishInterval);

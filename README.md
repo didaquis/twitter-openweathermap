@@ -21,11 +21,11 @@ Example of tweet published by this application: https://twitter.com/didipi_bot/s
   * Duplicate the configuration file `_env` and rename it as `.env`
   * Write your credentials in file `.env`
 * You must edit the file `src/appConfiguration.js` for configure the application.
-  * For each city to retrieve data from OpenWeatherMap API you need to create a new property inside `citiesToRetrieve`. The name of the property is just for reference, choose any valid string (my recomendation is use the name of city). This key must contain a new object with property `id` and his value must be a valid ID value of city. You can see list of ID values of cities on the documentation of OpenWeatherMap API. You must include another property called `timezone` with the timezone of the city.
+  * For each city to retrieve data from OpenWeatherMap API you need to create a new property inside `locations`. The name of the property is just for reference, choose any valid string (my recomendation is use the name of city). This key must contain a new object with property `id` and his value must be a valid ID value of city. You can see list of ID values of cities on the documentation of OpenWeatherMap API. You must include another property called `timezone` with the timezone of the city.
   ```
   /* Example of configuration */
   // ...
-  citiesToRetrieve: {
+  locations: {
 		fooCity: {
 			id: 1111111,
 			timezone: 'Europe/Madrid'
@@ -43,7 +43,7 @@ Example of tweet published by this application: https://twitter.com/didipi_bot/s
   // ...
   ```
   * If you wish, you can modify the interval of execution. This value is the number of miliseconds of delay before new execution of code. Recommended value is `1200000` (20 minutes).
-* If you want, you can edit some value of OpenWeatherMap API on the file `src/lib/owm_api/config_api.js`. This step is not necessary.
+* If you want, you can edit the default language of OpenWeatherMap API on the file `src/lib/owm_api/config_api.js`. 
 
 **Warning:** You must keep in mind the API restrictions. For example, you can't publish thousands of tweets in a row or publish the same data over and over again. Both Twitter and OpenWeatherMap impose a series of limitations in their API.
 
@@ -70,7 +70,8 @@ It's a Node.js app, so you can deploy this software almost anywhere: Raspberry P
 * https://en.wikipedia.org/wiki/List_of_tz_database_time_zones (timezone identifier)
 
 ### OpenWeatherMap
-* https://openweathermap.org/api (weather data API)
+* https://openweathermap.org/api (Current Weather Data API)
+* To obtain the ID of locations: http://bulk.openweathermap.org/sample/
 
 ### Twitter 
 * https://apps.twitter.com 
