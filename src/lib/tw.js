@@ -15,8 +15,8 @@ const Twitter = require('twitter');
 require('dotenv').config();
 
 const { logger } = require('../lib/config-log4js');
-const { typeOf, capitalizeText, getTimeFromTimestamp } = require('../utils/utils');
-const appConfig = require('../appConfiguration');
+const { typeOf, capitalizeText, getTimeFromTimestamp, isProduction } = require('../utils/utils');
+const { appConfiguration } = require('../appConfiguration');
 
 /**
  * An instance of Twitter client class to communicate with Twitter API
@@ -33,7 +33,7 @@ const twitterClient = new Twitter({
  * Publish a new tweet to Twitter
  * @param {string}   textToTweet 	Text of tweet
  * @param {function} callback 		Callback
- * @throws 							Will throw an error if the argument is not valid
+ * @throws 							Will throw an error if arguments are not valid
  * @function publishToTwitter
  * @async
  */
@@ -41,6 +41,11 @@ function publishToTwitter (textToTweet, callback) {
 	if (!textToTweet || typeof textToTweet !== 'string' || typeof callback !== 'function') {
 		const errorMessage = 'Invalid argument passed to publishToTwitter';
 		throw new Error(errorMessage);
+	}
+
+	if (!isProduction()){
+		logger.debug(textToTweet);
+		return;
 	}
 
 	twitterClient.post('statuses/update', { status: textToTweet }, callback);
@@ -94,17 +99,21 @@ function formatTextToTweet (data, randomID) {
 		throw new Error(errorMessage);
 	}
 
+	const findLocationById = (id) => {
+		return appConfiguration.locations.find((location) => location.id === id);
+	}; 
+
 	const firstElement = 0;
 	const template = `
-	${data.name}
+	${capitalizeText(data.name)}
 
 	${capitalizeText(data.weather[firstElement].description)}
 	Temperatura: ${data.main.temp} ℃
 	Humedad: ${data.main.humidity} %
 	Viento: ${data.wind.speed} m/s
 	Nubes: ${data.clouds.all} %
-	Salida del sol: ${getTimeFromTimestamp(data.sys.sunrise, appConfig.citiesToRetrieve[data.name.toLowerCase()].timezone)}
-	Puesta del sol: ${getTimeFromTimestamp(data.sys.sunset, appConfig.citiesToRetrieve[data.name.toLowerCase()].timezone)}
+	Salida del sol: ${getTimeFromTimestamp(data.sys.sunrise, findLocationById(data.id).timezone)}
+	Puesta del sol: ${getTimeFromTimestamp(data.sys.sunset, findLocationById(data.id).timezone)}
 	-------------------------
 	ID: ${randomID}`;
 

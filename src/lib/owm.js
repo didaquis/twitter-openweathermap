@@ -18,15 +18,15 @@ const { logger } = require('../lib/config-log4js');
 
 /**
  * Request data from OWM API and return a promise with all results
- * @param  {Object}  citiesToRetrieve 	 Object with info about one or more cities
- * @param  {integer} citiesToRetrieve.id Id of city
- * @return {Promise}                 	 Object with data retrieved from API
- * @throws 							 	 Will throw an error if the argument is not valid
+ * @param  {Object}  locations 	 		Object with info about one or more cities
+ * @param  {integer} locations.id 		Id of city
+ * @return {Promise}                 	Object with data retrieved from API
+ * @throws 							 	Will throw an error if the argument is not valid
  * @function getWeatherData
  * @async
  */
-async function getWeatherData (citiesToRetrieve) {
-	if (!citiesToRetrieve) {
+async function getWeatherData (locations) {
+	if (!locations) {
 		const errorMessage = 'getWeatherData expect a valid object';
 		logger.error(errorMessage);
 		throw new Error(errorMessage);
@@ -35,8 +35,8 @@ async function getWeatherData (citiesToRetrieve) {
 	const OWM_API = new OpenWeatherMapAPI(config_api.openWeatherMapAPI);
 
 	const results = [];
-	for (let city in citiesToRetrieve) {
-		results.push(OWM_API.getWeatherByIdOfCity(citiesToRetrieve[city].id));
+	for (let location in locations) {
+		results.push(OWM_API.getWeatherByIdOfCity(locations[location].id));
 	}
 
 	return await Promise.all(results);

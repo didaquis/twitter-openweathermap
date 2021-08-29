@@ -46,24 +46,6 @@ describe('Twitter auth', () => {
 	});
 });
 
-describe('Twitter request', () => {
-	it('should be a valid request', (done) => {
-		twitterClient.get('search/tweets', {q: 'Twitter', count: 1}, function (error, tweets, response) {
-			assert.isDefined(response.statusCode);
-			assert.isNumber(response.statusCode);
-
-			const statusCode_OK = 200;
-			expect(response.statusCode).to.equal(statusCode_OK);
-
-			assert.isDefined(response.statusMessage);
-			assert.isString(response.statusMessage);
-			expect(response.statusMessage).to.equal('OK');
-
-			done();
-		});
-	});
-});
-
 describe('publishToTwitter', () => {
 	it('should be a function', () => {
 		assert.isFunction(publishToTwitter);
