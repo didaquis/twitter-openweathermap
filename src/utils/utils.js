@@ -10,6 +10,7 @@
  * @module utils
  */
 
+const crypto = require('crypto');
 const moment = require('moment-timezone');
 const { logger } = require('../lib/config-log4js');
 
@@ -73,7 +74,6 @@ function capitalizeText (str) {
  * @return {string}
  */
 function randomValue () {
-	const crypto = require('crypto');
 	const numberOfBytes = 10;
 	return crypto.randomBytes(numberOfBytes).toString('hex');
 }
