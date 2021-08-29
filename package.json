@@ -1,6 +1,6 @@
 {
   "name": "twitter-openweathermap",
-  "version": "1.12.96",
+  "version": "2.0.0",
   "private": true,
   "description": "Publish OpenWeatherMap API data to Twitter",
   "main": "src/app.js",
@@ -24,7 +24,7 @@
     "node": "^10.18.0"
   },
   "dependencies": {
-    "dotenv": "^8.6.0",
+    "dotenv": "^10.0.0",
     "log4js": "^6.3.0",
     "moment-timezone": "^0.5.33",
     "node-fetch": "^2.6.1",
@@ -34,9 +34,9 @@
     "chai": "^4.3.4",
     "jsdoc": "^3.6.7",
     "live-server": "^1.2.1",
-    "mocha": "^8.4.0",
+    "mocha": "^9.1.1",
     "nodemon": "^2.0.12",
     "nyc": "^15.1.0",
-    "sinon": "^9.2.4"
+    "sinon": "^11.1.2"
   }
 }
