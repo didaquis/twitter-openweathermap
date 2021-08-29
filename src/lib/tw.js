@@ -33,7 +33,7 @@ const twitterClient = new Twitter({
  * Publish a new tweet to Twitter
  * @param {string}   textToTweet 	Text of tweet
  * @param {function} callback 		Callback
- * @throws 							Will throw an error if the argument is not valid
+ * @throws 							Will throw an error if arguments are not valid
  * @function publishToTwitter
  * @async
  */

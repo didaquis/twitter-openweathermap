@@ -52,7 +52,7 @@ Example of tweet published by this application: https://twitter.com/didipi_bot/s
 
 
 ## For development:
-* For run app: `npm run dev`
+* For run app: `npm run dev` (Tweets are not published in development mode)
 * For run test: `npm run test`
 * For run test and coverage report: `npm run test:coverage`
 * For run documentation: `npm run doc-view`
@@ -70,7 +70,7 @@ It's a Node.js app, so you can deploy this software almost anywhere: Raspberry P
 * https://en.wikipedia.org/wiki/List_of_tz_database_time_zones (timezone identifier)
 
 ### OpenWeatherMap
-* https://openweathermap.org/api (Current weather data API)
+* https://openweathermap.org/api (weather data API)
 
 ### Twitter 
 * https://apps.twitter.com 
