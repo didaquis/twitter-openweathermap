@@ -2,12 +2,10 @@
 # Rename this file to '.env' and set your configuration
 
 # Twitter credentials
-
 TWITTER_CONSUMER_KEY=foo
 TWITTER_CONSUMER_SECRET=foo
 TWITTER_ACCESS_TOKEN_KEY=foo
 TWITTER_ACCESS_TOKEN_SECRET=foo
 
 # OpenWeatherMap credentials
-
 OPENWEATHERMAP_APIKEY=foo
