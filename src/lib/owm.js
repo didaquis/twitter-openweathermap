@@ -20,7 +20,7 @@ const { logger } = require('../lib/config-log4js');
  * Request data from OWM API and return a promise with all results
  * @param  {Object}  locations 	 		Object with info about one or more cities
  * @param  {integer} locations.id 		Id of city
- * @return {Promise}                 	Object with data retrieved from API
+ * @returns {Promise}                 	Object with data retrieved from API
  * @throws 							 	Will throw an error if the argument is not valid
  * @function getWeatherData
  * @async
