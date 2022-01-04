@@ -76,7 +76,7 @@ function capitalizeText (str) {
 const randomValue = () => {
 	const numberOfBytes = 10;
 	return crypto.randomBytes(numberOfBytes).toString('hex');
-}
+};
 
 /**
  * Return true if this app is running in production mode

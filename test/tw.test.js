@@ -354,7 +354,7 @@ describe('templateTextValidation', () => {
 
 	it('should return false if not receive valid params', () => {
 		const fakeValue = 42;
-		const fakeParams = [ {}, [], fakeValue, 'pizza', { id: 42 }, { weather: [ { id: 800, main: 'Clear', description: 'cielo claro', icon: '01n' } ]}];
+		const fakeParams = [ {}, [], fakeValue, 'pizza', { id: 42 }, { weather: [ { id: 800, main: 'Clear', description: 'cielo claro', icon: '01n' } ] }];
 		const fakeParamsWithMissingData = [
 			{ coord: { lon: 2.02, lat: 41.57 }, weather: [ { id: 800, main: 'Clear', description: 'cielo claro', icon: '01n' } ], base: 'stations', main: { temp: 7.53, pressure: 999, humidity: 56, temp_min: 7, temp_max: 8 }, visibility: 10000, wind: { speed: 3.6, deg: 320 }, clouds: { all: 0 }, dt: 1548280800, sys: { type: 1, id: 6414, message: 0.0036, country: 'ES', sunrise: 1548227470, sunset: 1548262625 }, id: 3108286, cod: 200 },
 			{ coord: { lon: 2.02, lat: 41.57 }, weather: [ { id: 800, main: 'Clear', description: 'cielo claro', icon: '01n' } ], base: 'stations', main: { temp: 7.53, pressure: 999, humidity: 56, temp_min: 7, temp_max: 8 }, visibility: 10000, wind: { speed: 3.6, deg: 320 }, clouds: { all: 0 }, dt: 1548280800, sys: { type: 1, id: 6414, message: 0.0036, country: 'ES', sunset: 1548262625 }, id: 3108286, name: 'Terrassa', cod: 200 },
