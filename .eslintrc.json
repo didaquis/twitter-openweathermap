@@ -42,6 +42,7 @@
         "no-magic-numbers": "warn",
         "valid-typeof": "error",
         "object-curly-spacing": ["error", "always"],
-		"curly": "error"
+		"curly": "error",
+        "no-return-await": "error"
     }
 }

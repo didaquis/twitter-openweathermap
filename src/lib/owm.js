@@ -39,7 +39,7 @@ async function getWeatherData (locations) {
 		results.push(OWM_API.getWeatherByIdOfCity(locations[location].id));
 	}
 
-	return await Promise.all(results);
+	return Promise.all(results);
 }
 
 module.exports = { getWeatherData };
