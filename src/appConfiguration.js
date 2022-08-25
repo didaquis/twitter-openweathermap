@@ -29,6 +29,14 @@ const appConfiguration = Object.freeze({
 			id: 3119694, // La Garriga
 			timezone: 'Europe/Madrid'
 		},
+		{
+			id: 3115593, // Navàs
+			timezone: 'Europe/Madrid'
+		},
+		{
+			id: 3125442, // Centelles
+			timezone: 'Europe/Madrid'
+		},
 	],
 	publishInterval: 1200000 // 1200000 = 20 minutes
 });
