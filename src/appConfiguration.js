@@ -17,10 +17,10 @@
  */
 const appConfiguration = Object.freeze({
 	locations: [
-		{
-			id: 3108286, // Terrassa
-			timezone: 'Europe/Madrid'
-		},
+		// {
+		// 	id: 3108286, // Terrassa
+		// 	timezone: 'Europe/Madrid'
+		// },
 		{
 			id: 3128760, // Barcelona
 			timezone: 'Europe/Madrid'
