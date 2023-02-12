@@ -38,7 +38,7 @@ const appConfiguration = Object.freeze({
 			timezone: 'Europe/Madrid'
 		},
 	],
-	publishInterval: 1200000 // 1200000 = 20 minutes
+	publishInterval: 1800000 // 1200000 = 20 minutes; 1800000 = 30 minutes;
 });
 
 /** App Configuration */
