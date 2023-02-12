@@ -21,14 +21,14 @@ const appConfiguration = Object.freeze({
 		// 	id: 3108286, // Terrassa
 		// 	timezone: 'Europe/Madrid'
 		// },
-		{
-			id: 3128760, // Barcelona
-			timezone: 'Europe/Madrid'
-		},
-		{
-			id: 3119694, // La Garriga
-			timezone: 'Europe/Madrid'
-		},
+		// {
+		// 	id: 3128760, // Barcelona
+		// 	timezone: 'Europe/Madrid'
+		// },
+		// {
+		// 	id: 3119694, // La Garriga
+		// 	timezone: 'Europe/Madrid'
+		// },
 		// {
 		// 	id: 3115593, // Navàs
 		// 	timezone: 'Europe/Madrid'
@@ -38,7 +38,7 @@ const appConfiguration = Object.freeze({
 			timezone: 'Europe/Madrid'
 		},
 	],
-	publishInterval: 1200000 // 1200000 = 20 minutes
+	publishInterval: 1800000 // 1200000 = 20 minutes; 1800000 = 30 minutes;
 });
 
 /** App Configuration */
