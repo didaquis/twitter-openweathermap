@@ -27,18 +27,17 @@ const twitterClient = new TwitterApi({
 	appSecret: process.env.TWITTER_CONSUMER_SECRET,
 	accessToken: process.env.TWITTER_ACCESS_TOKEN_KEY,
 	accessSecret: process.env.TWITTER_ACCESS_TOKEN_SECRET
-})
+});
 
 /**
  * Publish a new tweet to Twitter
  * @param {string}   textToTweet 	Text of tweet
- * @param {function} callback 		Callback
- * @throws 							Will throw an error if arguments are not valid
+ * @throws 							Will throw an error if something goes wrong
  * @function publishToTwitter
  * @async
  */
-async function publishToTwitter (textToTweet, callback) {
-	if (!textToTweet || typeof textToTweet !== 'string' || typeof callback !== 'function') {
+async function publishToTwitter (textToTweet) {
+	if (!textToTweet || typeof textToTweet !== 'string') {
 		const errorMessage = 'Invalid argument passed to publishToTwitter';
 		throw new Error(errorMessage);
 	}
@@ -48,41 +47,39 @@ async function publishToTwitter (textToTweet, callback) {
 		return;
 	}
 
-	const { data } = await twitterClient.v2.tweet(textToTweet);
+	try {
+		const { data } = await twitterClient.v2.tweet(textToTweet);
+		/*
+		// Example of "data"
+		{
+			edit_history_tweet_ids: [ '1665043927739559936' ],
+			id: '1665043927739559936',
+			text: 'Centelles\n' +
+			'\n' +
+			'Nubes\n' +
+			'Temperatura: 19.17 ℃\n' +
+			'Humedad: 81 %\n' +
+			'Viento: 1.11 m/s\n' +
+			'Nubes: 90 %\n' +
+			'Salida del sol: 06:18\n' +
+			'Puesta del sol: 21:20\n' +
+			'-------------------------\n' +
+			'ID: 66e10338120ff160993b'
+		}
+		*/
 
-	console.log('data.............', data)
+		const user = await twitterClient.v2.me(); // TODO: esto molaría hacerlo una única vez
 
-	//callback();
-}
+		const userName = user.data.username;
+		const urlOfPublishedTweet = `https://twitter.com/${userName}/status/${data.id}`;
 
-/**
- * Manage the response of Twitter
- * @param  {object|null} error  	Error object from Twitter API
- * @param  {object} 	 tweet    	Tweet object from Twitter API
- * @param  {object} 	 response 	Response object from Twitter API
- * @throws 							Will throw an error if Twitter send an error
- * @throws 							Will throw an error if Twitter send a status code different than 200
- * @function manageTwitterResponse
- */
-function manageTwitterResponse (error, tweet, response) {
-	if (error) {
-		const errorMessage = `Trying to publish a tweet: ${JSON.stringify(error)}`;
+		logger.info(`Tweet published: ${urlOfPublishedTweet}`);
+	} catch (error) {
+		const errorMessage = `Trying to publish a tweet: ${JSON.stringify(error?.message)}`;
 		logger.error(errorMessage);
-		return new Error(errorMessage);
+		// throw new Error(errorMessage);
 	}
-
-	const statusCode_OK = 200;
-	if (response.statusCode !== statusCode_OK) {
-		const errorMessage = `Status code of response after the attempt to publish a tweet: ${response.statusCode}`;
-		logger.error(errorMessage);
-		return new Error(errorMessage);
-	}
-
-	const urlOfPublishedTweet = `https://twitter.com/${tweet.user.name}/status/${tweet.id_str}`;
-
-	logger.info(`Tweet published: ${urlOfPublishedTweet}`);
 }
-
 
 /**
  * Create text of tweet using data received from OpenWeatherMAP API
@@ -168,4 +165,4 @@ function templateTextValidation (data) {
 	return true;
 }
 
-module.exports = { twitterClient, publishToTwitter, manageTwitterResponse, formatTextToTweet, templateTextValidation };
+module.exports = { twitterClient, publishToTwitter, formatTextToTweet, templateTextValidation };
