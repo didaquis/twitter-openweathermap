@@ -10,7 +10,7 @@
  * @module tw
  */
 
-const Twitter = require('twitter');
+const { TwitterApi } = require('twitter-api-v2');
 
 require('dotenv').config();
 
@@ -22,12 +22,12 @@ const { appConfiguration } = require('../appConfiguration');
  * An instance of Twitter client class to communicate with Twitter API
  * @type {Twitter}
  */
-const twitterClient = new Twitter({
-	consumer_key: process.env.TWITTER_CONSUMER_KEY,
-	consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
-	access_token_key: process.env.TWITTER_ACCESS_TOKEN_KEY,
-	access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET
-});
+const twitterClient = new TwitterApi({
+	appKey: process.env.TWITTER_CONSUMER_KEY,
+	appSecret: process.env.TWITTER_CONSUMER_SECRET,
+	accessToken: process.env.TWITTER_ACCESS_TOKEN_KEY,
+	accessSecret: process.env.TWITTER_ACCESS_TOKEN_SECRET
+})
 
 /**
  * Publish a new tweet to Twitter
@@ -37,7 +37,7 @@ const twitterClient = new Twitter({
  * @function publishToTwitter
  * @async
  */
-function publishToTwitter (textToTweet, callback) {
+async function publishToTwitter (textToTweet, callback) {
 	if (!textToTweet || typeof textToTweet !== 'string' || typeof callback !== 'function') {
 		const errorMessage = 'Invalid argument passed to publishToTwitter';
 		throw new Error(errorMessage);
@@ -48,7 +48,11 @@ function publishToTwitter (textToTweet, callback) {
 		return;
 	}
 
-	twitterClient.post('statuses/update', { status: textToTweet }, callback);
+	const { data } = await twitterClient.v2.tweet(textToTweet);
+
+	console.log('data.............', data)
+
+	//callback();
 }
 
 /**
