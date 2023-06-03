@@ -4,7 +4,7 @@ const expect = chai.expect;
 const assert = chai.assert;
 const sinon = require('sinon');
 
-const { twitterClient, publishToTwitter, manageTwitterResponse, formatTextToTweet, templateTextValidation } = require('../src/lib/tw');
+const { twitterClient, publishToTwitter, formatTextToTweet, templateTextValidation } = require('../src/lib/tw');
 const { logger } = require('../src/lib/config-log4js');
 
 describe('Twitter auth', () => {
@@ -51,9 +51,9 @@ describe('publishToTwitter', () => {
 		assert.isFunction(publishToTwitter);
 	});
 
-	it('should throw an error if not receive params', (done) => {
+	it('should throw an error if not receive params', async (done) => {
 		try {
-			publishToTwitter();
+			await publishToTwitter();
 		} catch (e) {
 			const errorMessage = 'Invalid argument passed to publishToTwitter';
 			expect(e.message).to.equal(errorMessage);
@@ -61,34 +61,10 @@ describe('publishToTwitter', () => {
 		}
 	});
 
-	it('should throw an error if receive only on param', (done) => {
-		try {
-			const fakeParam = 'fake-string';
-			publishToTwitter(fakeParam);
-		} catch (e) {
-			const errorMessage = 'Invalid argument passed to publishToTwitter';
-			expect(e.message).to.equal(errorMessage);
-			done();
-		}
-	});
-
-	it('should throw an error if receive invalid params', (done) => {
+	it('should throw an error if receive invalid params', async (done) => {
 		try {
 			const fakeParam = 42;
-			const anotherFakeParam = 42;
-			publishToTwitter(fakeParam, anotherFakeParam);
-		} catch (e) {
-			const errorMessage = 'Invalid argument passed to publishToTwitter';
-			expect(e.message).to.equal(errorMessage);
-			done();
-		}
-	});
-
-	it('should throw an error if not receive callback parameter', (done) => {
-		try {
-			const fakeParam = 'fake-text';
-			const anotherFakeParam = 42;
-			publishToTwitter(fakeParam, anotherFakeParam);
+			await publishToTwitter(fakeParam);
 		} catch (e) {
 			const errorMessage = 'Invalid argument passed to publishToTwitter';
 			expect(e.message).to.equal(errorMessage);
