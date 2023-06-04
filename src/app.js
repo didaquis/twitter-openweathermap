@@ -15,8 +15,8 @@ const { appConfiguration } = require('./appConfiguration');
 const log4js = require('log4js');
 const { logger } = require('./lib/config-log4js');
 const { getWeatherData } = require('./lib/owm');
-const { formatTextToTweet, publishToTwitter, manageTwitterResponse } = require('./lib/tw');
-const { randomValue } = require('./utils/utils');
+const { formatTextToTweet, publishToTwitter, getTwitterUsername } = require('./lib/tw');
+const { getRandomValue } = require('./utils/utils');
 
 
 logger.info('Starting application...');
@@ -26,8 +26,12 @@ logger.info('Starting application...');
  * @async
  * @function mainClock
  */
-(async function mainClock () {
+(async function mainClock (username = null) {
 	try {
+		if (!username) {
+			username = await getTwitterUsername();
+		}
+
 		const weatherData = await getWeatherData(appConfiguration.locations);
 
 		const minimumLengthExpected = 1;
@@ -36,16 +40,18 @@ logger.info('Starting application...');
 			throw new Error(errorMessage);
 		}
 
-		weatherData.forEach((data) => {
-			const dataForTweet = formatTextToTweet(data, randomValue());
+		for (let index = 0; index < weatherData.length; index++) {
+			const dataForTweet = formatTextToTweet(weatherData[index], getRandomValue());
 
-			publishToTwitter(dataForTweet, manageTwitterResponse);
-		});
+			await publishToTwitter(dataForTweet, username);
+		}
 	} catch (e) {
 		logger.error(`Error: ${e.message}`);
 	}
 
-	setTimeout(mainClock, appConfiguration.publishInterval);
+	setTimeout(() => {
+		mainClock(username);
+	}, appConfiguration.publishInterval);
 })();
 
 

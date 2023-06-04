@@ -10,7 +10,7 @@
  * @module tw
  */
 
-const Twitter = require('twitter');
+const { TwitterApi } = require('twitter-api-v2');
 
 require('dotenv').config();
 
@@ -22,23 +22,22 @@ const { appConfiguration } = require('../appConfiguration');
  * An instance of Twitter client class to communicate with Twitter API
  * @type {Twitter}
  */
-const twitterClient = new Twitter({
-	consumer_key: process.env.TWITTER_CONSUMER_KEY,
-	consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
-	access_token_key: process.env.TWITTER_ACCESS_TOKEN_KEY,
-	access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET
+const twitterClient = new TwitterApi({
+	appKey: process.env.TWITTER_CONSUMER_KEY,
+	appSecret: process.env.TWITTER_CONSUMER_SECRET,
+	accessToken: process.env.TWITTER_ACCESS_TOKEN_KEY,
+	accessSecret: process.env.TWITTER_ACCESS_TOKEN_SECRET
 });
 
 /**
  * Publish a new tweet to Twitter
  * @param {string}   textToTweet 	Text of tweet
- * @param {function} callback 		Callback
- * @throws 							Will throw an error if arguments are not valid
+ * @param {string}   username 		The username of the Twitter Account
  * @function publishToTwitter
  * @async
  */
-function publishToTwitter (textToTweet, callback) {
-	if (!textToTweet || typeof textToTweet !== 'string' || typeof callback !== 'function') {
+async function publishToTwitter (textToTweet, username) {
+	if (!textToTweet || typeof textToTweet !== 'string' || !username) {
 		const errorMessage = 'Invalid argument passed to publishToTwitter';
 		throw new Error(errorMessage);
 	}
@@ -48,37 +47,45 @@ function publishToTwitter (textToTweet, callback) {
 		return;
 	}
 
-	twitterClient.post('statuses/update', { status: textToTweet }, callback);
+	try {
+		const { data } = await twitterClient.v2.tweet(textToTweet);
+
+		const urlOfPublishedTweet = `https://twitter.com/${username}/status/${data.id}`;
+
+		logger.info(`Tweet published: ${urlOfPublishedTweet}`);
+	} catch (error) {
+		const errorMessage = `Error trying to publish a tweet: ${error?.message}`;
+		logger.error(errorMessage);
+	}
 }
+
 
 /**
- * Manage the response of Twitter
- * @param  {object|null} error  	Error object from Twitter API
- * @param  {object} 	 tweet    	Tweet object from Twitter API
- * @param  {object} 	 response 	Response object from Twitter API
- * @throws 							Will throw an error if Twitter send an error
- * @throws 							Will throw an error if Twitter send a status code different than 200
- * @function manageTwitterResponse
+ * Returns the username of the Twitter account
+ * @function getTwitterUsername
+ * @async
+ * @returns {string}
  */
-function manageTwitterResponse (error, tweet, response) {
-	if (error) {
-		const errorMessage = `Trying to publish a tweet: ${JSON.stringify(error)}`;
+async function getTwitterUsername () {
+	try {
+		const user = await twitterClient.v2.me();
+		/*
+		// user
+		{
+			data: {
+				id: '844135277169917953',
+				name: 'didipi_bot',
+				username: 'didipi_bot'
+			}
+		}
+		*/
+	
+		return user.data.username;	
+	} catch (error) {
+		const errorMessage = `Error trying to get the user name: ${error?.message}`;
 		logger.error(errorMessage);
-		return new Error(errorMessage);
 	}
-
-	const statusCode_OK = 200;
-	if (response.statusCode !== statusCode_OK) {
-		const errorMessage = `Status code of response after the attempt to publish a tweet: ${response.statusCode}`;
-		logger.error(errorMessage);
-		return new Error(errorMessage);
-	}
-
-	const urlOfPublishedTweet = `https://twitter.com/${tweet.user.name}/status/${tweet.id_str}`;
-
-	logger.info(`Tweet published: ${urlOfPublishedTweet}`);
-}
-
+};
 
 /**
  * Create text of tweet using data received from OpenWeatherMAP API
@@ -164,4 +171,4 @@ function templateTextValidation (data) {
 	return true;
 }
 
-module.exports = { twitterClient, publishToTwitter, manageTwitterResponse, formatTextToTweet, templateTextValidation };
+module.exports = { getTwitterUsername, publishToTwitter, formatTextToTweet, templateTextValidation };

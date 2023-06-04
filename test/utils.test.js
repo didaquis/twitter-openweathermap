@@ -3,7 +3,7 @@ const expect = chai.expect;
 const assert = chai.assert;
 const sinon = require('sinon');
 
-const { typeOf, getTimeFromTimestamp, capitalizeText, randomValue } = require('../src/utils/utils');
+const { typeOf, getTimeFromTimestamp, capitalizeText, getRandomValue } = require('../src/utils/utils');
 const { logger } = require('../src/lib/config-log4js');
 
 describe('typeOf', () => {
@@ -284,18 +284,18 @@ describe('capitalizeText', () => {
 	});
 });
 
-describe('randomValue', () => {
+describe('getRandomValue', () => {
 	it('should be a function', () => {
-		assert.isFunction(randomValue);
+		assert.isFunction(getRandomValue);
 	});
 
 	it('should return a string', () => {
-		expect(randomValue()).to.be.a('string');
+		expect(getRandomValue()).to.be.a('string');
 	});
 
 	it('should return a string of 20 chars', () => {
 		const expectedLength = 20;
-		expect(randomValue()).to.have.lengthOf(expectedLength);
+		expect(getRandomValue()).to.have.lengthOf(expectedLength);
 	});
 
 	it('should return a different random value on every call', () => {
@@ -304,7 +304,7 @@ describe('randomValue', () => {
 		const results = [];
 		const numberOfTest = 1000;
 		for (let i = 0; i < numberOfTest; i++) {
-			result = randomValue();
+			result = getRandomValue();
 			if (results.includes(result)) {
 				collision = true;
 			}
