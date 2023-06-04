@@ -73,7 +73,7 @@ function capitalizeText (str) {
  * Create a random value of 20 chars of length
  * @returns {string}
  */
-const randomValue = () => {
+const getRandomValue = () => {
 	const numberOfBytes = 10;
 	return crypto.randomBytes(numberOfBytes).toString('hex');
 };
@@ -86,4 +86,4 @@ const isProduction = () => {
 	return process.env.NODE_ENV === 'production';
 };
 
-module.exports = { typeOf, getTimeFromTimestamp, capitalizeText, randomValue, isProduction };
+module.exports = { typeOf, getTimeFromTimestamp, capitalizeText, getRandomValue, isProduction };

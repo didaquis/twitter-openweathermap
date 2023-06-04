@@ -32,12 +32,12 @@ const twitterClient = new TwitterApi({
 /**
  * Publish a new tweet to Twitter
  * @param {string}   textToTweet 	Text of tweet
- * @throws 							Will throw an error if something goes wrong
+ * @param {string}   username 		The username of the Twitter Account
  * @function publishToTwitter
  * @async
  */
-async function publishToTwitter (textToTweet) {
-	if (!textToTweet || typeof textToTweet !== 'string') {
+async function publishToTwitter (textToTweet, username) {
+	if (!textToTweet || typeof textToTweet !== 'string' || !username) {
 		const errorMessage = 'Invalid argument passed to publishToTwitter';
 		throw new Error(errorMessage);
 	}
@@ -49,26 +49,26 @@ async function publishToTwitter (textToTweet) {
 
 	try {
 		const { data } = await twitterClient.v2.tweet(textToTweet);
-		/*
-		// Example of "data"
-		{
-			edit_history_tweet_ids: [ '1665043927739559936' ],
-			id: '1665043927739559936',
-			text: 'Centelles\n' +
-			'\n' +
-			'Nubes\n' +
-			'Temperatura: 19.17 ℃\n' +
-			'Humedad: 81 %\n' +
-			'Viento: 1.11 m/s\n' +
-			'Nubes: 90 %\n' +
-			'Salida del sol: 06:18\n' +
-			'Puesta del sol: 21:20\n' +
-			'-------------------------\n' +
-			'ID: 66e10338120ff160993b'
-		}
-		*/
 
-		const user = await twitterClient.v2.me(); // TODO: esto molaría hacerlo una única vez
+		const urlOfPublishedTweet = `https://twitter.com/${username}/status/${data.id}`;
+
+		logger.info(`Tweet published: ${urlOfPublishedTweet}`);
+	} catch (error) {
+		const errorMessage = `Error trying to publish a tweet: ${error?.message}`;
+		logger.error(errorMessage);
+	}
+}
+
+
+/**
+ * Returns the username of the Twitter account
+ * @function getTwitterUsername
+ * @async
+ * @returns {string}
+ */
+async function getTwitterUsername () {
+	try {
+		const user = await twitterClient.v2.me();
 		/*
 		// user
 		{
@@ -79,17 +79,13 @@ async function publishToTwitter (textToTweet) {
 			}
 		}
 		*/
-
-		const userName = user.data.username;
-		const urlOfPublishedTweet = `https://twitter.com/${userName}/status/${data.id}`;
-
-		logger.info(`Tweet published: ${urlOfPublishedTweet}`);
+	
+		return user.data.username;	
 	} catch (error) {
-		const errorMessage = `Trying to publish a tweet: ${JSON.stringify(error?.message)}`;
+		const errorMessage = `Error trying to get the user name: ${error?.message}`;
 		logger.error(errorMessage);
-		// throw new Error(errorMessage);
 	}
-}
+};
 
 /**
  * Create text of tweet using data received from OpenWeatherMAP API
@@ -175,4 +171,4 @@ function templateTextValidation (data) {
 	return true;
 }
 
-module.exports = { publishToTwitter, formatTextToTweet, templateTextValidation };
+module.exports = { getTwitterUsername, publishToTwitter, formatTextToTweet, templateTextValidation };
