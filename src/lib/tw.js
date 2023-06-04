@@ -69,10 +69,8 @@ async function publishToTwitter (textToTweet) {
 		*/
 
 		const user = await twitterClient.v2.me(); // TODO: esto molaría hacerlo una única vez
-		console.log(user)
 		/*
-		// user 
-
+		// user
 		{
 			data: {
 				id: '844135277169917953',
@@ -81,7 +79,6 @@ async function publishToTwitter (textToTweet) {
 			}
 		}
 		*/
-
 
 		const userName = user.data.username;
 		const urlOfPublishedTweet = `https://twitter.com/${userName}/status/${data.id}`;
@@ -178,4 +175,4 @@ function templateTextValidation (data) {
 	return true;
 }
 
-module.exports = { twitterClient, publishToTwitter, formatTextToTweet, templateTextValidation };
+module.exports = { publishToTwitter, formatTextToTweet, templateTextValidation };
