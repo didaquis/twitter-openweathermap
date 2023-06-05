@@ -44,6 +44,7 @@ async function publishToTwitter (textToTweet, username) {
 
 	if (!isProduction()){
 		logger.debug(textToTweet);
+		logger.debug(username);
 		return;
 	}
 
@@ -68,6 +69,10 @@ async function publishToTwitter (textToTweet, username) {
  */
 async function getTwitterUsername () {
 	try {
+		if (!isProduction()){
+			return 'fake_username_for_debug';
+		}
+
 		const user = await twitterClient.v2.me();
 		/*
 		// user
