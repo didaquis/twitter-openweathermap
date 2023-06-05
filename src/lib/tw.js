@@ -54,7 +54,7 @@ async function publishToTwitter (textToTweet, username) {
 
 		logger.info(`Tweet published: ${urlOfPublishedTweet}`);
 	} catch (error) {
-		const errorMessage = `Error trying to publish a tweet: ${error?.message}`;
+		const errorMessage = `Error trying to publish a tweet: ${error.message}`;
 		logger.error(errorMessage);
 	}
 }
@@ -82,7 +82,7 @@ async function getTwitterUsername () {
 	
 		return user.data.username;	
 	} catch (error) {
-		const errorMessage = `Error trying to get the user name: ${error?.message}`;
+		const errorMessage = `Error trying to get the user name: ${error.message}`;
 		logger.error(errorMessage);
 	}
 };
